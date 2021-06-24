@@ -1,0 +1,51 @@
+---
+title: "Solutions_to_long_problems"
+author: "Stefano Mangiola and Maria Doyle"
+date: "6/9/2021"
+output: html_document
+---
+
+## Single-cell nesting - quality control
+
+```
+mito_info_all_datasets <- pbmc_nested %>%
+    mutate(mitochondrion_info = map(
+    data,
+    ~ # Calculate mitochondrial statistics
+      perCellQCMetrics(.x, subsets = list(Mito = which(location == "MT"))) %>%
+
+      # Convert to tibble
+      as_tibble(rownames = "cell") %>%
+
+      # Label cells with high mitochondrial content
+      mutate(high_mitochondrion = isOutlier(subsets_Mito_percent, type = "higher"))
+  ))
+
+mito_info_all_datasets
+```
+
+## Reducing dimension - UMAP
+
+UMAP 1 of 2 components has more variability than 3 components
+
+```
+left_join(
+    pbmc %>%
+    runUMAP(ncomponents = 2, dimred="corrected") %>% 
+        as_tibble() %>% 
+        select(cell, UMAP1),
+    pbmc %>%
+        runUMAP(ncomponents = 3, dimred="corrected") %>% 
+        as_tibble() %>% 
+        select(cell, UMAP1),
+    by="cell"
+) %>%
+    summarise(sd(UMAP1.x), sd(UMAP1.y))
+```
+## Cell annotation
+
+Skeletal muscle
+
+```
+pbmc %>% count(label, first.labels) %>% arrange(desc(n))
+```

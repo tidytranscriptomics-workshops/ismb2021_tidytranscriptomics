@@ -1,0 +1,14 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^doc$
+^Meta$
+^LICENSE\.md$
+.github
+Dockerfile
+_pkgdown.yml
+^data-raw$
+dev$
+CONTRIBUTING.md
+^ismb2021tidytranscriptomics\.Rcheck$
+^ismb2021tidytranscriptomics.*\.tar\.gz$
+^ismb2021tidytranscriptomics.*\.tgz$

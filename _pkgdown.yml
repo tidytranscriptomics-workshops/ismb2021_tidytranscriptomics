@@ -1,0 +1,29 @@
+url: https://stemangiola.github.io/ismb2021_tidytranscriptomics
+
+template:
+  params:
+    bootswatch: flatly
+    ganalytics: UA-93043521-1
+
+home:
+  title: "TidyTranscriptomics"
+  type: inverse
+  
+toc:
+  depth: 4
+  
+navbar:
+  title: ~
+  type: default
+  left:
+    - text: Background
+      href: articles/background.html
+    - text: Workshop
+      href: articles/tidytranscriptomics.html
+
+  right:
+   - icon: fab fa-github
+     href: https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics
+   - icon: fab fa-docker
+     href: https://hub.docker.com/repository/docker/stemangiola/ismb2021_tidytranscriptomics
+    
