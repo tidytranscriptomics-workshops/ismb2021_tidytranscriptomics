@@ -1,6 +1,5 @@
 <!-- badges: start -->
-[![DOI](https://zenodo.org/badge/306182457.svg)](https://zenodo.org/badge/latestdoi/306182457)
-[![.github/workflows/basic_checks.yaml](https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics/workflows/.github/workflows/basic_checks.yaml/badge.svg)](https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics/actions) [![Docker](https://github.com/Bioconductor/BioC2020/raw/master/docs/images/docker_icon.png)](https://hub.docker.com/repository/docker/stemangiola/ismb2021_tidytranscriptomics) 	
+[![.github/workflows/basic_checks.yaml](https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics/workflows/.github/workflows/basic_checks.yaml/badge.svg)](https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics/actions) 	
 <!-- badges: end -->
 
 # Introduction to Tidy Transcriptomics
@@ -22,24 +21,7 @@ More details on the workshop are below.
 
 ## Workshop package installation 
 
-This is necessary in order to reproduce the code shown in the workshop. The workshop is designed for R `4.1` and can be installed using one of the two ways below.
-
-### Via Docker image
-
-If you're familiar with [Docker](https://docs.docker.com/get-docker/) you could use the Docker image which has all the software pre-configured to the correct versions.
-
-```
-docker run -e PASSWORD=abc -p 8787:8787 stemangiola/ismb2021_tidytranscriptomics:ismb2021
-```
-
-Once running, navigate to <http://localhost:8787/> and then login with
-`Username:rstudio` and `Password:abc`.
-
-You should see the Rmarkdown file with all the workshop code which you can run.
-
-### Via GitHub
-
-Alternatively, you could install the workshop using the commands below in R `4.1`.
+This is necessary in order to reproduce the code shown in the workshop. The workshop is designed for R `4.1` and can be installed as described below.
 
 ```
 #install.packages('remotes')
