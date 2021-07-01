@@ -15,7 +15,7 @@
 
 ## Syllabus
 
-Material [web page](https://stemangiola.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html).
+Material [web page](https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html).
 
 More details on the workshop are below.
 
