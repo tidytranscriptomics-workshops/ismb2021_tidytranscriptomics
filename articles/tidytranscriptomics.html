@@ -1338,11 +1338,11 @@ background-color: #fff4d4;
 <span class="co">#&gt;    cell  label batch groups sample orig.ident nCount_RNA nFeature_RNA  S.Score</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;fct&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 CCAG… 4         1 1      GSE11… SeuratPro…       3421          979 -5.42e-2</span>
-<span class="co">#&gt;  2 ATGA… 2         1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
+<span class="co">#&gt;  2 ATGA… 10        1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
 <span class="co">#&gt;  3 TATG… 7         1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
-<span class="co">#&gt;  4 CATA… 11        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
+<span class="co">#&gt;  4 CATA… 12        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
 <span class="co">#&gt;  5 GAGG… 1         1 2      GSE11… SeuratPro…       2341          957 -3.74e-3</span>
-<span class="co">#&gt;  6 AGCT… 6         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
+<span class="co">#&gt;  6 AGCT… 2         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
 <span class="co">#&gt;  7 TGAT… 3         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
 <span class="co">#&gt;  8 ACGA… 3         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
 <span class="co">#&gt;  9 CGGC… 4         1 1      GSE11… SeuratPro…       3500         1092 -6.87e-2</span>
@@ -1356,20 +1356,21 @@ background-color: #fff4d4;
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/count.html">count</a></span><span class="op">(</span><span class="va">label</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 11 x 2</span>
+<span class="co">#&gt; # A tibble: 12 x 2</span>
 <span class="co">#&gt;    label     n</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 1       484</span>
-<span class="co">#&gt;  2 2       813</span>
-<span class="co">#&gt;  3 3       367</span>
+<span class="co">#&gt;  1 1       466</span>
+<span class="co">#&gt;  2 2       494</span>
+<span class="co">#&gt;  3 3       351</span>
 <span class="co">#&gt;  4 4       339</span>
 <span class="co">#&gt;  5 5        21</span>
-<span class="co">#&gt;  6 6       465</span>
-<span class="co">#&gt;  7 7       255</span>
-<span class="co">#&gt;  8 8        41</span>
-<span class="co">#&gt;  9 9        74</span>
-<span class="co">#&gt; 10 10       14</span>
-<span class="co">#&gt; 11 11       26</span></code></pre></div>
+<span class="co">#&gt;  6 6       490</span>
+<span class="co">#&gt;  7 7       256</span>
+<span class="co">#&gt;  8 8        74</span>
+<span class="co">#&gt;  9 9        41</span>
+<span class="co">#&gt; 10 10      327</span>
+<span class="co">#&gt; 11 11       14</span>
+<span class="co">#&gt; 12 12       26</span></code></pre></div>
 </div>
 <div id="reduce-dimensions" class="section level2">
 <h2 class="hasAnchor">
@@ -1483,20 +1484,21 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">label</span>, <span class="va">first.labels</span><span class="op">)</span>
 
 <span class="va">cell_type</span>
-<span class="co">#&gt; # A tibble: 11 x 2</span>
+<span class="co">#&gt; # A tibble: 12 x 2</span>
 <span class="co">#&gt;    label first.labels   </span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;          </span>
 <span class="co">#&gt;  1 1     NK cells       </span>
-<span class="co">#&gt;  2 2     Skeletal muscle</span>
+<span class="co">#&gt;  2 2     Fibroblasts    </span>
 <span class="co">#&gt;  3 3     B-cells        </span>
 <span class="co">#&gt;  4 4     Monocytes      </span>
 <span class="co">#&gt;  5 5     Smooth muscle  </span>
-<span class="co">#&gt;  6 6     Fibroblasts    </span>
+<span class="co">#&gt;  6 6     Skeletal muscle</span>
 <span class="co">#&gt;  7 7     NK cells       </span>
-<span class="co">#&gt;  8 8     Macrophages    </span>
-<span class="co">#&gt;  9 9     Neutrophils    </span>
-<span class="co">#&gt; 10 10    B-cells        </span>
-<span class="co">#&gt; 11 11    Monocytes</span></code></pre></div>
+<span class="co">#&gt;  8 8     Neutrophils    </span>
+<span class="co">#&gt;  9 9     Macrophages    </span>
+<span class="co">#&gt; 10 10    Skeletal muscle</span>
+<span class="co">#&gt; 11 11    B-cells        </span>
+<span class="co">#&gt; 12 12    Monocytes</span></code></pre></div>
 <p>We join the cell type information to our pbmc data.</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join cell type info</span>
