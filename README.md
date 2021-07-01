@@ -21,7 +21,9 @@ More details on the workshop are below.
 
 ## Workshop package installation 
 
-This is necessary in order to reproduce the code shown in the workshop. The workshop is designed for R `4.1` and can be installed as described below.
+For the ISMBECCB2021 workshop, an RStudio in the cloud will be provided with everything installed, all that participants will need is a web browser. 
+
+If you want to install the packages and material post-workshop, the instructions are below. The workshop is designed for R `4.1`.
 
 ```
 #install.packages('remotes')
@@ -41,10 +43,13 @@ To run the code, you could then copy and paste the code from the workshop vignet
 
 ## Workshop Description
 
-Recently, [plyranges](https://bioconductor.org/packages/release/bioc/html/plyranges.html) and [tidybulk](https://www.bioconductor.org/packages/release/bioc/html/tidybulk.html) have made efforts toward the harmonization of biological data structures and workflows using the concept of data tidiness, to facilitate modularisation. In this workshop, we present [tidySingleCellExperiment](https://stemangiola.github.io/tidySingleCellExperiment/) and [tidySummarizedExperiment](https://stemangiola.github.io/tidySummarizedExperiment/), two R packages that allow the user to visualise and manipulate SingleCellExperiment and SummarizedExperiment objects in a tidy fashion. Importantly, the tidybulk framework now works natively with SummarizedExperiment objects and, thanks to tidySummarizedExperiment, allows tidy and modular RNA sequencing analyses without renouncing the efficiency of Bioconductor data containers. These tools are part of the [tidytranscriptomics](https://github.com/tidy-transcriptomics-workshops/tidytranscriptomics) R software suite, and represent an effort toward the harmonisation of transcriptional analyses under the tidy umbrella.
+This tutorial will present how to perform analysis of single-cell and bulk RNA sequencing data following the tidy data paradigm. The tidy data paradigm provides a standard way to organise data values within a dataset, where each variable is a column, each observation is a row, and data is manipulated using an easy-to-understand vocabulary. Most importantly, the data structure remains consistent across manipulation and analysis functions.
+
+This can be achieved with the integration of packages present in the R CRAN and Bioconductor ecosystem, including [tidyseurat](https://stemangiola.github.io/tidyseurat/), [tidySingleCellExperiment](https://stemangiola.github.io/tidySingleCellExperiment/), [tidybulk](https://stemangiola.github.io/tidybulk/), [tidyHeatmap]((https://stemangiola.github.io/tidyHeatmap/) and [tidyverse]((https://www.tidyverse.org/). These packages are part of the tidytranscriptomics suite that introduces a tidy approach to RNA sequencing data representation and analysis.
 
 ### Pre-requisites
 
+* Basic knowledge of RStudio
 * Some familiarity with tidyverse syntax
 * Some familiarity with bulk RNA-seq and single cell RNA-seq
 
@@ -53,20 +58,18 @@ Recommended Background Reading
 
 ### Workshop Participation
 
-The workshop format is a 1.5 hour session consisting of hands-on demos and Q&A.
+The workshop format is a 4 hour session consisting of hands-on demos, exercises and Q&A.
 
 ### _R_ / _Bioconductor_ packages used
 
-* tidySummarizedExperiment
-* tidySingleCellExperiment
 * tidybulk
+* tidyseurat
 * tidyHeatmap
 * limma
 * edgeR
 * DESeq2
 * airway
 * org.Hs.eg.db
-* dittoSeq
 * ggrepel
 * GGally
 * plotly
@@ -76,17 +79,34 @@ The workshop format is a 1.5 hour session consisting of hands-on demos and Q&A.
 
 Guide
 
-| Activity - Hands on demos with Q&A                                 | Time |
-|--------------------------------------------------------------------|------|
-| Part 1 Bulk RNA-seq with tidybulk                                  |  45  |
-| Part 2 Single-cell RNA-seq with tidySingleCellExperiment           |  45  |
-| Total                                                              |  90m |
+| Activity                                                | Time |
+|---------------------------------------------------------|------|
+| **Part 1 Bulk RNA-seq Core**                            |      |
+|  *Hands-on Demos + Exercises*                           |  90m |
+|      Differential gene expression                       |      |
+|      Cell type composition analysis                     |      |
+| _Break_                                                 |  30m |
+| **Part 2 Single-cell RNA-seq**                          |      |
+|  *Hands-on Demos + Exercises*                           |  90m |
+|      Single-cell analysis                               |      |
+|      Pseudobulk analysis                                |      |
+| _Q&A_                                                   |  30m |
+| Total                                                   | 240m |
 
+### Workshop goals and objectives
+
+In exploring and analysing RNA sequencing data, there are a number of key concepts, such as filtering, scaling, dimensionality reduction, hypothesis testing, clustering and visualisation, that need to be understood. These concepts can be intuitively explained to new users, however, (i) the use of a heterogeneous vocabulary and jargon by methodologies/algorithms/packages, (ii) the complexity of data wrangling, and (iii) the coding burden, impede effective learning of the statistics and biology underlying an informed RNA sequencing analysis.
+
+The tidytranscriptomics approach to RNA sequencing data analysis abstracts out the coding-related complexity and provides tools that use an intuitive and jargon-free vocabulary, enabling focus on the statistical and biological challenges.
 
 #### Learning goals
 
-* To understand how transcriptomic data can be represented and analysed according to the tidy data paradigm with tidySingleCellExperiment and tidySummarizedExperiment.
+* To understand the key concepts and steps of RNA sequencing data analysis
+* To approach data representation and analysis though a tidy data paradigm, integrating tidyverse with tidybulk, tidyseurat, tidySingleCellExperiment and tidyHeatmap.
 
 #### Learning objectives
-* Explore and visualise bulk RNA-seq count data with tidySummarizedExperiment
-* Explore and visualise single cell RNA-seq  count data with tidySingleCellExperiment
+
+* Recall the key concepts of RNA sequencing data analysis
+* Apply the concepts to publicly available data
+* Create plots that summarise the information content of the data and analysis results
+
