@@ -24,6 +24,4 @@ navbar:
   right:
    - icon: fab fa-github
      href: https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics
-   - icon: fab fa-docker
-     href: https://hub.docker.com/repository/docker/stemangiola/ismb2021_tidytranscriptomics
     
