@@ -95,6 +95,20 @@ _Shalek and Benson, 2017_
 knitr::include_graphics("../inst/vignettes/single_cell_RNAseq_pipeline.png")
 ```
 
+# Tidy data and the tidyverse
+
+This workshop demonstrates how to perform analysis of RNA sequencing data following the tidy data paradigm [@wickham2014tidy]. The tidy data paradigm provides a standard way to organise data values within a dataset, where each variable is a column, each observation is a row, and data is manipulated using an easy-to-understand vocabulary. Most importantly, the data structure remains consistent across manipulation and analysis functions. For more information, see the R for Data Science chapter on tidy data [here](https://r4ds.had.co.nz/tidy-data.html).
+
+```{r, echo=FALSE, out.width = "500px", fig.cap="[Tidy data for efficiency, reproducibilty and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/)"}
+knitr::include_graphics("../inst/vignettes/tidydata_1.jpg")
+```
+
+The tidyverse is a collection of packages that can be used to tidy, manipulate and visualise data. We'll use many functions from the tidyverse in this workshop, such as `filter`, `select`, `mutate`, `pivot_longer` and `ggplot`.
+
+```{r, echo=FALSE, out.width = "500px", fig.cap="Adapted from [Getting Started with tidyverse in R](https://www.storybench.org/getting-started-with-tidyverse-in-r/)"}
+knitr::include_graphics("../inst/vignettes/tidyverse.png")
+```
+
 # Getting started 
 
 ## Cloud
@@ -110,4 +124,3 @@ Easiest way to run this material. Only available during workshop. Many thanks to
 We will use the Cloud during the ISMBECCB workshop and this method is available if you want to run the material after the workshop. If you want to install on your own computer, see instructions [here](https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/index.html#workshop-package-installation). 
 
 Alternatively, you can view the material at the workshop webpage [here](https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html). 
-
