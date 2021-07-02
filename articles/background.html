@@ -88,7 +88,7 @@
 <div id="schedule" class="section level1">
 <h1 class="hasAnchor">
 <a href="#schedule" class="anchor"></a>Schedule</h1>
-<p>Schedule can be found <a href="https://stemangiola.github.io/ismb2021_tidytranscriptomics/index.html#time-outline">here</a>.<br><br><strong>Format</strong>: Hands on demos plus Q&amp;A <strong>Interact</strong>: Zoom chat <br><br></p>
+<p>Schedule can be found <a href="https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/index.html#time-outline">here</a>.<br><br><strong>Format</strong>: Hands on demos, exercises plus Q&amp;A <strong>Interact</strong>: Zoom chat <br><br></p>
 </div>
 <div id="what-is-transcriptomics" class="section level1">
 <h1 class="hasAnchor">
@@ -153,10 +153,40 @@
 <a href="#single-cell-rna-sequencing-analysis-workflow" class="anchor"></a>Single-cell RNA sequencing analysis workflow</h1>
 <p><img src="../inst/vignettes/single_cell_RNAseq_pipeline.png" width="600px"></p>
 </div>
+<div id="tidy-data-and-the-tidyverse" class="section level1">
+<h1 class="hasAnchor">
+<a href="#tidy-data-and-the-tidyverse" class="anchor"></a>Tidy data and the tidyverse</h1>
+<p>This workshop demonstrates how to perform analysis of RNA sequencing data following the tidy data paradigm <span class="citation">[@wickham2014tidy]</span>. The tidy data paradigm provides a standard way to organise data values within a dataset, where each variable is a column, each observation is a row, and data is manipulated using an easy-to-understand vocabulary. Most importantly, the data structure remains consistent across manipulation and analysis functions. For more information, see the R for Data Science chapter on tidy data <a href="https://r4ds.had.co.nz/tidy-data.html">here</a>.</p>
+<div class="figure">
+<img src="../inst/vignettes/tidydata_1.jpg" alt="[Tidy data for efficiency, reproducibilty and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/)" width="500px"><p class="caption">
+<a href="https://www.openscapes.org/blog/2020/10/12/tidy-data/">Tidy data for efficiency, reproducibilty and collaboration</a>
+</p>
+</div>
+<p>The tidyverse is a collection of packages that can be used to tidy, manipulate and visualise data. We’ll use many functions from the tidyverse in this workshop, such as <code>filter</code>, <code>select</code>, <code>mutate</code>, <code>pivot_longer</code> and <code>ggplot</code>.</p>
+<div class="figure">
+<img src="../inst/vignettes/tidyverse.png" alt="Adapted from [Getting Started with tidyverse in R](https://www.storybench.org/getting-started-with-tidyverse-in-r/)" width="500px"><p class="caption">
+Adapted from <a href="https://www.storybench.org/getting-started-with-tidyverse-in-r/">Getting Started with tidyverse in R</a>
+</p>
+</div>
+</div>
 <div id="getting-started" class="section level1">
 <h1 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h1>
-<p>If you want to follow along and run the code on your own computer, see instructions <a href="https://stemangiola.github.io/ismb2021_tidytranscriptomics/index.html#workshop-package-installation">here</a>. Alternatively, you can view the material at the workshop webpage <a href="https://stemangiola.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html">here</a>.</p>
+<div id="cloud" class="section level2">
+<h2 class="hasAnchor">
+<a href="#cloud" class="anchor"></a>Cloud</h2>
+<p>Easiest way to run this material. Only available during workshop. Many thanks to the Australian Research Data Commons (ARDC) for providing RStudio in the Australian Nectar Research Cloud and Andy Botting from ARDC for helping to set up.</p>
+<ul>
+<li>Login to one of the servers (e.g. <a href="https://rstudio1.tidytranscriptomics-workshop.cloud.edu.au/rstudio/auth-sign-in" class="uri">https://rstudio1.tidytranscriptomics-workshop.cloud.edu.au/rstudio/auth-sign-in</a>) with one of the supplied usernames and passwords</li>
+<li>Open <code>tidytranscriptomics.Rmd</code> in <code>vignettes</code> folder</li>
+</ul>
+</div>
+<div id="local" class="section level2">
+<h2 class="hasAnchor">
+<a href="#local" class="anchor"></a>Local</h2>
+<p>We will use the Cloud during the ISMBECCB workshop and this method is available if you want to run the material after the workshop. If you want to install on your own computer, see instructions <a href="https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/index.html#workshop-package-installation">here</a>.</p>
+<p>Alternatively, you can view the material at the workshop webpage <a href="https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html">here</a>.</p>
+</div>
 </div>
 <div class="footnotes">
 <hr>
