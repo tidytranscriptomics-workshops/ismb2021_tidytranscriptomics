@@ -24,9 +24,9 @@ knitr::include_graphics("../inst/vignettes/tidybulk_logo.png")
 
 # Schedule
 
-Schedule can be found [here](https://stemangiola.github.io/ismb2021_tidytranscriptomics/index.html#time-outline).  
+Schedule can be found [here](https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/index.html#time-outline).  
 <br>
-**Format**: Hands on demos plus Q&A 
+**Format**: Hands on demos, exercises plus Q&A 
 **Interact**: Zoom chat
 <br>
 <br>
@@ -97,5 +97,5 @@ knitr::include_graphics("../inst/vignettes/single_cell_RNAseq_pipeline.png")
 
 # Getting started 
 
-If you want to follow along and run the code on your own computer, see instructions [here](https://stemangiola.github.io/ismb2021_tidytranscriptomics/index.html#workshop-package-installation). Alternatively, you can view the material at the workshop webpage [here](https://stemangiola.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html). 
+If you want to follow along and run the code on your own computer, see instructions [here](https://tidy-transcriptomics-workshops.io/ismb2021_tidytranscriptomics/index.html#workshop-package-installation). Alternatively, you can view the material at the workshop webpage [here](https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html). 
 

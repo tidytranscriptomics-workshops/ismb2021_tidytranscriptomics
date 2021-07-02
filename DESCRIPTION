@@ -66,6 +66,6 @@ Suggests:
     pkgdown
 Biarch: true
 biocViews: RNASeq, DifferentialExpression, GeneExpression, Normalization, Clustering, QualityControl, Sequencing, SingleCell, Transcription, Transcriptomics
-URL: https://stemangiola.github.io/ismb2021_tidytranscriptomics/
+URL: https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/
 BugReports: https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics/issues/new/choose
 VignetteBuilder: knitr
