@@ -96,17 +96,21 @@
 <a href="#workshop-package-installation" class="anchor"></a>Workshop package installation</h2>
 <p>For the ISMBECCB2021 workshop, an RStudio in the cloud will be provided with everything installed, all that participants will need is a web browser.</p>
 <p>If you want to install the packages and material post-workshop, the instructions are below. The workshop is designed for R <code>4.1</code>.</p>
-<pre><code><a href="https://rdrr.io/r/base/Sys.setenv.html">#install.packages('remotes')
+<pre><code>#install.packages('remotes')
 
 # Need to set this to prevent installation erroring due to even tiny warnings, similar to here: https://github.com/r-lib/remotes/issues/403#issuecomment-748181946
 Sys.setenv("R_REMOTES_NO_ERRORS_FROM_WARNINGS" = "true")
+
+# Install same versions used in the workshop
+#install.packages("remotes")
+remotes::install_github(c("stemangiola/tidybulk@v1.4.0"", "stemangiola/tidySummarizedExperiment@v1.2.0", "stemangiola/tidySingleCellExperiment@v1.3.0"))
 
 # Install workshop package
 remotes::install_github("stemangiola/ismb2021_tidytranscriptomics", build_vignettes = TRUE)
 
 # To view vignettes
 library(ismb2021tidytranscriptomics)
-browseVignettes("ismb2021tidytranscriptomics")</a></code></pre>
+browseVignettes("ismb2021tidytranscriptomics")</code></pre>
 <p>To run the code, you could then copy and paste the code from the workshop vignette or <a href="https://raw.githubusercontent.com/stemangiola/ismb2021_tidytranscriptomics/master/vignettes/tidytranscriptomics.Rmd">R markdown file</a> into a new R Markdown file on your computer.</p>
 </div>
 <div id="workshop-description" class="section level2">
