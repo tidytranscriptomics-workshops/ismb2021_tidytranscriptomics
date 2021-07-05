@@ -19,11 +19,11 @@ knitr::opts_chunk$set(
 ```
 
 ```{css, echo = FALSE}
-# Formatting for polls
-.poll {
+# Formatting for exercises
+.exercise {
 background-color: #fff4d4;
 }
-.poll code {
+.exercise code {
 	background-color: #fff4d4;
 }
 ```
@@ -305,8 +305,8 @@ counts_scal_PCA <-
 ```
 
 
-```{poll_4 class.source="poll"}
-Poll: What fraction of variance is explained by PC3?
+```{exercise_1 class.source="exercise"}
+Exercise: What fraction of variance is explained by PC3?
       See ?reduce_dimensions for how to get additional dimensions.
 ```
 
@@ -440,7 +440,8 @@ de_all %>%
   select(edgerQLT_PValue, edgerLR_PValue, voom_P.Value, deseq2_pvalue, feature) %>%
   ggpairs(1:4)
 ```
-```{poll_7 class.source="poll"}
+
+```{exercise_2 class.source="exercise"}
 Which method detects the most differentially abundant transcripts, p value adjusted for multiple testing <  0.05 (FDR, adj.P.Val, padj)?
 ```
 
@@ -576,8 +577,9 @@ BRCA_cell_type_long %>%
   geom_bar(stat = "identity") +
   custom_theme
 ```
-```{poll_8 class.source="poll"}
-Poll: What is the most abundant cell type overall in BRCA samples?
+
+```{exercise_3 class.source="exercise"}
+Exercise: What is the most abundant cell type overall in BRCA samples?
 ```
 
 ## Key Points
@@ -766,11 +768,11 @@ pbmc_nested <- pbmc %>%
 pbmc_nested
 ```
 
-#### Long exercise on nesting
+```{exercise_4 class.source="exercise"}
+Exercise: Using the nest examples above, can you create a column that includes the mitochondrial information?
+```
 
-Using the nest examples above, can you create a column that includes the mitochondrial information?
-
-we want to obtain this table
+We want to obtain this table
 
 ```
 # A tibble: 10 x 3
@@ -913,9 +915,9 @@ pbmc %>%
 runUMAP(ncomponents = 2, dimred="corrected") # from scater
 ```
 
-#### Exercise about UMAP
-
+```{exercise_5 class.source="exercise"}
 Without creating any variable, check if the variability explained by the first UMAP dimension when calculating 2 components (ncomponents = 2) is equal/more/less than when calculating 3 components.
+```
 
 **Tip: your can use as_tibble() to convert the tibble abstraction to a simple (and light) cell-wise tibble**
 
