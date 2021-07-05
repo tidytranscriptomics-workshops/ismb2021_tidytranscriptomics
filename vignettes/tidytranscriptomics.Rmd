@@ -30,6 +30,9 @@ background-color: #fff4d4;
 
 # Workshop introduction
 
+Background information and setup instructions for this workshop can be found [here](https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/background.html).
+
+
 [tidybulk](https://stemangiola.github.io/tidybulk/), [tidySummarizedExperiment](https://stemangiola.github.io/tidySummarizedExperiment/) and [tidySingleCellExperiment](https://stemangiola.github.io/tidySingleCellExperiment/) are part of the tidytranscriptomics suite that introduces a tidy approach to RNA sequencing data representation and analysis. The roadmap for the development of the tidytranscriptomics packages is shown in the figure below.
 
 ```{r, echo=FALSE, out.width = "600px"}
