@@ -3,9 +3,9 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   background: background.html
-  solutions_to_long_problems: solutions_to_long_problems.html
+  solutions: solutions.html
   tidytranscriptomics: tidytranscriptomics.html
-last_built: 2021-07-05T14:30Z
+last_built: 2021-07-06T16:49Z
 urls:
   reference: https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/reference
   article: https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles
