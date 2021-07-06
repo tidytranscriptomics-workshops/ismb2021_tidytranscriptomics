@@ -144,7 +144,7 @@ assays(airway)
 
 ### Tidyverse commands
 
-And now we can also use tidyverse commands, such as `filter`, `select` and `mutate` to explore the tidy SummarizedExperiment object. Some examples are shown below and more can be seen at the tidySummarizedExperiment website [here](https://stemangiola.github.io/tidySummarizedExperiment/articles/introduction.html#tidyverse-commands-1). We can also use the tidyverse pipe `%>%`. This 'pipes' the output from the command on the left into the command on the right/below. Using the pipe is not essential but it reduces the amount of code we need to write when we have multiple steps. It also can make the steps clearer and easier to see. For more details on the pipe see [here](https://r4ds.had.co.nz/pipes.html).
+And now we can also use tidyverse commands, such as `filter`, `select`, `group_by`, `summarise` and `mutate` to explore the tidy SummarizedExperiment object. Some examples are shown below and more can be seen at the tidySummarizedExperiment website [here](https://stemangiola.github.io/tidySummarizedExperiment/articles/introduction.html#tidyverse-commands-1). We can also use the tidyverse pipe `%>%`. This 'pipes' the output from the command on the left into the command on the right/below. Using the pipe is not essential but it reduces the amount of code we need to write when we have multiple steps. It also can make the steps clearer and easier to see. For more details on the pipe see [here](https://r4ds.had.co.nz/pipes.html).
 
 We can use `filter` to choose rows, for example, to see just the rows for the treated samples.
 
@@ -156,6 +156,14 @@ We can use `select` to choose columns, for example, to see the sample, cell line
 
 ```{r}
 airway %>% select(sample, cell, dex)
+```
+
+We can combine `group_by` and `summarise` to calculate the total counts for each sample.
+
+```{r}
+airway %>%
+    group_by(sample) %>%
+    summarise(total_counts=sum(counts))
 ```
 
 We can use `mutate` to create a column. For example, we could create a new sample_name column that contains shorter sample names. We can remove the SRR1039 prefix that's present in all of the samples, as shorter names can fit better in some of the plots we will create. We can use `mutate` together with `str_replace` to remove the SRR1039 string from the sample column.
@@ -710,7 +718,7 @@ mito_info_one_dataset <- left_join(one_dataset, mito_info_one_dataset, by = "cel
 mito_info_one_dataset
 ```
 
-The steps above perform the mitochondrial QC analysis for one dataset. To analyse all 10 datasets, we could repeat the steps for each dataset or create a function and apply it to each dataset. However, a more efficient way is to use nesting. We can nest our data by dataset.
+The steps above perform the mitochondrial QC analysis for one dataset. To analyse all 10 datasets, we could repeat the steps for each dataset (a lot of steps!) or create a function and apply it to each dataset. However, a more efficient way is to use nesting. We can nest our data by dataset.
 
 ### Nesting
 
@@ -724,6 +732,7 @@ knitr::include_graphics("../inst/vignettes/nesting.png")
 
 #### Examples of nesting
 
+As a simple example of nesting. Imagine we had two groups, a and b that contained some values.
 ```{r}
 
 my_tibble = 
@@ -733,33 +742,48 @@ my_tibble =
 )
 
 my_tibble
+```
 
+We could nest this data to make tables containing the values for each of our a and b groups. With `nest`, `data=` specifies the columns that will be the values in the tables and creates a list of these smaller tables.
+
+```{r}
 # Nest
 my_tibble_nested = 
   my_tibble %>%
   nest(data = value)
 
 my_tibble_nested
+```
 
+We can then iterate over these smaller tables. `map` is often used in combination with `nest` to perform commands on nested data. There are a few map commands that you can choose from depending on what you want to return. For example, `map_dbl` will return a double (floating point number) and we can use it to calculate the average value for each group. You can use `?map` to see the options. 
+
+```{r}
 # Summarise
 my_tibble_nested %>%
   mutate(average = map_dbl(data, ~ mean(.x$value)))
+```
 
-  
+We can apply multiple commands to the nested data using the `%>%`. We can use `unnest` if we want to get back our large table to view the results.
+ 
+```{r}  
 # Summarise + filter
 my_tibble_nested %>%
   mutate(average = map_dbl(data, ~ mean(.x$value))) %>%
   filter(average == max(average)) %>%
   unnest(data)
+```
 
+We can use `map2` when we have two arguments that we are iterating over. In the example below we have the nested tables (data) and the average for each (average).
 
+```{r}
 # Summarise + update
 my_tibble_nested %>%
   mutate(average = map_dbl(data, ~ mean(.x$value))) %>%
   mutate(data = map2(data, average, ~ .x - .y )) %>%
   unnest(data)
-
 ```
+
+We will created nested tables for our 10 datasets.
 
 ```{r}
 pbmc_nested <- pbmc %>% 
@@ -790,7 +814,7 @@ We want to obtain this table
 10 SCP591       <SnglCllE[,300]> <tibble [300 × 8]>
 ```
 
-We will create a table (tibble) with the mitochondrial QC information for each dataset. Here we use `map` which is often used in combination with `nest` to perform commands on nested data.
+We will create a table (tibble) with the mitochondrial QC information for each dataset. 
 
 ```{r}
 # <INSERT THE CODE HERE FROM THE SOLUTIONS>
