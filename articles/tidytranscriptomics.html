@@ -1147,7 +1147,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;   &lt;chr&gt; &lt;list&gt;          </span>
 <span class="co">#&gt; 1 a     &lt;tibble [5 × 1]&gt;</span>
 <span class="co">#&gt; 2 b     &lt;tibble [5 × 1]&gt;</span></code></pre></div>
-<p>We can then iterate over these smaller tables. <code>map</code> is often used in combination with <code>nest</code> to perform commands on nested data. There are a few map commands that you can choose from depending on what you want to return. For example, <code>map_dbl</code> will return a double (floating point number) and we can use it to calculate the average value for each group. You can use <code><a href="https://purrr.tidyverse.org/reference/map.html">?map</a></code> to see the options.</p>
+<p>We can then iterate over these smaller tables. <code>map</code> is often used in combination with <code>nest</code> to perform commands on nested data. There are a few map commands that you can choose from depending on what you want to return. For example, <code>map_dbl</code> will return a double (floating point number) and we can use it to calculate the average value for each group. You can use <code><a href="https://purrr.tidyverse.org/reference/map.html">?map</a></code> to see the options. The map syntax is <code><a href="https://purrr.tidyverse.org/reference/map.html">map(.x, .f)</a></code> where <code>.x</code> is the table to be iterated over and <code>.f</code> is the function. So in this example, data is <code>.x</code> and we get the mean of the value column in data with <code><a href="https://rdrr.io/r/base/mean.html">mean(.x$value)</a></code>.</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Summarise</span>
 <span class="va">my_tibble_nested</span> <span class="op">%&gt;%</span>
@@ -1172,7 +1172,7 @@ background-color: #fff4d4;
 <span class="co">#&gt; 3 b         8       8</span>
 <span class="co">#&gt; 4 b         9       8</span>
 <span class="co">#&gt; 5 b        10       8</span></code></pre></div>
-<p>We can use <code>map2</code> when we have two arguments that we are iterating over. In the example below we have the nested tables (data) and the average for each (average).</p>
+<p>We can use <code>map2</code> when we have two arguments that we are iterating over. In the example below we have the nested tables (data) and the average for each (average). The map2 syntax is <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2(.x, .y, .f)</a></code>.</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Summarise + update</span>
 <span class="va">my_tibble_nested</span> <span class="op">%&gt;%</span>
@@ -1356,11 +1356,11 @@ background-color: #fff4d4;
 <span class="co">#&gt;    cell  label batch groups sample orig.ident nCount_RNA nFeature_RNA  S.Score</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;fct&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 CCAG… 5         1 1      GSE11… SeuratPro…       3421          979 -5.42e-2</span>
-<span class="co">#&gt;  2 ATGA… 2         1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
+<span class="co">#&gt;  2 ATGA… 3         1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
 <span class="co">#&gt;  3 TATG… 7         1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
 <span class="co">#&gt;  4 CATA… 11        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
 <span class="co">#&gt;  5 GAGG… 1         1 2      GSE11… SeuratPro…       2341          957 -3.74e-3</span>
-<span class="co">#&gt;  6 AGCT… 3         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
+<span class="co">#&gt;  6 AGCT… 2         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
 <span class="co">#&gt;  7 TGAT… 4         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
 <span class="co">#&gt;  8 ACGA… 4         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
 <span class="co">#&gt;  9 CGGC… 5         1 1      GSE11… SeuratPro…       3500         1092 -6.87e-2</span>
@@ -1377,15 +1377,15 @@ background-color: #fff4d4;
 <span class="co">#&gt; # A tibble: 11 x 2</span>
 <span class="co">#&gt;    label     n</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 1       481</span>
-<span class="co">#&gt;  2 2       788</span>
-<span class="co">#&gt;  3 3       509</span>
-<span class="co">#&gt;  4 4       351</span>
+<span class="co">#&gt;  1 1       479</span>
+<span class="co">#&gt;  2 2       605</span>
+<span class="co">#&gt;  3 3       693</span>
+<span class="co">#&gt;  4 4       350</span>
 <span class="co">#&gt;  5 5       339</span>
 <span class="co">#&gt;  6 6        21</span>
-<span class="co">#&gt;  7 7       255</span>
-<span class="co">#&gt;  8 8        41</span>
-<span class="co">#&gt;  9 9        74</span>
+<span class="co">#&gt;  7 7       257</span>
+<span class="co">#&gt;  8 8        74</span>
+<span class="co">#&gt;  9 9        41</span>
 <span class="co">#&gt; 10 10       14</span>
 <span class="co">#&gt; 11 11       26</span></code></pre></div>
 </div>
@@ -1501,14 +1501,14 @@ background-color: #fff4d4;
 <span class="co">#&gt;    label first.labels   </span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;          </span>
 <span class="co">#&gt;  1 1     NK cells       </span>
-<span class="co">#&gt;  2 2     Skeletal muscle</span>
-<span class="co">#&gt;  3 3     Fibroblasts    </span>
+<span class="co">#&gt;  2 2     Fibroblasts    </span>
+<span class="co">#&gt;  3 3     Skeletal muscle</span>
 <span class="co">#&gt;  4 4     B-cells        </span>
 <span class="co">#&gt;  5 5     Monocytes      </span>
 <span class="co">#&gt;  6 6     Smooth muscle  </span>
 <span class="co">#&gt;  7 7     NK cells       </span>
-<span class="co">#&gt;  8 8     Macrophages    </span>
-<span class="co">#&gt;  9 9     Neutrophils    </span>
+<span class="co">#&gt;  8 8     Neutrophils    </span>
+<span class="co">#&gt;  9 9     Macrophages    </span>
 <span class="co">#&gt; 10 10    B-cells        </span>
 <span class="co">#&gt; 11 11    Monocytes</span></code></pre></div>
 <p>We join the cell type information to our pbmc data.</p>
