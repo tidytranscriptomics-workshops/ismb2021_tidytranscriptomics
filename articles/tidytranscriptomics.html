@@ -1134,7 +1134,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;  8 b         8</span>
 <span class="co">#&gt;  9 b         9</span>
 <span class="co">#&gt; 10 b        10</span></code></pre></div>
-<p>We could nest this data to make tables containing the values for each of our a and b groups. With <code>nest</code>, <code>data=</code> specifies the columns that will be the values in the tables and creates a list of these smaller tables.</p>
+<p>We could nest this data to make tables containing the values for each of our a and b groups. With <code>nest</code>, <code>data=</code> specifies the columns that will be in the tables and creates a list of these smaller tables.</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Nest</span>
 <span class="va">my_tibble_nested</span> <span class="op">=</span> 
@@ -1147,7 +1147,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;   &lt;chr&gt; &lt;list&gt;          </span>
 <span class="co">#&gt; 1 a     &lt;tibble [5 × 1]&gt;</span>
 <span class="co">#&gt; 2 b     &lt;tibble [5 × 1]&gt;</span></code></pre></div>
-<p>We can then iterate over these smaller tables. <code>map</code> is often used in combination with <code>nest</code> to perform commands on nested data. There are a few map commands that you can choose from depending on what you want to return. For example, <code>map_dbl</code> will return a double (floating point number) and we can use it to calculate the average value for each group. You can use <code><a href="https://purrr.tidyverse.org/reference/map.html">?map</a></code> to see the options. The map syntax is <code><a href="https://purrr.tidyverse.org/reference/map.html">map(.x, .f)</a></code> where <code>.x</code> is the table to be iterated over and <code>.f</code> is the function. So in this example, data is <code>.x</code> and we get the mean of the value column in data with <code><a href="https://rdrr.io/r/base/mean.html">mean(.x$value)</a></code>.</p>
+<p>We can then iterate over these smaller tables. <code>map</code> is often used in combination with <code>nest</code> to perform commands on nested data. There are a few map commands that you can choose from depending on what you want to return. For example, <code>map_dbl</code> will return a double (floating point number) and we can use it to calculate the average value for each group. You can use <code><a href="https://purrr.tidyverse.org/reference/map.html">?map</a></code> to see the options. The map syntax is <code><a href="https://purrr.tidyverse.org/reference/map.html">map(.x, .f)</a></code> where <code>.x</code> is the table to be iterated over and <code>.f</code> is the function. So in this example, <code>.x</code> is <code>data</code> and <code>.f</code> is <code>~ mean(.x$value)</code>. We get the mean of the value column for each of the nested tables in data.</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Summarise</span>
 <span class="va">my_tibble_nested</span> <span class="op">%&gt;%</span>
@@ -1157,7 +1157,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;   &lt;chr&gt; &lt;list&gt;             &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 a     &lt;tibble [5 × 1]&gt;       3</span>
 <span class="co">#&gt; 2 b     &lt;tibble [5 × 1]&gt;       8</span></code></pre></div>
-<p>We can apply multiple commands to the nested data using the <code><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></code>. We can use <code>unnest</code> if we want to get back our large table to view the results.</p>
+<p>We can apply multiple commands to the nested data using the <code><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></code>. We can use <code>unnest</code> if we want to get back our large (unnested) table to view the results.</p>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Summarise + filter</span>
 <span class="va">my_tibble_nested</span> <span class="op">%&gt;%</span>
@@ -1360,9 +1360,9 @@ background-color: #fff4d4;
 <span class="co">#&gt;  3 TATG… 7         1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
 <span class="co">#&gt;  4 CATA… 11        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
 <span class="co">#&gt;  5 GAGG… 1         1 2      GSE11… SeuratPro…       2341          957 -3.74e-3</span>
-<span class="co">#&gt;  6 AGCT… 2         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
-<span class="co">#&gt;  7 TGAT… 4         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
-<span class="co">#&gt;  8 ACGA… 4         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
+<span class="co">#&gt;  6 AGCT… 4         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
+<span class="co">#&gt;  7 TGAT… 2         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
+<span class="co">#&gt;  8 ACGA… 2         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
 <span class="co">#&gt;  9 CGGC… 5         1 1      GSE11… SeuratPro…       3500         1092 -6.87e-2</span>
 <span class="co">#&gt; 10 ATAG… 5         1 1      GSE11… SeuratPro…       3092          974 -1.24e-2</span>
 <span class="co">#&gt; # … with 2,889 more rows, and 15 more variables: G2M.Score &lt;dbl&gt;, ident &lt;fct&gt;,</span>
@@ -1377,13 +1377,13 @@ background-color: #fff4d4;
 <span class="co">#&gt; # A tibble: 11 x 2</span>
 <span class="co">#&gt;    label     n</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 1       479</span>
-<span class="co">#&gt;  2 2       605</span>
-<span class="co">#&gt;  3 3       693</span>
-<span class="co">#&gt;  4 4       350</span>
+<span class="co">#&gt;  1 1       464</span>
+<span class="co">#&gt;  2 2       367</span>
+<span class="co">#&gt;  3 3       750</span>
+<span class="co">#&gt;  4 4       547</span>
 <span class="co">#&gt;  5 5       339</span>
 <span class="co">#&gt;  6 6        21</span>
-<span class="co">#&gt;  7 7       257</span>
+<span class="co">#&gt;  7 7       256</span>
 <span class="co">#&gt;  8 8        74</span>
 <span class="co">#&gt;  9 9        41</span>
 <span class="co">#&gt; 10 10       14</span>
@@ -1501,9 +1501,9 @@ background-color: #fff4d4;
 <span class="co">#&gt;    label first.labels   </span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;          </span>
 <span class="co">#&gt;  1 1     NK cells       </span>
-<span class="co">#&gt;  2 2     Fibroblasts    </span>
+<span class="co">#&gt;  2 2     B-cells        </span>
 <span class="co">#&gt;  3 3     Skeletal muscle</span>
-<span class="co">#&gt;  4 4     B-cells        </span>
+<span class="co">#&gt;  4 4     Fibroblasts    </span>
 <span class="co">#&gt;  5 5     Monocytes      </span>
 <span class="co">#&gt;  6 6     Smooth muscle  </span>
 <span class="co">#&gt;  7 7     NK cells       </span>
