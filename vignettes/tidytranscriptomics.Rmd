@@ -755,7 +755,7 @@ my_tibble_nested =
 my_tibble_nested
 ```
 
-We can then iterate over these smaller tables. `map` is often used in combination with `nest` to perform commands on nested data. There are a few map commands that you can choose from depending on what you want to return. For example, `map_dbl` will return a double (floating point number) and we can use it to calculate the average value for each group. You can use `?map` to see the options. 
+We can then iterate over these smaller tables. `map` is often used in combination with `nest` to perform commands on nested data. There are a few map commands that you can choose from depending on what you want to return. For example, `map_dbl` will return a double (floating point number) and we can use it to calculate the average value for each group. You can use `?map` to see the options. The map syntax is `map(.x, .f)` where `.x` is the table to be iterated over and `.f` is the function. So in this example, data is `.x` and we get the mean of the value column in data with `mean(.x$value)`.
 
 ```{r}
 # Summarise
@@ -773,7 +773,7 @@ my_tibble_nested %>%
   unnest(data)
 ```
 
-We can use `map2` when we have two arguments that we are iterating over. In the example below we have the nested tables (data) and the average for each (average).
+We can use `map2` when we have two arguments that we are iterating over. In the example below we have the nested tables (data) and the average for each (average). The map2 syntax is `map2(.x, .y, .f)`.
 
 ```{r}
 # Summarise + update
