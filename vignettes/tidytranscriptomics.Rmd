@@ -744,7 +744,7 @@ my_tibble =
 my_tibble
 ```
 
-We could nest this data to make tables containing the values for each of our a and b groups. With `nest`, `data=` specifies the columns that will be the values in the tables and creates a list of these smaller tables.
+We could nest this data to make tables containing the values for each of our a and b groups. With `nest`, `data=` specifies the columns that will be in the tables and creates a list of these smaller tables.
 
 ```{r}
 # Nest
@@ -755,7 +755,7 @@ my_tibble_nested =
 my_tibble_nested
 ```
 
-We can then iterate over these smaller tables. `map` is often used in combination with `nest` to perform commands on nested data. There are a few map commands that you can choose from depending on what you want to return. For example, `map_dbl` will return a double (floating point number) and we can use it to calculate the average value for each group. You can use `?map` to see the options. The map syntax is `map(.x, .f)` where `.x` is the table to be iterated over and `.f` is the function. So in this example, data is `.x` and we get the mean of the value column in data with `mean(.x$value)`.
+We can then iterate over these smaller tables. `map` is often used in combination with `nest` to perform commands on nested data. There are a few map commands that you can choose from depending on what you want to return. For example, `map_dbl` will return a double (floating point number) and we can use it to calculate the average value for each group. You can use `?map` to see the options. The map syntax is `map(.x, .f)` where `.x` is the table to be iterated over and `.f` is the function. So in this example, `.x` is `data` and `.f` is `~ mean(.x$value)`. We get the mean of the value column for each of the nested tables in data.
 
 ```{r}
 # Summarise
@@ -763,7 +763,7 @@ my_tibble_nested %>%
   mutate(average = map_dbl(data, ~ mean(.x$value)))
 ```
 
-We can apply multiple commands to the nested data using the `%>%`. We can use `unnest` if we want to get back our large table to view the results.
+We can apply multiple commands to the nested data using the `%>%`. We can use `unnest` if we want to get back our large (unnested) table to view the results.
  
 ```{r}  
 # Summarise + filter
