@@ -1121,7 +1121,7 @@ Seurat object as a tidyverse tibble, and provides Seurat-compatible *dplyr*, *ti
 
 
 ```{r}
-pbmc_seurat  
+pbmc_seurat <- ismb2021tidytranscriptomics::pbmc_seurat
 ```
 
 ```{r message=FALSE, warning=FALSE}
