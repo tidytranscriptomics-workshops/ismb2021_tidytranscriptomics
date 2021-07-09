@@ -644,6 +644,42 @@ assayNames(pbmc)
 
 We can also interact with our object as we do with any tidyverse tibble.
 
+### Tidyverse commands
+
+And now we can also use tidyverse commands, such as `filter`, `select` and `mutate` to explore the tidySingleCellExperiment object. Some examples are shown below and more can be seen at the tidySingleCellExperiment website [here](https://stemangiola.github.io/tidySingleCellExperiment/articles/introduction.html#tidyverse-commands-1). We can also use the tidyverse pipe `%>%`. This 'pipes' the output from the command on the left into the command on the right/below. Using the pipe is not essential but it reduces the amount of code we need to write when we have multiple steps. It also can make the steps clearer and easier to see. For more details on the pipe see [here](https://r4ds.had.co.nz/pipes.html).
+
+We can use `filter` to choose rows, for example, to see just the rows for the treated samples.
+
+```{r}
+pbmc %>% filter(ident == "G1")
+```
+
+We can use `select` to choose columns, for example, to see the sample, cell, total cellular RNA
+
+```{r}
+pbmc %>% select(cell, nCount_RNA , ident)
+```
+
+We can use `mutate` to create a column. For example, we could create a new sample_name column that contains shorter sample names. We can remove the SRR1039 prefix that's present in all of the samples, as shorter names can fit better in some of the plots we will create. We can use `mutate` together with `str_replace` to remove the SRR1039 string from the sample column.
+
+```{r}
+pbmc %>%
+  mutate(ident_l=tolower(ident)) %>%
+  # select columns to view    
+  select(ident, ident_l)
+```
+
+
+### Join datasets
+
+We can join datasets as if they were tibbles
+
+```{r}
+pbmc %>% bind_rows(pbmc)
+```
+
+
+
 ## Setting up the data
 
 In this case, we want to polish an annotation column. We will extract the sample, dataset and group information from the file name column into separate columns.
@@ -1047,14 +1083,6 @@ pbmc %>% select(cell, first.labels, everything())
 # <INSERT THE CODE HERE FROM THE SOLUTIONS>
 ```
 
-## Join datasets
-
-We can join datasets as if theywere tibbles
-
-```{r}
-pbmc %>% bind_rows(pbmc)
-```
-
 ## Pseudobulk analyses
 
 It is sometime useful to aggregate cell-wise transcript abundance into pseudobulk samples. It is possible to explore data and perform hypothesis testing with tools and data-source that we are more familiar with. For example, we can use edgeR in tidybulk to perform differential expression testing. For more details on pseudobulk analysis see [here](https://hbctraining.github.io/scRNA-seq/lessons/pseudobulk_DESeq2_scrnaseq.html).
@@ -1081,6 +1109,59 @@ pbmc_bulk %>%
   tidybulk::identify_abundant() %>%
   tidybulk::scale_abundance()
 ```
+
+## Introduction to tidyseurat
+
+In Part 2 we showed how we can study the cell-type composition of a biological sample using bulk RNA sequencing.  Single cell sequencing enables a more direct estimation of cell-type composition and gives greater resolution. For bulk RNA sequencing we need to infer the cell types using the abundance of transcripts in the whole sample, with single-cell RNA sequencing we can directly measure the transcripts in each cell and then classify the cells into cell types. 
+
+Seurat is a very popular analysis toolkit for single cell RNA sequencing data [@butler2018integrating; @stuart2019comprehensive] .
+
+tidyseurat provides a bridge between the Seurat single-cell package [@butler2018integrating; @stuart2019comprehensive] and the tidyverse [@wickham2019welcome]. It creates an invisible layer that enables viewing the
+Seurat object as a tidyverse tibble, and provides Seurat-compatible *dplyr*, *tidyr*, *ggplot* and *plotly* functions.
+
+
+```{r}
+pbmc_seurat <- ismb2021tidytranscriptomics::pbmc_seurat
+```
+
+```{r message=FALSE, warning=FALSE}
+library(tidyseurat)
+```
+
+```{r}
+pbmc_seurat
+```
+
+It can be interacted with using [SingleCellExperiment commands](https://bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html) such as `assayNames`.
+
+```{r}
+Assays(pbmc_seurat)
+```
+
+We can also interact with our object as we do with any tidyverse tibble.
+
+### Tidyverse commands
+
+We can interact to this object in the same way we interact with `SingleCellExperiment`, through the tidy paradigm
+
+```{r}
+# Filter
+pbmc_seurat %>% filter(groups == "g1")
+
+# Select
+pbmc_seurat %>% select(cell, nCount_RNA , groups)
+
+# Mutate
+pbmc_seurat %>%
+  mutate(groups_l=tolower(groups)) %>%
+  # select columns to view    
+  select(groups, groups_l)
+
+# Bind datasets
+pbmc_seurat %>% bind_rows(pbmc_seurat)
+```
+
+
 
 ## Key Points
 
