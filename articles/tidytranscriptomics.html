@@ -213,7 +213,7 @@ background-color: #fff4d4;
 <div id="tidyverse-commands" class="section level3">
 <h3 class="hasAnchor">
 <a href="#tidyverse-commands" class="anchor"></a>Tidyverse commands</h3>
-<p>And now we can also use tidyverse commands, such as <code>filter</code>, <code>select</code>, <code>group_by</code>, <code>summarise</code> and <code>mutate</code> to explore the tidy SummarizedExperiment object. Some examples are shown below and more can be seen at the tidySummarizedExperiment website <a href="https://stemangiola.github.io/tidySummarizedExperiment/articles/introduction.html#tidyverse-commands-1">here</a>. We can also use the tidyverse pipe <code><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></code>. This ‘pipes’ the output from the command on the left into the command on the right/below. Using the pipe is not essential but it reduces the amount of code we need to write when we have multiple steps. It also can make the steps clearer and easier to see. For more details on the pipe see <a href="https://r4ds.had.co.nz/pipes.html">here</a>.</p>
+<p>And now we can also use tidyverse commands, such as <code>filter</code>, <code>select</code>, <code>group_by</code>, <code>summarise</code> and <code>mutate</code> to explore the tidy SummarizedExperiment object. Some examples are shown below and more can be seen at the tidySummarizedExperiment website <a href="https://stemangiola.github.io/tidySummarizedExperiment/articles/introduction.html#tidyverse-commands-1">here</a>. We can also use the tidyverse pipe <code><a href="https://rdrr.io/pkg/tidyseurat/man/pipe.html">%&gt;%</a></code>. This ‘pipes’ the output from the command on the left into the command on the right/below. Using the pipe is not essential but it reduces the amount of code we need to write when we have multiple steps. It also can make the steps clearer and easier to see. For more details on the pipe see <a href="https://r4ds.had.co.nz/pipes.html">here</a>.</p>
 <p>We can use <code>filter</code> to choose rows, for example, to see just the rows for the treated samples.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">airway</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySummarizedExperiment/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="va">dex</span> <span class="op">==</span> <span class="st">"trt"</span><span class="op">)</span>
@@ -545,6 +545,7 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://rdrr.io/pkg/tidyHeatmap/man/add_tile-methods.html">add_tile</a></span><span class="op">(</span><span class="va">dex</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidyHeatmap/man/add_tile-methods.html">add_tile</a></span><span class="op">(</span><span class="va">cell</span><span class="op">)</span>
 <span class="co">#&gt; Getting the 500 most variable genes</span>
+<span class="co">#&gt; tidyHeatmap says: (once per session) from release 1.2.3 the grouping labels have white background by default. To add color for one-ay grouping specify palette_grouping = list(c("red", "blue"))</span>
 <span class="co">#&gt; Warning in add_annotation(., !!.column, type = "tile", palette_discrete</span>
 <span class="co">#&gt; = .data@data %&gt;% : tidyHeatmap says: nested/list column are present in your data</span>
 <span class="co">#&gt; frame and have been dropped as their unicity cannot be identified by dplyr.</span>
@@ -571,7 +572,7 @@ background-color: #fff4d4;
 <span class="va">highly_variable_lcpm</span> <span class="op">&lt;-</span> <span class="va">logcounts</span><span class="op">[</span><span class="va">select_var</span>, <span class="op">]</span>
 <span class="va">colours</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#440154FF"</span>, <span class="st">"#21908CFF"</span>, <span class="st">"#fefada"</span><span class="op">)</span>
 <span class="va">col.group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"grey"</span><span class="op">)</span><span class="op">[</span><span class="va">group</span><span class="op">]</span>
-<span class="fu">gplots</span><span class="fu">::</span><span class="fu">heatmap.2</span><span class="op">(</span><span class="va">highly_variable_lcpm</span>, col <span class="op">=</span> <span class="va">colours</span>, trace <span class="op">=</span> <span class="st">"none"</span>, ColSideColors <span class="op">=</span> <span class="va">col.group</span>, scale <span class="op">=</span> <span class="st">"row"</span><span class="op">)</span></code></pre></div>
+<span class="fu">gplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gplots/man/heatmap.2.html">heatmap.2</a></span><span class="op">(</span><span class="va">highly_variable_lcpm</span>, col <span class="op">=</span> <span class="va">colours</span>, trace <span class="op">=</span> <span class="st">"none"</span>, ColSideColors <span class="op">=</span> <span class="va">col.group</span>, scale <span class="op">=</span> <span class="st">"row"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="differential-expression" class="section level2">
@@ -954,12 +955,98 @@ background-color: #fff4d4;
 <code class="sourceCode R"><span class="fu">assayNames</span><span class="op">(</span><span class="va">pbmc</span><span class="op">)</span>
 <span class="co">#&gt; [1] "counts"    "logcounts"</span></code></pre></div>
 <p>We can also interact with our object as we do with any tidyverse tibble.</p>
+<div id="tidyverse-commands-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tidyverse-commands-1" class="anchor"></a>Tidyverse commands</h3>
+<p>And now we can also use tidyverse commands, such as <code>filter</code>, <code>select</code> and <code>mutate</code> to explore the tidySingleCellExperiment object. Some examples are shown below and more can be seen at the tidySingleCellExperiment website <a href="https://stemangiola.github.io/tidySingleCellExperiment/articles/introduction.html#tidyverse-commands-1">here</a>. We can also use the tidyverse pipe <code><a href="https://rdrr.io/pkg/tidyseurat/man/pipe.html">%&gt;%</a></code>. This ‘pipes’ the output from the command on the left into the command on the right/below. Using the pipe is not essential but it reduces the amount of code we need to write when we have multiple steps. It also can make the steps clearer and easier to see. For more details on the pipe see <a href="https://r4ds.had.co.nz/pipes.html">here</a>.</p>
+<p>We can use <code>filter</code> to choose rows, for example, to see just the rows for the treated samples.</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="va">ident</span> <span class="op">==</span> <span class="st">"G1"</span><span class="op">)</span>
+<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 1,728 x 8</span>
+<span class="co">#&gt; [90m# Features=51958 | Assays=counts, logcounts[39m</span>
+<span class="co">#&gt;    cell    file      orig.ident nCount_RNA nFeature_RNA  S.Score G2M.Score ident</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;</span>
+<span class="co">#&gt;  1 CCAGTC… ../data/… SeuratPro…       3421          979 -5.42e-2 -0.0107   G1   </span>
+<span class="co">#&gt;  2 ATGAGC… ../data/… SeuratPro…       2752          898 -5.01e-2 -0.00416  G1   </span>
+<span class="co">#&gt;  3 TATGAA… ../data/… SeuratPro…       2114          937 -2.95e-5 -0.0229   G1   </span>
+<span class="co">#&gt;  4 CATATA… ../data/… SeuratPro…       3122         1086 -6.65e-2 -0.0488   G1   </span>
+<span class="co">#&gt;  5 TGATTA… ../data/… SeuratPro…       1258          542 -2.51e-2 -0.0269   G1   </span>
+<span class="co">#&gt;  6 ACGAAG… ../data/… SeuratPro…       7683         1926 -1.33e-1 -0.116    G1   </span>
+<span class="co">#&gt;  7 CGGCAT… ../data/… SeuratPro…       3500         1092 -6.87e-2 -0.0622   G1   </span>
+<span class="co">#&gt;  8 ATAGCG… ../data/… SeuratPro…       3092          974 -1.24e-2 -0.0271   G1   </span>
+<span class="co">#&gt;  9 CTATAG… ../data/… SeuratPro…       2637          949 -3.10e-2 -0.0473   G1   </span>
+<span class="co">#&gt; 10 ACGTTG… ../data/… SeuratPro…       2379          888 -5.82e-2 -0.000362 G1   </span>
+<span class="co">#&gt; # … with 1,718 more rows</span></code></pre></div>
+<p>We can use <code>select</code> to choose columns, for example, to see the sample, cell, total cellular RNA</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">cell</span>, <span class="va">nCount_RNA</span> , <span class="va">ident</span><span class="op">)</span>
+<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 3,000 x 3</span>
+<span class="co">#&gt; [90m# Features=51958 | Assays=counts, logcounts[39m</span>
+<span class="co">#&gt;    cell             nCount_RNA ident</span>
+<span class="co">#&gt;    &lt;chr&gt;                 &lt;dbl&gt; &lt;fct&gt;</span>
+<span class="co">#&gt;  1 CCAGTCACACTGGT-1       3421 G1   </span>
+<span class="co">#&gt;  2 ATGAGCACATCTTC-1       2752 G1   </span>
+<span class="co">#&gt;  3 TATGAATGGAGGAC-1       2114 G1   </span>
+<span class="co">#&gt;  4 CATATAGACTAAGC-1       3122 G1   </span>
+<span class="co">#&gt;  5 GAGGCAGACTTGCC-1       2341 G2M  </span>
+<span class="co">#&gt;  6 AGCTGCCTTTCATC-1       5472 G2M  </span>
+<span class="co">#&gt;  7 TGATTAGATGACTG-1       1258 G1   </span>
+<span class="co">#&gt;  8 ACGAAGCTCTGAGT-1       7683 G1   </span>
+<span class="co">#&gt;  9 CGGCATCTTCGTAG-1       3500 G1   </span>
+<span class="co">#&gt; 10 ATAGCGTGCCCTTG-1       3092 G1   </span>
+<span class="co">#&gt; # … with 2,990 more rows</span></code></pre></div>
+<p>We can use <code>mutate</code> to create a column. For example, we could create a new sample_name column that contains shorter sample names. We can remove the SRR1039 prefix that’s present in all of the samples, as shorter names can fit better in some of the plots we will create. We can use <code>mutate</code> together with <code>str_replace</code> to remove the SRR1039 string from the sample column.</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>ident_l<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">ident</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># select columns to view    </span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">ident</span>, <span class="va">ident_l</span><span class="op">)</span>
+<span class="co">#&gt; tidySingleCellExperiment says: Key columns are missing. A data frame is returned for independent data analysis.</span>
+<span class="co">#&gt; # A tibble: 3,000 x 2</span>
+<span class="co">#&gt;    ident ident_l</span>
+<span class="co">#&gt;    &lt;fct&gt; &lt;chr&gt;  </span>
+<span class="co">#&gt;  1 G1    g1     </span>
+<span class="co">#&gt;  2 G1    g1     </span>
+<span class="co">#&gt;  3 G1    g1     </span>
+<span class="co">#&gt;  4 G1    g1     </span>
+<span class="co">#&gt;  5 G2M   g2m    </span>
+<span class="co">#&gt;  6 G2M   g2m    </span>
+<span class="co">#&gt;  7 G1    g1     </span>
+<span class="co">#&gt;  8 G1    g1     </span>
+<span class="co">#&gt;  9 G1    g1     </span>
+<span class="co">#&gt; 10 G1    g1     </span>
+<span class="co">#&gt; # … with 2,990 more rows</span></code></pre></div>
+</div>
+<div id="join-datasets" class="section level3">
+<h3 class="hasAnchor">
+<a href="#join-datasets" class="anchor"></a>Join datasets</h3>
+<p>We can join datasets as if they were tibbles</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">bind_rows</a></span><span class="op">(</span><span class="va">pbmc</span><span class="op">)</span>
+<span class="co">#&gt; Warning in bind_rows.SingleCellExperiment(., pbmc): tidySingleCellExperiment</span>
+<span class="co">#&gt; says: you have duplicated cell names, they will be made unique.</span>
+<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 6,000 x 8</span>
+<span class="co">#&gt; [90m# Features=51958 | Assays=counts, logcounts[39m</span>
+<span class="co">#&gt;    cell    file      orig.ident nCount_RNA nFeature_RNA  S.Score G2M.Score ident</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;</span>
+<span class="co">#&gt;  1 CCAGTC… ../data/… SeuratPro…       3421          979 -5.42e-2  -0.0107  G1   </span>
+<span class="co">#&gt;  2 ATGAGC… ../data/… SeuratPro…       2752          898 -5.01e-2  -0.00416 G1   </span>
+<span class="co">#&gt;  3 TATGAA… ../data/… SeuratPro…       2114          937 -2.95e-5  -0.0229  G1   </span>
+<span class="co">#&gt;  4 CATATA… ../data/… SeuratPro…       3122         1086 -6.65e-2  -0.0488  G1   </span>
+<span class="co">#&gt;  5 GAGGCA… ../data/… SeuratPro…       2341          957 -3.74e-3   0.0241  G2M  </span>
+<span class="co">#&gt;  6 AGCTGC… ../data/… SeuratPro…       5472         1758 -5.88e-2   0.00241 G2M  </span>
+<span class="co">#&gt;  7 TGATTA… ../data/… SeuratPro…       1258          542 -2.51e-2  -0.0269  G1   </span>
+<span class="co">#&gt;  8 ACGAAG… ../data/… SeuratPro…       7683         1926 -1.33e-1  -0.116   G1   </span>
+<span class="co">#&gt;  9 CGGCAT… ../data/… SeuratPro…       3500         1092 -6.87e-2  -0.0622  G1   </span>
+<span class="co">#&gt; 10 ATAGCG… ../data/… SeuratPro…       3092          974 -1.24e-2  -0.0271  G1   </span>
+<span class="co">#&gt; # … with 5,990 more rows</span></code></pre></div>
+</div>
 </div>
 <div id="setting-up-the-data-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setting-up-the-data-1" class="anchor"></a>Setting up the data</h2>
 <p>In this case, we want to polish an annotation column. We will extract the sample, dataset and group information from the file name column into separate columns.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># First take a look at the file column</span>
 <span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: Key columns are missing. A data frame is returned for independent data analysis.</span>
@@ -977,7 +1064,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;  9 ../data/GSE115189_1/outs/filtered_feature_bc_matrix/</span>
 <span class="co">#&gt; 10 ../data/GSE115189_1/outs/filtered_feature_bc_matrix/</span>
 <span class="co">#&gt; # … with 2,990 more rows</span></code></pre></div>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create columns for sample, dataset and groups</span>
 <span class="va">pbmc</span> <span class="op">&lt;-</span>
   <span class="va">pbmc</span> <span class="op">%&gt;%</span>
@@ -1011,10 +1098,10 @@ background-color: #fff4d4;
 <a href="#quality-control" class="anchor"></a>Quality control</h2>
 <p>A key quality control step performed in single-cell analyses is the assessment of the proportion of mitochondrial transcripts. A high mitochondrial count indicates cell death, and it is useful for filtering cells in a dying state.</p>
 <p>We’ll first show the mitochondrial analysis for one of the 10 datasets.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">one_dataset</span> <span class="op">&lt;-</span> <span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="va">dataset</span> <span class="op">==</span><span class="st">"GSE115189"</span><span class="op">)</span></code></pre></div>
 <p>We get the chromosomal location for each gene in the dataset so we can identify the mitochondrial genes. We’ll get a warning that some of the ids don’t find a match, but it should be just a small proportion.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">location</span> <span class="op">&lt;-</span> <span class="fu">mapIds</span><span class="op">(</span>
   <span class="va">EnsDb.Hsapiens.v86</span>,
   keys <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames</a></span><span class="op">(</span><span class="va">one_dataset</span><span class="op">)</span>,
@@ -1023,7 +1110,7 @@ background-color: #fff4d4;
 <span class="op">)</span>
 <span class="co">#&gt; Warning: Unable to map 5313 of 51958 requested IDs.</span></code></pre></div>
 <p>Next we calculate the mitchondrial content for each cell in the dataset.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mito_info_one_dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/perCellQCMetrics.html">perCellQCMetrics</a></span><span class="op">(</span><span class="va">one_dataset</span>, subsets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>Mito <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">location</span> <span class="op">==</span> <span class="st">"MT"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">mito_info_one_dataset</span>
@@ -1055,7 +1142,7 @@ background-color: #fff4d4;
 <span class="co">#&gt; TCAGCAGACTCCAC-1              1.06876      2807</span>
 <span class="co">#&gt; AACACGTGTACGAC-1              2.80524      3743</span></code></pre></div>
 <p>We then label the cells with high mitochondrial content as outliers.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mito_info_one_dataset</span> <span class="op">&lt;-</span> <span class="va">mito_info_one_dataset</span> <span class="op">%&gt;%</span>
       <span class="co"># Converting to tibble</span>
       <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tibble-methods.html">as_tibble</a></span><span class="op">(</span>rownames <span class="op">=</span> <span class="st">"cell"</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1079,7 +1166,7 @@ background-color: #fff4d4;
 <span class="co">#&gt; 10 ATAG…  3092      974               37               10            1.20   3092</span>
 <span class="co">#&gt; # … with 290 more rows, and 1 more variable: high_mitochondrion &lt;otlr.flt&gt;</span></code></pre></div>
 <p>Finally, we join the mitochondrial information back to the original data so we will be able to filter out the cells with high mitochondrial content.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mito_info_one_dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">left_join</a></span><span class="op">(</span><span class="va">one_dataset</span>, <span class="va">mito_info_one_dataset</span>, by <span class="op">=</span> <span class="st">"cell"</span><span class="op">)</span>
 
 <span class="va">mito_info_one_dataset</span>
@@ -1112,7 +1199,7 @@ background-color: #fff4d4;
 <h4 class="hasAnchor">
 <a href="#examples-of-nesting" class="anchor"></a>Examples of nesting</h4>
 <p>As a simple example of nesting. Imagine we had two groups, a and b that contained some values.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">my_tibble</span> <span class="op">=</span> 
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
@@ -1135,7 +1222,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;  9 b         9</span>
 <span class="co">#&gt; 10 b        10</span></code></pre></div>
 <p>We could nest this data to make tables containing the values for each of our a and b groups. With <code>nest</code>, <code>data=</code> specifies the columns that will be in the tables and creates a list of these smaller tables.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Nest</span>
 <span class="va">my_tibble_nested</span> <span class="op">=</span> 
   <span class="va">my_tibble</span> <span class="op">%&gt;%</span>
@@ -1148,7 +1235,7 @@ background-color: #fff4d4;
 <span class="co">#&gt; 1 a     &lt;tibble [5 × 1]&gt;</span>
 <span class="co">#&gt; 2 b     &lt;tibble [5 × 1]&gt;</span></code></pre></div>
 <p>We can then iterate over these smaller tables. <code>map</code> is often used in combination with <code>nest</code> to perform commands on nested data. There are a few map commands that you can choose from depending on what you want to return. For example, <code>map_dbl</code> will return a double (floating point number) and we can use it to calculate the average value for each group. You can use <code><a href="https://purrr.tidyverse.org/reference/map.html">?map</a></code> to see the options. The map syntax is <code><a href="https://purrr.tidyverse.org/reference/map.html">map(.x, .f)</a></code> where <code>.x</code> is the table to be iterated over and <code>.f</code> is the function. So in this example, <code>.x</code> is <code>data</code> and <code>.f</code> is <code>~ mean(.x$value)</code>. We get the mean of the value column for each of the nested tables in data.</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Summarise</span>
 <span class="va">my_tibble_nested</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">value</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
@@ -1157,8 +1244,8 @@ background-color: #fff4d4;
 <span class="co">#&gt;   &lt;chr&gt; &lt;list&gt;             &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 a     &lt;tibble [5 × 1]&gt;       3</span>
 <span class="co">#&gt; 2 b     &lt;tibble [5 × 1]&gt;       8</span></code></pre></div>
-<p>We can apply multiple commands to the nested data using the <code><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></code>. We can use <code>unnest</code> if we want to get back our large (unnested) table to view the results.</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<p>We can apply multiple commands to the nested data using the <code><a href="https://rdrr.io/pkg/tidyseurat/man/pipe.html">%&gt;%</a></code>. We can use <code>unnest</code> if we want to get back our large (unnested) table to view the results.</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Summarise + filter</span>
 <span class="va">my_tibble_nested</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">value</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1173,7 +1260,7 @@ background-color: #fff4d4;
 <span class="co">#&gt; 4 b         9       8</span>
 <span class="co">#&gt; 5 b        10       8</span></code></pre></div>
 <p>We can use <code>map2</code> when we have two arguments that we are iterating over. In the example below we have the nested tables (data) and the average for each (average). The map2 syntax is <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2(.x, .y, .f)</a></code>.</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Summarise + update</span>
 <span class="va">my_tibble_nested</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">value</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1193,7 +1280,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;  9 b         1       8</span>
 <span class="co">#&gt; 10 b         2       8</span></code></pre></div>
 <p>We will created nested tables for our 10 datasets.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc_nested</span> <span class="op">&lt;-</span> <span class="va">pbmc</span> <span class="op">%&gt;%</span> 
     <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tidyr-methods.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">-</span><span class="va">dataset</span><span class="op">)</span>
 
@@ -1227,11 +1314,11 @@ background-color: #fff4d4;
  9 SCP424_pbmc2 &lt;SnglCllE[,300]&gt; &lt;tibble [300 × 8]&gt;
 10 SCP591       &lt;SnglCllE[,300]&gt; &lt;tibble [300 × 8]&gt;</code></pre>
 <p>We will create a table (tibble) with the mitochondrial QC information for each dataset.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># &lt;INSERT THE CODE HERE FROM THE SOLUTIONS&gt;</span>
 <span class="va">mito_info_all_datasets</span> <span class="op">=</span> <span class="fu">ismb2021tidytranscriptomics</span><span class="fu">::</span><span class="va"><a href="../reference/mito_info_all_datasets.html">mito_info_all_datasets</a></span> </code></pre></div>
 <p>As before, we join the mitochondrial information to the original data.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="co"># Join the mitochondrial information to the original SingleCellExperiment data</span>
  <span class="va">mito_info_all_datasets</span> <span class="op">&lt;-</span> <span class="va">mito_info_all_datasets</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span>
@@ -1257,7 +1344,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;  9 SCP424_pbmc2 &lt;SnglCllE[,300]&gt;</span>
 <span class="co">#&gt; 10 SCP591       &lt;SnglCllE[,300]&gt;</span></code></pre></div>
 <p>Remove the nesting to get back one table containing all datasets.</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">&lt;-</span> <span class="va">mito_info_all_datasets</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tidyr-methods.html">unnest</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 
@@ -1282,7 +1369,7 @@ background-color: #fff4d4;
 <span class="co">#&gt; #   dataset &lt;chr&gt;</span></code></pre></div>
 <p>Nesting has allowed us to perform the QC on each dataset in an efficient way.</p>
 <p>We can use tidyverse to reshape the data and create <a href="http://www.cbs.dtu.dk/~eklund/beeswarm/">beeswarm plots</a> to visualise the mitochondrial content.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span>
 
   <span class="co"># Reshaping</span>
@@ -1304,10 +1391,10 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">50</span>, hjust <span class="op">=</span> <span class="fl">1</span>, vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: A data frame is returned for independent data analysis.</span></code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-62-1.png" width="700"></p>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-66-1.png" width="700"></p>
 <p>In the faceted plot, “detected” is the number of genes in each of the 10 datasets, “sum” is the total counts.</p>
 <p>We then proceed to filter out cells with high mitochondrial content.</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">&lt;-</span> <span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">high_mitochondrion</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
@@ -1316,7 +1403,7 @@ background-color: #fff4d4;
 <h2 class="hasAnchor">
 <a href="#scaling-and-integrating" class="anchor"></a>Scaling and Integrating</h2>
 <p>As we are working with multiple datasets, we need to integrate them and adjust for technical variability between them. Here we’ll nest by dataset (batch), normalise within each batch with <code>multiBatchNorm</code> and correct for batch effects with <code>fastMNN</code>.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Scaling within each dataset</span>
 <span class="va">pbmc</span> <span class="op">&lt;-</span>
   <span class="va">pbmc</span> <span class="op">%&gt;%</span>
@@ -1339,7 +1426,7 @@ background-color: #fff4d4;
 <h2 class="hasAnchor">
 <a href="#identify-clusters" class="anchor"></a>Identify clusters</h2>
 <p>We proceed with identifying cell clusters.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Assign clusters to the 'colLabels'</span>
 <span class="co"># of the SingleCellExperiment object</span>
 <span class="fu">colLabels</span><span class="op">(</span><span class="va">pbmc</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="co"># from SingleCellExperiment</span>
@@ -1356,9 +1443,9 @@ background-color: #fff4d4;
 <span class="co">#&gt;    cell  label batch groups sample orig.ident nCount_RNA nFeature_RNA  S.Score</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;fct&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 CCAG… 5         1 1      GSE11… SeuratPro…       3421          979 -5.42e-2</span>
-<span class="co">#&gt;  2 ATGA… 3         1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
-<span class="co">#&gt;  3 TATG… 7         1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
-<span class="co">#&gt;  4 CATA… 11        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
+<span class="co">#&gt;  2 ATGA… 11        1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
+<span class="co">#&gt;  3 TATG… 8         1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
+<span class="co">#&gt;  4 CATA… 13        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
 <span class="co">#&gt;  5 GAGG… 1         1 2      GSE11… SeuratPro…       2341          957 -3.74e-3</span>
 <span class="co">#&gt;  6 AGCT… 4         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
 <span class="co">#&gt;  7 TGAT… 2         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
@@ -1371,29 +1458,31 @@ background-color: #fff4d4;
 <span class="co">#&gt; #   high_mitochondrion &lt;lgl&gt;, dataset &lt;chr&gt;, corrected1 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   corrected2 &lt;dbl&gt;, corrected3 &lt;dbl&gt;, corrected4 &lt;dbl&gt;, corrected5 &lt;dbl&gt;</span></code></pre></div>
 <p>Thanks to tidySingleCellExperiment we can interrogate the object with tidyverse commands and use <code>count</code> to count the number of cells in each cluster.</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/count.html">count</a></span><span class="op">(</span><span class="va">label</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 11 x 2</span>
+<span class="co">#&gt; # A tibble: 13 x 2</span>
 <span class="co">#&gt;    label     n</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 1       464</span>
-<span class="co">#&gt;  2 2       367</span>
-<span class="co">#&gt;  3 3       750</span>
-<span class="co">#&gt;  4 4       547</span>
+<span class="co">#&gt;  1 1       437</span>
+<span class="co">#&gt;  2 2       350</span>
+<span class="co">#&gt;  3 3        16</span>
+<span class="co">#&gt;  4 4       529</span>
 <span class="co">#&gt;  5 5       339</span>
 <span class="co">#&gt;  6 6        21</span>
-<span class="co">#&gt;  7 7       256</span>
-<span class="co">#&gt;  8 8        74</span>
-<span class="co">#&gt;  9 9        41</span>
-<span class="co">#&gt; 10 10       14</span>
-<span class="co">#&gt; 11 11       26</span></code></pre></div>
+<span class="co">#&gt;  7 7       473</span>
+<span class="co">#&gt;  8 8       257</span>
+<span class="co">#&gt;  9 9        74</span>
+<span class="co">#&gt; 10 10       41</span>
+<span class="co">#&gt; 11 11      322</span>
+<span class="co">#&gt; 12 12       14</span>
+<span class="co">#&gt; 13 13       26</span></code></pre></div>
 </div>
 <div id="reduce-dimensions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reduce-dimensions" class="anchor"></a>Reduce dimensions</h2>
 <p>Besides PCA which is a linear dimensionality reduction, we can apply neighbour aware methods such as UMAP, to better define locally similar cells.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calculate UMAP with scater</span>
 <span class="va">pbmc</span> <span class="op">%&gt;%</span>
 <span class="fu"><a href="https://rdrr.io/pkg/scater/man/runUMAP.html">runUMAP</a></span><span class="op">(</span>ncomponents <span class="op">=</span> <span class="fl">2</span>, dimred<span class="op">=</span><span class="st">"corrected"</span><span class="op">)</span> <span class="co"># from scater</span>
@@ -1419,16 +1508,16 @@ background-color: #fff4d4;
 <span class="co">#&gt; #   UMAP1 &lt;dbl&gt;, UMAP2 &lt;dbl&gt;</span></code></pre></div>
 <pre class="exercise_5 exercise"><code>Without creating any variable, check if the variability explained by the first UMAP dimension when calculating 2 components (ncomponents = 2) is equal/more/less than when calculating 3 components.</code></pre>
 <p><strong>Tip: your can use as_tibble() to convert the tibble abstraction to a simple (and light) cell-wise tibble</strong></p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># &lt;INSERT THE CODE HERE FROM THE SOLUTIONS&gt;</span></code></pre></div>
 <p>We can calculate the first 3 UMAP dimensions using the scater framework.</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calculate UMAP with scater</span>
 <span class="va">pbmc</span> <span class="op">&lt;-</span>
   <span class="va">pbmc</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/scater/man/runUMAP.html">runUMAP</a></span><span class="op">(</span>ncomponents <span class="op">=</span> <span class="fl">3</span>, dimred<span class="op">=</span><span class="st">"corrected"</span><span class="op">)</span> <span class="co"># from scater</span></code></pre></div>
 <p>And we can plot the clusters as a 3D plot using plotly. This time we are colouring by estimated cluster labels to visually check the cluster labels.</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/plot_ly.html">plot_ly</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="op">~</span><span class="va">`UMAP1`</span>,
@@ -1447,7 +1536,7 @@ background-color: #fff4d4;
 <h3 class="hasAnchor">
 <a href="#manual-cell-type-classification" class="anchor"></a>Manual cell type classification</h3>
 <p>We can identify cluster markers (genes). As example, we are selecting the top 10 for each cluster. We can then plot a heatmap of those gene markers across cells.</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Identify top 10 markers per cluster</span>
 <span class="va">marker_genes</span> <span class="op">&lt;-</span>
     <span class="va">pbmc</span> <span class="op">%&gt;%</span>
@@ -1464,13 +1553,13 @@ background-color: #fff4d4;
     colour_columns_by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"label"</span><span class="op">)</span>, 
     exprs_values  <span class="op">=</span> <span class="st">"reconstructed"</span>
   <span class="op">)</span> </code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-67-1.png" width="700"></p>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-71-1.png" width="700"></p>
 </div>
 <div id="automatic-cell-type-classification" class="section level3">
 <h3 class="hasAnchor">
 <a href="#automatic-cell-type-classification" class="anchor"></a>Automatic cell type classification</h3>
 <p>We can infer cell type identities (e.g. T cell) using <em>SingleR</em> <span class="citation">(Aran et al. 2019)</span> and manipulate the output using tidyverse. SingleR <a href="https://bioconductor.org/packages/devel/bioc/vignettes/SingleR/inst/doc/SingleR.html">accepts any log-normalised transcript abundance matrix</a></p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Reference cell types</span>
 <span class="va">blueprint</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SingleR/man/datasets.html">BlueprintEncodeData</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; snapshotDate(): 2021-06-21</span>
@@ -1497,22 +1586,24 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">label</span>, <span class="va">first.labels</span><span class="op">)</span>
 
 <span class="va">cell_type</span>
-<span class="co">#&gt; # A tibble: 11 x 2</span>
+<span class="co">#&gt; # A tibble: 13 x 2</span>
 <span class="co">#&gt;    label first.labels   </span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;          </span>
 <span class="co">#&gt;  1 1     NK cells       </span>
 <span class="co">#&gt;  2 2     B-cells        </span>
-<span class="co">#&gt;  3 3     Skeletal muscle</span>
+<span class="co">#&gt;  3 3     B-cells        </span>
 <span class="co">#&gt;  4 4     Fibroblasts    </span>
 <span class="co">#&gt;  5 5     Monocytes      </span>
 <span class="co">#&gt;  6 6     Smooth muscle  </span>
-<span class="co">#&gt;  7 7     NK cells       </span>
-<span class="co">#&gt;  8 8     Neutrophils    </span>
-<span class="co">#&gt;  9 9     Macrophages    </span>
-<span class="co">#&gt; 10 10    B-cells        </span>
-<span class="co">#&gt; 11 11    Monocytes</span></code></pre></div>
+<span class="co">#&gt;  7 7     Skeletal muscle</span>
+<span class="co">#&gt;  8 8     NK cells       </span>
+<span class="co">#&gt;  9 9     Neutrophils    </span>
+<span class="co">#&gt; 10 10    Macrophages    </span>
+<span class="co">#&gt; 11 11    Skeletal muscle</span>
+<span class="co">#&gt; 12 12    B-cells        </span>
+<span class="co">#&gt; 13 13    Monocytes</span></code></pre></div>
 <p>We join the cell type information to our pbmc data.</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join cell type info</span>
 <span class="va">pbmc</span> <span class="op">&lt;-</span>
   <span class="va">pbmc</span> <span class="op">%&gt;%</span>
@@ -1544,39 +1635,10 @@ background-color: #fff4d4;
 <div id="exercise-use-tidyverse-grammar-to-identify-the-most-abundant-cell-type" class="section level4">
 <h4 class="hasAnchor">
 <a href="#exercise-use-tidyverse-grammar-to-identify-the-most-abundant-cell-type" class="anchor"></a>Exercise: use tidyverse grammar to identify the most abundant cell type</h4>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># &lt;INSERT THE CODE HERE FROM THE SOLUTIONS&gt;</span></code></pre></div>
 </div>
 </div>
-</div>
-<div id="join-datasets" class="section level2">
-<h2 class="hasAnchor">
-<a href="#join-datasets" class="anchor"></a>Join datasets</h2>
-<p>We can join datasets as if theywere tibbles</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">bind_rows</a></span><span class="op">(</span><span class="va">pbmc</span><span class="op">)</span>
-<span class="co">#&gt; Warning in bind_rows.SingleCellExperiment(., pbmc): tidySingleCellExperiment</span>
-<span class="co">#&gt; says: you have duplicated cell names, they will be made unique.</span>
-<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 5,798 x 28</span>
-<span class="co">#&gt; [90m# Features=51958 | Assays=reconstructed[39m</span>
-<span class="co">#&gt;    cell  batch groups sample orig.ident nCount_RNA nFeature_RNA  S.Score</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 CCAG…     1 1      GSE11… SeuratPro…       3421          979 -5.42e-2</span>
-<span class="co">#&gt;  2 ATGA…     1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
-<span class="co">#&gt;  3 TATG…     1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
-<span class="co">#&gt;  4 CATA…     1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
-<span class="co">#&gt;  5 GAGG…     1 2      GSE11… SeuratPro…       2341          957 -3.74e-3</span>
-<span class="co">#&gt;  6 AGCT…     1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
-<span class="co">#&gt;  7 TGAT…     1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
-<span class="co">#&gt;  8 ACGA…     1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
-<span class="co">#&gt;  9 CGGC…     1 1      GSE11… SeuratPro…       3500         1092 -6.87e-2</span>
-<span class="co">#&gt; 10 ATAG…     1 1      GSE11… SeuratPro…       3092          974 -1.24e-2</span>
-<span class="co">#&gt; # … with 5,788 more rows, and 20 more variables: G2M.Score &lt;dbl&gt;, ident &lt;fct&gt;,</span>
-<span class="co">#&gt; #   sum &lt;dbl&gt;, detected &lt;int&gt;, subsets_Mito_sum &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   subsets_Mito_detected &lt;int&gt;, subsets_Mito_percent &lt;dbl&gt;, total &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   high_mitochondrion &lt;lgl&gt;, dataset &lt;chr&gt;, label &lt;chr&gt;, first.labels &lt;chr&gt;,</span>
-<span class="co">#&gt; #   corrected1 &lt;dbl&gt;, corrected2 &lt;dbl&gt;, corrected3 &lt;dbl&gt;, corrected4 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   corrected5 &lt;dbl&gt;, UMAP1 &lt;dbl&gt;, UMAP2 &lt;dbl&gt;, UMAP3 &lt;dbl&gt;</span></code></pre></div>
 </div>
 <div id="pseudobulk-analyses" class="section level2">
 <h2 class="hasAnchor">
@@ -1586,7 +1648,7 @@ background-color: #fff4d4;
 <h3 class="hasAnchor">
 <a href="#data-exploration-using-pseudobulk-samples" class="anchor"></a>Data exploration using pseudobulk samples</h3>
 <p>To do this, we will load a helper function called <code>aggregate_cells</code> from <a href="https://gist.github.com/stemangiola/ebce5a3f931b298611b56680d39c073c">GitHub Gist</a> and use it to create a group for each sample.</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Load aggregate function</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/source_gist.html">source_gist</a></span><span class="op">(</span><span class="st">"889e4089a0e5ca2649d3c9164e3b542e"</span><span class="op">)</span>
 
@@ -1610,7 +1672,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;  9 A2M      ../data/10x_…                0                0 ../data/benign_PBMC…</span>
 <span class="co">#&gt; 10 A2M-AS1  ../data/10x_…                1                1 ../data/benign_PBMC…</span>
 <span class="co">#&gt; # … with 40 more rows</span></code></pre></div>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc_bulk</span> <span class="op">%&gt;%</span>
 
   <span class="co"># Tidybulk operations</span>
@@ -1635,6 +1697,124 @@ background-color: #fff4d4;
 <span class="co">#&gt; #   .abundant &lt;lgl&gt;</span></code></pre></div>
 </div>
 </div>
+<div id="introduction-to-tidyseurat" class="section level2">
+<h2 class="hasAnchor">
+<a href="#introduction-to-tidyseurat" class="anchor"></a>Introduction to tidyseurat</h2>
+<p>In Part 2 we showed how we can study the cell-type composition of a biological sample using bulk RNA sequencing. Single cell sequencing enables a more direct estimation of cell-type composition and gives greater resolution. For bulk RNA sequencing we need to infer the cell types using the abundance of transcripts in the whole sample, with single-cell RNA sequencing we can directly measure the transcripts in each cell and then classify the cells into cell types.</p>
+<p>Seurat is a very popular analysis toolkit for single cell RNA sequencing data <span class="citation">(Butler et al. 2018; Stuart et al. 2019)</span> .</p>
+<p>tidyseurat provides a bridge between the Seurat single-cell package <span class="citation">(Butler et al. 2018; Stuart et al. 2019)</span> and the tidyverse <span class="citation">(Wickham et al. 2019)</span>. It creates an invisible layer that enables viewing the Seurat object as a tidyverse tibble, and provides Seurat-compatible <em>dplyr</em>, <em>tidyr</em>, <em>ggplot</em> and <em>plotly</em> functions.</p>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pbmc_seurat</span> <span class="op">&lt;-</span> <span class="fu">ismb2021tidytranscriptomics</span><span class="fu">::</span><span class="va">pbmc_seurat</span>
+<span class="co">#&gt; Registered S3 method overwritten by 'spatstat.geom':</span>
+<span class="co">#&gt;   method     from</span>
+<span class="co">#&gt;   print.boxx cli</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyseurat</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pbmc_seurat</span>
+<span class="co">#&gt; # A Seurat-tibble abstraction: 80 x 9</span>
+<span class="co">#&gt; [90m# Transcripts=230 | Active assay=RNA | Assays=RNA[39m</span>
+<span class="co">#&gt;    cell  orig.ident nCount_RNA nFeature_RNA RNA_snn_res.0.8 letter.idents groups</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;fct&gt;           &lt;dbl&gt;        &lt;int&gt; &lt;fct&gt;           &lt;fct&gt;         &lt;chr&gt; </span>
+<span class="co">#&gt;  1 ATGC… SeuratPro…         70           47 0               A             g2    </span>
+<span class="co">#&gt;  2 CATG… SeuratPro…         85           52 0               A             g1    </span>
+<span class="co">#&gt;  3 GAAC… SeuratPro…         87           50 1               B             g2    </span>
+<span class="co">#&gt;  4 TGAC… SeuratPro…        127           56 0               A             g2    </span>
+<span class="co">#&gt;  5 AGTC… SeuratPro…        173           53 0               A             g2    </span>
+<span class="co">#&gt;  6 TCTG… SeuratPro…         70           48 0               A             g1    </span>
+<span class="co">#&gt;  7 TGGT… SeuratPro…         64           36 0               A             g1    </span>
+<span class="co">#&gt;  8 GCAG… SeuratPro…         72           45 0               A             g1    </span>
+<span class="co">#&gt;  9 GATA… SeuratPro…         52           36 0               A             g1    </span>
+<span class="co">#&gt; 10 AATG… SeuratPro…        100           41 0               A             g1    </span>
+<span class="co">#&gt; # … with 70 more rows, and 2 more variables: RNA_snn_res.1 &lt;fct&gt;, file &lt;chr&gt;</span></code></pre></div>
+<p>It can be interacted with using <a href="https://bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html">SingleCellExperiment commands</a> such as <code>assayNames</code>.</p>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">Assays</span><span class="op">(</span><span class="va">pbmc_seurat</span><span class="op">)</span>
+<span class="co">#&gt; [1] "RNA"</span></code></pre></div>
+<p>We can also interact with our object as we do with any tidyverse tibble.</p>
+<div id="tidyverse-commands-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tidyverse-commands-2" class="anchor"></a>Tidyverse commands</h3>
+<p>We can interact to this object in the same way we interact with <code>SingleCellExperiment</code>, through the tidy paradigm</p>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Filter</span>
+<span class="va">pbmc_seurat</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyseurat/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="va">groups</span> <span class="op">==</span> <span class="st">"g1"</span><span class="op">)</span>
+<span class="co">#&gt; # A Seurat-tibble abstraction: 44 x 9</span>
+<span class="co">#&gt; [90m# Transcripts=230 | Active assay=RNA | Assays=RNA[39m</span>
+<span class="co">#&gt;    cell  orig.ident nCount_RNA nFeature_RNA RNA_snn_res.0.8 letter.idents groups</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;fct&gt;           &lt;dbl&gt;        &lt;int&gt; &lt;fct&gt;           &lt;fct&gt;         &lt;chr&gt; </span>
+<span class="co">#&gt;  1 CATG… SeuratPro…         85           52 0               A             g1    </span>
+<span class="co">#&gt;  2 TCTG… SeuratPro…         70           48 0               A             g1    </span>
+<span class="co">#&gt;  3 TGGT… SeuratPro…         64           36 0               A             g1    </span>
+<span class="co">#&gt;  4 GCAG… SeuratPro…         72           45 0               A             g1    </span>
+<span class="co">#&gt;  5 GATA… SeuratPro…         52           36 0               A             g1    </span>
+<span class="co">#&gt;  6 AATG… SeuratPro…        100           41 0               A             g1    </span>
+<span class="co">#&gt;  7 AGAG… SeuratPro…        191           61 0               A             g1    </span>
+<span class="co">#&gt;  8 CTAA… SeuratPro…        168           44 0               A             g1    </span>
+<span class="co">#&gt;  9 TTGG… SeuratPro…        135           45 0               A             g1    </span>
+<span class="co">#&gt; 10 CATC… SeuratPro…         79           43 0               A             g1    </span>
+<span class="co">#&gt; # … with 34 more rows, and 2 more variables: RNA_snn_res.1 &lt;fct&gt;, file &lt;chr&gt;</span>
+
+<span class="co"># Select</span>
+<span class="va">pbmc_seurat</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyseurat/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">cell</span>, <span class="va">nCount_RNA</span> , <span class="va">groups</span><span class="op">)</span>
+<span class="co">#&gt; # A Seurat-tibble abstraction: 80 x 3</span>
+<span class="co">#&gt; [90m# Transcripts=230 | Active assay=RNA | Assays=RNA[39m</span>
+<span class="co">#&gt;    cell           nCount_RNA groups</span>
+<span class="co">#&gt;    &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt; </span>
+<span class="co">#&gt;  1 ATGCCAGAACGACT         70 g2    </span>
+<span class="co">#&gt;  2 CATGGCCTGTGCAT         85 g1    </span>
+<span class="co">#&gt;  3 GAACCTGATGAACC         87 g2    </span>
+<span class="co">#&gt;  4 TGACTGGATTCTCA        127 g2    </span>
+<span class="co">#&gt;  5 AGTCAGACTGCACA        173 g2    </span>
+<span class="co">#&gt;  6 TCTGATACACGTGT         70 g1    </span>
+<span class="co">#&gt;  7 TGGTATCTAAACAG         64 g1    </span>
+<span class="co">#&gt;  8 GCAGCTCTGTTTCT         72 g1    </span>
+<span class="co">#&gt;  9 GATATAACACGCAT         52 g1    </span>
+<span class="co">#&gt; 10 AATGTTGACAGTCA        100 g1    </span>
+<span class="co">#&gt; # … with 70 more rows</span>
+
+<span class="co"># Mutate</span>
+<span class="va">pbmc_seurat</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tidyseurat/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>groups_l<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">groups</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># select columns to view    </span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tidyseurat/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">groups</span>, <span class="va">groups_l</span><span class="op">)</span>
+<span class="co">#&gt; tidyseurat says: Key columns are missing. A data frame is returned for independent data analysis.</span>
+<span class="co">#&gt; # A tibble: 80 x 2</span>
+<span class="co">#&gt;    groups groups_l</span>
+<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;   </span>
+<span class="co">#&gt;  1 g2     g2      </span>
+<span class="co">#&gt;  2 g1     g1      </span>
+<span class="co">#&gt;  3 g2     g2      </span>
+<span class="co">#&gt;  4 g2     g2      </span>
+<span class="co">#&gt;  5 g2     g2      </span>
+<span class="co">#&gt;  6 g1     g1      </span>
+<span class="co">#&gt;  7 g1     g1      </span>
+<span class="co">#&gt;  8 g1     g1      </span>
+<span class="co">#&gt;  9 g1     g1      </span>
+<span class="co">#&gt; 10 g1     g1      </span>
+<span class="co">#&gt; # … with 70 more rows</span>
+
+<span class="co"># Bind datasets</span>
+<span class="va">pbmc_seurat</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyseurat/man/dplyr-methods.html">bind_rows</a></span><span class="op">(</span><span class="va">pbmc_seurat</span><span class="op">)</span>
+<span class="co">#&gt; Warning in CheckDuplicateCellNames(object.list = objects): Some cell names are</span>
+<span class="co">#&gt; duplicated across objects provided. Renaming to enforce unique cell names.</span>
+<span class="co">#&gt; # A Seurat-tibble abstraction: 160 x 9</span>
+<span class="co">#&gt; [90m# Transcripts=230 | Active assay=RNA | Assays=RNA[39m</span>
+<span class="co">#&gt;    cell  orig.ident nCount_RNA nFeature_RNA RNA_snn_res.0.8 letter.idents groups</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;chr&gt; </span>
+<span class="co">#&gt;  1 ATGC… SeuratPro…         70           47 0               A             g2    </span>
+<span class="co">#&gt;  2 CATG… SeuratPro…         85           52 0               A             g1    </span>
+<span class="co">#&gt;  3 GAAC… SeuratPro…         87           50 1               B             g2    </span>
+<span class="co">#&gt;  4 TGAC… SeuratPro…        127           56 0               A             g2    </span>
+<span class="co">#&gt;  5 AGTC… SeuratPro…        173           53 0               A             g2    </span>
+<span class="co">#&gt;  6 TCTG… SeuratPro…         70           48 0               A             g1    </span>
+<span class="co">#&gt;  7 TGGT… SeuratPro…         64           36 0               A             g1    </span>
+<span class="co">#&gt;  8 GCAG… SeuratPro…         72           45 0               A             g1    </span>
+<span class="co">#&gt;  9 GATA… SeuratPro…         52           36 0               A             g1    </span>
+<span class="co">#&gt; 10 AATG… SeuratPro…        100           41 0               A             g1    </span>
+<span class="co">#&gt; # … with 150 more rows, and 2 more variables: RNA_snn_res.1 &lt;chr&gt;, file &lt;chr&gt;</span></code></pre></div>
+</div>
+</div>
 <div id="key-points-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#key-points-1" class="anchor"></a>Key Points</h2>
@@ -1656,7 +1836,7 @@ background-color: #fff4d4;
 <h1 class="hasAnchor">
 <a href="#reproducibility" class="anchor"></a>Reproducibility</h1>
 <p>Record package and version information with <code>sessionInfo</code></p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; R version 4.1.0 (2021-05-18)</span>
 <span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span>
@@ -1678,111 +1858,132 @@ background-color: #fff4d4;
 <span class="co">#&gt; [8] base     </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; other attached packages:</span>
-<span class="co">#&gt;  [1] tidySingleCellExperiment_1.3.0 ggbeeswarm_0.6.0              </span>
-<span class="co">#&gt;  [3] celldex_1.3.0                  EnsDb.Hsapiens.v86_2.99.0     </span>
-<span class="co">#&gt;  [5] ensembldb_2.17.2               AnnotationFilter_1.17.0       </span>
-<span class="co">#&gt;  [7] GenomicFeatures_1.45.0         AnnotationDbi_1.55.1          </span>
-<span class="co">#&gt;  [9] SingleR_1.7.0                  batchelor_1.9.0               </span>
-<span class="co">#&gt; [11] igraph_1.2.6                   scran_1.21.1                  </span>
-<span class="co">#&gt; [13] scater_1.21.2                  scuttle_1.3.0                 </span>
-<span class="co">#&gt; [15] SingleCellExperiment_1.15.1    tidySummarizedExperiment_1.3.0</span>
-<span class="co">#&gt; [17] tidybulk_1.5.0                 tidyHeatmap_1.2.2             </span>
-<span class="co">#&gt; [19] GGally_2.1.2                   ggrepel_0.9.1                 </span>
-<span class="co">#&gt; [21] plotly_4.9.4.1                 purrr_0.3.4                   </span>
-<span class="co">#&gt; [23] ggplot2_3.3.5                  stringr_1.4.0                 </span>
-<span class="co">#&gt; [25] readr_1.4.0                    tidyr_1.1.3                   </span>
-<span class="co">#&gt; [27] dplyr_1.0.7                    tibble_3.1.2                  </span>
-<span class="co">#&gt; [29] airway_1.13.0                  SummarizedExperiment_1.23.1   </span>
-<span class="co">#&gt; [31] Biobase_2.53.0                 GenomicRanges_1.45.0          </span>
-<span class="co">#&gt; [33] GenomeInfoDb_1.29.3            IRanges_2.27.0                </span>
-<span class="co">#&gt; [35] S4Vectors_0.31.0               BiocGenerics_0.39.1           </span>
-<span class="co">#&gt; [37] MatrixGenerics_1.5.1           matrixStats_0.59.0            </span>
+<span class="co">#&gt;  [1] tidyseurat_0.2.0               SeuratObject_4.0.2            </span>
+<span class="co">#&gt;  [3] Seurat_4.0.3                   tidySingleCellExperiment_1.3.0</span>
+<span class="co">#&gt;  [5] ggbeeswarm_0.6.0               celldex_1.3.0                 </span>
+<span class="co">#&gt;  [7] EnsDb.Hsapiens.v86_2.99.0      ensembldb_2.17.2              </span>
+<span class="co">#&gt;  [9] AnnotationFilter_1.17.0        GenomicFeatures_1.45.0        </span>
+<span class="co">#&gt; [11] AnnotationDbi_1.55.1           SingleR_1.7.0                 </span>
+<span class="co">#&gt; [13] batchelor_1.9.0                igraph_1.2.6                  </span>
+<span class="co">#&gt; [15] scran_1.21.1                   scater_1.21.2                 </span>
+<span class="co">#&gt; [17] scuttle_1.3.0                  SingleCellExperiment_1.15.1   </span>
+<span class="co">#&gt; [19] tidySummarizedExperiment_1.3.0 tidybulk_1.5.0                </span>
+<span class="co">#&gt; [21] tidyHeatmap_1.3.1              GGally_2.1.2                  </span>
+<span class="co">#&gt; [23] ggrepel_0.9.1                  plotly_4.9.4.1                </span>
+<span class="co">#&gt; [25] purrr_0.3.4                    ggplot2_3.3.5                 </span>
+<span class="co">#&gt; [27] stringr_1.4.0                  readr_1.4.0                   </span>
+<span class="co">#&gt; [29] tidyr_1.1.3                    dplyr_1.0.7                   </span>
+<span class="co">#&gt; [31] tibble_3.1.2                   airway_1.13.0                 </span>
+<span class="co">#&gt; [33] SummarizedExperiment_1.23.1    Biobase_2.53.0                </span>
+<span class="co">#&gt; [35] GenomicRanges_1.45.0           GenomeInfoDb_1.29.3           </span>
+<span class="co">#&gt; [37] IRanges_2.27.0                 S4Vectors_0.31.0              </span>
+<span class="co">#&gt; [39] BiocGenerics_0.39.1            MatrixGenerics_1.5.1          </span>
+<span class="co">#&gt; [41] matrixStats_0.59.0            </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; loaded via a namespace (and not attached):</span>
 <span class="co">#&gt;   [1] rappdirs_0.3.3                     rtracklayer_1.53.0                </span>
-<span class="co">#&gt;   [3] ragg_1.1.3                         bit64_4.0.5                       </span>
-<span class="co">#&gt;   [5] knitr_1.33                         irlba_2.3.3                       </span>
-<span class="co">#&gt;   [7] DelayedArray_0.19.1                data.table_1.14.0                 </span>
-<span class="co">#&gt;   [9] KEGGREST_1.33.0                    RCurl_1.98-1.3                    </span>
-<span class="co">#&gt;  [11] doParallel_1.0.16                  generics_0.1.0                    </span>
-<span class="co">#&gt;  [13] preprocessCore_1.55.2              ScaledMatrix_1.1.0                </span>
-<span class="co">#&gt;  [15] callr_3.7.0                        cowplot_1.1.1                     </span>
-<span class="co">#&gt;  [17] usethis_2.0.1                      RSQLite_2.2.7                     </span>
-<span class="co">#&gt;  [19] proxy_0.4-26                       bit_4.0.4                         </span>
-<span class="co">#&gt;  [21] xml2_1.3.2                         httpuv_1.6.1                      </span>
-<span class="co">#&gt;  [23] assertthat_0.2.1                   viridis_0.6.1                     </span>
-<span class="co">#&gt;  [25] xfun_0.24                          hms_1.1.0                         </span>
-<span class="co">#&gt;  [27] jquerylib_0.1.4                    evaluate_0.14                     </span>
-<span class="co">#&gt;  [29] promises_1.2.0.1                   fansi_0.5.0                       </span>
-<span class="co">#&gt;  [31] restfulr_0.0.13                    progress_1.2.2                    </span>
-<span class="co">#&gt;  [33] dbplyr_2.1.1                       DBI_1.1.1                         </span>
-<span class="co">#&gt;  [35] geneplotter_1.71.0                 htmlwidgets_1.5.3                 </span>
-<span class="co">#&gt;  [37] reshape_0.8.8                      ellipsis_0.3.2                    </span>
-<span class="co">#&gt;  [39] RSpectra_0.16-0                    annotate_1.71.0                   </span>
-<span class="co">#&gt;  [41] biomaRt_2.49.2                     sparseMatrixStats_1.5.0           </span>
-<span class="co">#&gt;  [43] vctrs_0.3.8                        remotes_2.4.0                     </span>
-<span class="co">#&gt;  [45] Cairo_1.5-12.2                     cachem_1.0.5                      </span>
-<span class="co">#&gt;  [47] withr_2.4.2                        GenomicAlignments_1.29.0          </span>
-<span class="co">#&gt;  [49] prettyunits_1.1.1                  dittoSeq_1.5.1                    </span>
-<span class="co">#&gt;  [51] cluster_2.1.2                      ExperimentHub_2.1.1               </span>
-<span class="co">#&gt;  [53] lazyeval_0.2.2                     crayon_1.4.1                      </span>
-<span class="co">#&gt;  [55] genefilter_1.75.0                  edgeR_3.35.0                      </span>
-<span class="co">#&gt;  [57] pkgconfig_2.0.3                    labeling_0.4.2                    </span>
-<span class="co">#&gt;  [59] vipor_0.4.5                        pkgload_1.2.1                     </span>
-<span class="co">#&gt;  [61] ProtGenerics_1.25.1                gitcreds_0.1.1                    </span>
-<span class="co">#&gt;  [63] devtools_2.4.2                     rlang_0.4.11                      </span>
-<span class="co">#&gt;  [65] lifecycle_1.0.0                    filelock_1.0.2                    </span>
-<span class="co">#&gt;  [67] BiocFileCache_2.1.1                rsvd_1.0.5                        </span>
-<span class="co">#&gt;  [69] AnnotationHub_3.1.3                rprojroot_2.0.2                   </span>
-<span class="co">#&gt;  [71] Matrix_1.3-4                       beeswarm_0.4.0                    </span>
-<span class="co">#&gt;  [73] ggridges_0.5.3                     GlobalOptions_0.1.2               </span>
-<span class="co">#&gt;  [75] processx_3.5.2                     pheatmap_1.0.12                   </span>
-<span class="co">#&gt;  [77] png_0.1-7                          viridisLite_0.4.0                 </span>
-<span class="co">#&gt;  [79] rjson_0.2.20                       bitops_1.0-7                      </span>
-<span class="co">#&gt;  [81] Biostrings_2.61.1                  blob_1.2.1                        </span>
-<span class="co">#&gt;  [83] DelayedMatrixStats_1.15.0          shape_1.4.6                       </span>
-<span class="co">#&gt;  [85] ismb2021tidytranscriptomics_0.10.0 beachmat_2.9.0                    </span>
-<span class="co">#&gt;  [87] scales_1.1.1                       memoise_2.0.0                     </span>
-<span class="co">#&gt;  [89] magrittr_2.0.1                     plyr_1.8.6                        </span>
-<span class="co">#&gt;  [91] zlibbioc_1.39.0                    compiler_4.1.0                    </span>
-<span class="co">#&gt;  [93] dqrng_0.3.0                        BiocIO_1.3.0                      </span>
-<span class="co">#&gt;  [95] RColorBrewer_1.1-2                 clue_0.3-59                       </span>
-<span class="co">#&gt;  [97] DESeq2_1.33.1                      Rsamtools_2.9.1                   </span>
-<span class="co">#&gt;  [99] cli_3.0.0                          XVector_0.33.0                    </span>
-<span class="co">#&gt; [101] ps_1.6.0                           tidyselect_1.1.1                  </span>
-<span class="co">#&gt; [103] stringi_1.6.2                      textshaping_0.3.5                 </span>
-<span class="co">#&gt; [105] highr_0.9                          yaml_2.2.1                        </span>
-<span class="co">#&gt; [107] BiocSingular_1.9.1                 locfit_1.5-9.4                    </span>
-<span class="co">#&gt; [109] grid_4.1.0                         sass_0.4.0                        </span>
-<span class="co">#&gt; [111] tools_4.1.0                        parallel_4.1.0                    </span>
-<span class="co">#&gt; [113] circlize_0.4.13                    bluster_1.3.0                     </span>
-<span class="co">#&gt; [115] foreach_1.5.1                      metapod_1.1.0                     </span>
-<span class="co">#&gt; [117] gridExtra_2.3                      farver_2.1.0                      </span>
-<span class="co">#&gt; [119] digest_0.6.27                      BiocManager_1.30.16               </span>
-<span class="co">#&gt; [121] FNN_1.1.3                          shiny_1.6.0                       </span>
-<span class="co">#&gt; [123] Rcpp_1.0.6                         BiocVersion_3.14.0                </span>
-<span class="co">#&gt; [125] later_1.2.0                        org.Hs.eg.db_3.13.0               </span>
-<span class="co">#&gt; [127] httr_1.4.2                         ComplexHeatmap_2.9.0              </span>
-<span class="co">#&gt; [129] colorspace_2.0-2                   XML_3.99-0.6                      </span>
-<span class="co">#&gt; [131] fs_1.5.0                           splines_4.1.0                     </span>
-<span class="co">#&gt; [133] uwot_0.1.10                        statmod_1.4.36                    </span>
-<span class="co">#&gt; [135] pkgdown_1.6.1                      gh_1.3.0                          </span>
-<span class="co">#&gt; [137] sessioninfo_1.1.1                  systemfonts_1.0.2                 </span>
-<span class="co">#&gt; [139] xtable_1.8-4                       jsonlite_1.7.2                    </span>
-<span class="co">#&gt; [141] testthat_3.0.4                     R6_2.5.0                          </span>
-<span class="co">#&gt; [143] pillar_1.6.1                       htmltools_0.5.1.1                 </span>
-<span class="co">#&gt; [145] mime_0.11                          glue_1.4.2                        </span>
-<span class="co">#&gt; [147] fastmap_1.1.0                      BiocParallel_1.27.1               </span>
-<span class="co">#&gt; [149] BiocNeighbors_1.11.0               class_7.3-19                      </span>
-<span class="co">#&gt; [151] interactiveDisplayBase_1.31.0      codetools_0.2-18                  </span>
-<span class="co">#&gt; [153] pkgbuild_1.2.0                     utf8_1.2.1                        </span>
-<span class="co">#&gt; [155] lattice_0.20-44                    bslib_0.2.5.1                     </span>
-<span class="co">#&gt; [157] ResidualMatrix_1.3.0               curl_4.3.2                        </span>
-<span class="co">#&gt; [159] survival_3.2-11                    limma_3.49.1                      </span>
-<span class="co">#&gt; [161] rmarkdown_2.9                      desc_1.3.0                        </span>
-<span class="co">#&gt; [163] munsell_0.5.0                      e1071_1.7-7                       </span>
-<span class="co">#&gt; [165] GetoptLong_1.0.5                   GenomeInfoDbData_1.2.6            </span>
-<span class="co">#&gt; [167] iterators_1.0.13                   gtable_0.3.0</span></code></pre></div>
+<span class="co">#&gt;   [3] scattermore_0.7                    ragg_1.1.3                        </span>
+<span class="co">#&gt;   [5] bit64_4.0.5                        knitr_1.33                        </span>
+<span class="co">#&gt;   [7] irlba_2.3.3                        DelayedArray_0.19.1               </span>
+<span class="co">#&gt;   [9] rpart_4.1-15                       data.table_1.14.0                 </span>
+<span class="co">#&gt;  [11] KEGGREST_1.33.0                    RCurl_1.98-1.3                    </span>
+<span class="co">#&gt;  [13] doParallel_1.0.16                  generics_0.1.0                    </span>
+<span class="co">#&gt;  [15] preprocessCore_1.55.2              ScaledMatrix_1.1.0                </span>
+<span class="co">#&gt;  [17] callr_3.7.0                        cowplot_1.1.1                     </span>
+<span class="co">#&gt;  [19] usethis_2.0.1                      RSQLite_2.2.7                     </span>
+<span class="co">#&gt;  [21] RANN_2.6.1                         future_1.21.0                     </span>
+<span class="co">#&gt;  [23] proxy_0.4-26                       bit_4.0.4                         </span>
+<span class="co">#&gt;  [25] spatstat.data_2.1-0                xml2_1.3.2                        </span>
+<span class="co">#&gt;  [27] httpuv_1.6.1                       assertthat_0.2.1                  </span>
+<span class="co">#&gt;  [29] viridis_0.6.1                      xfun_0.24                         </span>
+<span class="co">#&gt;  [31] hms_1.1.0                          jquerylib_0.1.4                   </span>
+<span class="co">#&gt;  [33] evaluate_0.14                      promises_1.2.0.1                  </span>
+<span class="co">#&gt;  [35] fansi_0.5.0                        restfulr_0.0.13                   </span>
+<span class="co">#&gt;  [37] progress_1.2.2                     dendextend_1.15.1                 </span>
+<span class="co">#&gt;  [39] dbplyr_2.1.1                       DBI_1.1.1                         </span>
+<span class="co">#&gt;  [41] geneplotter_1.71.0                 htmlwidgets_1.5.3                 </span>
+<span class="co">#&gt;  [43] reshape_0.8.8                      spatstat.geom_2.2-0               </span>
+<span class="co">#&gt;  [45] ellipsis_0.3.2                     RSpectra_0.16-0                   </span>
+<span class="co">#&gt;  [47] annotate_1.71.0                    deldir_0.2-10                     </span>
+<span class="co">#&gt;  [49] biomaRt_2.49.2                     sparseMatrixStats_1.5.0           </span>
+<span class="co">#&gt;  [51] vctrs_0.3.8                        ROCR_1.0-11                       </span>
+<span class="co">#&gt;  [53] remotes_2.4.0                      Cairo_1.5-12.2                    </span>
+<span class="co">#&gt;  [55] abind_1.4-5                        cachem_1.0.5                      </span>
+<span class="co">#&gt;  [57] withr_2.4.2                        sctransform_0.3.2                 </span>
+<span class="co">#&gt;  [59] GenomicAlignments_1.29.0           prettyunits_1.1.1                 </span>
+<span class="co">#&gt;  [61] dittoSeq_1.5.1                     goftest_1.2-2                     </span>
+<span class="co">#&gt;  [63] cluster_2.1.2                      ExperimentHub_2.1.1               </span>
+<span class="co">#&gt;  [65] lazyeval_0.2.2                     crayon_1.4.1                      </span>
+<span class="co">#&gt;  [67] genefilter_1.75.0                  edgeR_3.35.0                      </span>
+<span class="co">#&gt;  [69] pkgconfig_2.0.3                    labeling_0.4.2                    </span>
+<span class="co">#&gt;  [71] nlme_3.1-152                       vipor_0.4.5                       </span>
+<span class="co">#&gt;  [73] pkgload_1.2.1                      ProtGenerics_1.25.1               </span>
+<span class="co">#&gt;  [75] gitcreds_0.1.1                     devtools_2.4.2                    </span>
+<span class="co">#&gt;  [77] globals_0.14.0                     rlang_0.4.11                      </span>
+<span class="co">#&gt;  [79] miniUI_0.1.1.1                     lifecycle_1.0.0                   </span>
+<span class="co">#&gt;  [81] filelock_1.0.2                     BiocFileCache_2.1.1               </span>
+<span class="co">#&gt;  [83] rsvd_1.0.5                         AnnotationHub_3.1.3               </span>
+<span class="co">#&gt;  [85] polyclip_1.10-0                    rprojroot_2.0.2                   </span>
+<span class="co">#&gt;  [87] lmtest_0.9-38                      Matrix_1.3-4                      </span>
+<span class="co">#&gt;  [89] zoo_1.8-9                          beeswarm_0.4.0                    </span>
+<span class="co">#&gt;  [91] ggridges_0.5.3                     GlobalOptions_0.1.2               </span>
+<span class="co">#&gt;  [93] processx_3.5.2                     pheatmap_1.0.12                   </span>
+<span class="co">#&gt;  [95] png_0.1-7                          viridisLite_0.4.0                 </span>
+<span class="co">#&gt;  [97] rjson_0.2.20                       bitops_1.0-7                      </span>
+<span class="co">#&gt;  [99] KernSmooth_2.23-20                 Biostrings_2.61.1                 </span>
+<span class="co">#&gt; [101] blob_1.2.1                         DelayedMatrixStats_1.15.0         </span>
+<span class="co">#&gt; [103] shape_1.4.6                        ismb2021tidytranscriptomics_0.10.0</span>
+<span class="co">#&gt; [105] parallelly_1.26.1                  beachmat_2.9.0                    </span>
+<span class="co">#&gt; [107] scales_1.1.1                       ica_1.0-2                         </span>
+<span class="co">#&gt; [109] memoise_2.0.0                      magrittr_2.0.1                    </span>
+<span class="co">#&gt; [111] plyr_1.8.6                         zlibbioc_1.39.0                   </span>
+<span class="co">#&gt; [113] compiler_4.1.0                     dqrng_0.3.0                       </span>
+<span class="co">#&gt; [115] BiocIO_1.3.0                       RColorBrewer_1.1-2                </span>
+<span class="co">#&gt; [117] clue_0.3-59                        fitdistrplus_1.1-5                </span>
+<span class="co">#&gt; [119] DESeq2_1.33.1                      Rsamtools_2.9.1                   </span>
+<span class="co">#&gt; [121] cli_3.0.0                          XVector_0.33.0                    </span>
+<span class="co">#&gt; [123] listenv_0.8.0                      pbapply_1.4-3                     </span>
+<span class="co">#&gt; [125] patchwork_1.1.1                    ps_1.6.0                          </span>
+<span class="co">#&gt; [127] mgcv_1.8-36                        MASS_7.3-54                       </span>
+<span class="co">#&gt; [129] tidyselect_1.1.1                   stringi_1.6.2                     </span>
+<span class="co">#&gt; [131] textshaping_0.3.5                  highr_0.9                         </span>
+<span class="co">#&gt; [133] yaml_2.2.1                         BiocSingular_1.9.1                </span>
+<span class="co">#&gt; [135] locfit_1.5-9.4                     grid_4.1.0                        </span>
+<span class="co">#&gt; [137] sass_0.4.0                         tools_4.1.0                       </span>
+<span class="co">#&gt; [139] future.apply_1.7.0                 parallel_4.1.0                    </span>
+<span class="co">#&gt; [141] circlize_0.4.13                    bluster_1.3.0                     </span>
+<span class="co">#&gt; [143] foreach_1.5.1                      metapod_1.1.0                     </span>
+<span class="co">#&gt; [145] gridExtra_2.3                      Rtsne_0.15                        </span>
+<span class="co">#&gt; [147] farver_2.1.0                       digest_0.6.27                     </span>
+<span class="co">#&gt; [149] BiocManager_1.30.16                FNN_1.1.3                         </span>
+<span class="co">#&gt; [151] shiny_1.6.0                        Rcpp_1.0.7                        </span>
+<span class="co">#&gt; [153] BiocVersion_3.14.0                 later_1.2.0                       </span>
+<span class="co">#&gt; [155] RcppAnnoy_0.0.18                   org.Hs.eg.db_3.13.0               </span>
+<span class="co">#&gt; [157] httr_1.4.2                         ComplexHeatmap_2.9.0              </span>
+<span class="co">#&gt; [159] colorspace_2.0-2                   tensor_1.5                        </span>
+<span class="co">#&gt; [161] reticulate_1.20                    XML_3.99-0.6                      </span>
+<span class="co">#&gt; [163] fs_1.5.0                           splines_4.1.0                     </span>
+<span class="co">#&gt; [165] uwot_0.1.10                        statmod_1.4.36                    </span>
+<span class="co">#&gt; [167] spatstat.utils_2.2-0               pkgdown_1.6.1                     </span>
+<span class="co">#&gt; [169] gh_1.3.0                           sessioninfo_1.1.1                 </span>
+<span class="co">#&gt; [171] systemfonts_1.0.2                  xtable_1.8-4                      </span>
+<span class="co">#&gt; [173] jsonlite_1.7.2                     testthat_3.0.4                    </span>
+<span class="co">#&gt; [175] R6_2.5.0                           pillar_1.6.1                      </span>
+<span class="co">#&gt; [177] htmltools_0.5.1.1                  mime_0.11                         </span>
+<span class="co">#&gt; [179] glue_1.4.2                         fastmap_1.1.0                     </span>
+<span class="co">#&gt; [181] BiocParallel_1.27.1                BiocNeighbors_1.11.0              </span>
+<span class="co">#&gt; [183] class_7.3-19                       interactiveDisplayBase_1.31.0     </span>
+<span class="co">#&gt; [185] codetools_0.2-18                   pkgbuild_1.2.0                    </span>
+<span class="co">#&gt; [187] utf8_1.2.1                         spatstat.sparse_2.0-0             </span>
+<span class="co">#&gt; [189] lattice_0.20-44                    bslib_0.2.5.1                     </span>
+<span class="co">#&gt; [191] ResidualMatrix_1.3.0               curl_4.3.2                        </span>
+<span class="co">#&gt; [193] leiden_0.3.8                       survival_3.2-11                   </span>
+<span class="co">#&gt; [195] limma_3.49.1                       rmarkdown_2.9                     </span>
+<span class="co">#&gt; [197] desc_1.3.0                         munsell_0.5.0                     </span>
+<span class="co">#&gt; [199] e1071_1.7-7                        GetoptLong_1.0.5                  </span>
+<span class="co">#&gt; [201] GenomeInfoDbData_1.2.6             iterators_1.0.13                  </span>
+<span class="co">#&gt; [203] reshape2_1.4.4                     gtable_0.3.0                      </span>
+<span class="co">#&gt; [205] spatstat.core_2.2-0</span></code></pre></div>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
@@ -1793,6 +1994,9 @@ Abbas, Alexander R, Kristen Wolslegel, Dhaya Seshasayee, Zora Modrusan, and Hila
 </div>
 <div id="ref-aran2019reference" class="csl-entry">
 Aran, Dvir, Agnieszka P Looney, Leqian Liu, Esther Wu, Valerie Fong, Austin Hsu, Suzanna Chak, et al. 2019. <span>“Reference-Based Analysis of Lung Single-Cell Sequencing Reveals a Transitional Profibrotic Macrophage.”</span> <em>Nature Immunology</em> 20 (2): 163–72.
+</div>
+<div id="ref-butler2018integrating" class="csl-entry">
+Butler, Andrew, Paul Hoffman, Peter Smibert, Efthymia Papalexi, and Rahul Satija. 2018. <span>“Integrating Single-Cell Transcriptomic Data Across Different Conditions, Technologies, and Species.”</span> <em>Nature Biotechnology</em> 36 (5): 411–20.
 </div>
 <div id="ref-Cai2020" class="csl-entry">
 Cai, Yi, Youchao Dai, Yejun Wang, Qianqing Yang, Jiubiao Guo, Cailing Wei, Weixin Chen, et al. 2020. <span>“Single-Cell Transcriptomics of Blood Reveals a Natural Killer Cell Subset Depletion in Tuberculosis.”</span> <em><span>EBioMedicine</span></em> 53 (March): 102686. <a href="https://doi.org/10.1016/j.ebiom.2020.102686">https://doi.org/10.1016/j.ebiom.2020.102686</a>.
@@ -1832,6 +2036,12 @@ Racle, Julien, Kaat de Jonge, Petra Baumgaertner, Daniel E Speiser, and David Gf
 </div>
 <div id="ref-robinson2010scaling" class="csl-entry">
 Robinson, Mark D, and Alicia Oshlack. 2010. <span>“A Scaling Normalization Method for Differential Expression Analysis of RNA-Seq Data.”</span> <em>Genome Biology</em> 11 (3): 1–9.
+</div>
+<div id="ref-stuart2019comprehensive" class="csl-entry">
+Stuart, Tim, Andrew Butler, Paul Hoffman, Christoph Hafemeister, Efthymia Papalexi, William M Mauck III, Yuhan Hao, Marlon Stoeckius, Peter Smibert, and Rahul Satija. 2019. <span>“Comprehensive Integration of Single-Cell Data.”</span> <em>Cell</em> 177 (7): 1888–1902.
+</div>
+<div id="ref-wickham2019welcome" class="csl-entry">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the Tidyverse.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686.
 </div>
 </div>
 </div>
