@@ -5,8 +5,8 @@ articles:
   background: background.html
   solutions: solutions.html
   tidytranscriptomics: tidytranscriptomics.html
-last_built: 2021-07-09T01:14Z
+last_built: 2021-07-09T17:39Z
 urls:
-  reference: https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/reference
-  article: https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles
+  reference: https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/reference
+  article: https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles
 
