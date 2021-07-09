@@ -1,4 +1,4 @@
-url: https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics
+url: https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics
 
 template:
   params:
@@ -23,5 +23,5 @@ navbar:
 
   right:
    - icon: fab fa-github
-     href: https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics
+     href: https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics
     

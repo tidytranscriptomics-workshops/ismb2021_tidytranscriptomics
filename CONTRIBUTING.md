@@ -20,7 +20,7 @@ By contributing, you agree that we may redistribute your work under [this reposi
 
 We will address your issues and/or assess your change proposal as promptly as we can.
 
-If you have any questions, you can reach us by creating an [Issue](https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics/issues/new/choose) in the workshop repository.
+If you have any questions, you can reach us by creating an [Issue](https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/issues/new/choose) in the workshop repository.
 
 # How can I contribute?
 
@@ -30,7 +30,7 @@ You can report mistakes or errors, add suggestions, additions, updates or improv
 
 ## Maintainers
 
-The maintainers are listed in the [DESCRIPTION](https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics/blob/master/DESCRIPTION) file.
+The maintainers are listed in the [DESCRIPTION](https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/blob/master/DESCRIPTION) file.
 
 They are responsible for making sure issues and change requests are looked at. They have the final say over what is included in the training material.
 

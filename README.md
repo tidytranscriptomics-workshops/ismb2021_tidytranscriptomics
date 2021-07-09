@@ -1,5 +1,5 @@
 <!-- badges: start -->
-[![.github/workflows/basic_checks.yaml](https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics/workflows/.github/workflows/basic_checks.yaml/badge.svg)](https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics/actions) 	
+[![.github/workflows/basic_checks.yaml](https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/workflows/.github/workflows/basic_checks.yaml/badge.svg)](https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/actions) 	
 <!-- badges: end -->
 
 # Introduction to Tidy Transcriptomics

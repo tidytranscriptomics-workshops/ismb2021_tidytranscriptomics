@@ -30,8 +30,7 @@ background-color: #fff4d4;
 
 # Workshop introduction
 
-Background information and setup instructions for this workshop can be found [here](https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/background.html).
-
+Background information and setup instructions for this workshop can be found [here](https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/background.html).
 
 [tidybulk](https://stemangiola.github.io/tidybulk/), [tidySummarizedExperiment](https://stemangiola.github.io/tidySummarizedExperiment/) and [tidySingleCellExperiment](https://stemangiola.github.io/tidySingleCellExperiment/) are part of the tidytranscriptomics suite that introduces a tidy approach to RNA sequencing data representation and analysis. The roadmap for the development of the tidytranscriptomics packages is shown in the figure below.
 
@@ -600,7 +599,7 @@ Exercise: What is the most abundant cell type overall in BRCA samples?
 
 # Part 2 Single-cell RNA sequencing with tidySingleCellExperiment
 
-A typical single-cell RNA sequencing workflow is shown in [Background information](https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/background.html#differences-between-bulk-and-single-cell-rna-sequencing-1). We don't have time in this workshop to go into depth on each step but you can read more about single-cell RNA sequencing workflows in the online book [Orchestrating Single-Cell Analysis with Bioconductor](http://bioconductor.org/books/release/OSCA/index.html).
+A typical single-cell RNA sequencing workflow is shown in [Background information](https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/background.html#differences-between-bulk-and-single-cell-rna-sequencing-1). We don't have time in this workshop to go into depth on each step but you can read more about single-cell RNA sequencing workflows in the online book [Orchestrating Single-Cell Analysis with Bioconductor](http://bioconductor.org/books/release/OSCA/index.html).
 
 In Part 1, we showed how we can study the cell-type composition of a biological sample using bulk RNA sequencing. Single-cell sequencing enables a more direct estimation of cell-type composition and gives a greater resolution. For bulk RNA sequencing, we need to infer the cell types using the abundance of transcripts in the whole sample. With single-cell RNA sequencing, we can directly measure the transcripts in each cell and then classify the cells into cell types.
 
@@ -1171,7 +1170,7 @@ pbmc_seurat %>% bind_rows(pbmc_seurat)
 
 # Contributing
 
-If you want to suggest improvements for this workshop or ask questions, you can do so as described [here](https://github.com/tidy-transcriptomics-workshops/ismb2021_tidytranscriptomics/blob/master/CONTRIBUTING.md).
+If you want to suggest improvements for this workshop or ask questions, you can do so as described [here](https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/blob/master/CONTRIBUTING.md).
 
 # Reproducibility
 

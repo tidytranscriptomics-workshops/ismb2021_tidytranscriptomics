@@ -24,7 +24,7 @@ knitr::include_graphics("../inst/vignettes/tidybulk_logo.png")
 
 # Schedule
 
-Schedule can be found [here](https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/index.html#time-outline).  
+Schedule can be found [here](https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/index.html#time-outline).  
 <br>
 **Format**: Hands on demos, exercises plus Q&A 
 **Interact**: Zoom chat
@@ -121,6 +121,6 @@ Easiest way to run this material. Only available during workshop. Many thanks to
 
 ## Local
 
-We will use the Cloud during the ISMBECCB workshop and this method is available if you want to run the material after the workshop. If you want to install on your own computer, see instructions [here](https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/index.html#workshop-package-installation). 
+We will use the Cloud during the ISMBECCB workshop and this method is available if you want to run the material after the workshop. If you want to install on your own computer, see instructions [here](https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/index.html#workshop-package-installation). 
 
-Alternatively, you can view the material at the workshop webpage [here](https://tidy-transcriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html). 
+Alternatively, you can view the material at the workshop webpage [here](https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html). 
