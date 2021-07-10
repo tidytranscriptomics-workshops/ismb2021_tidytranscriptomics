@@ -1,4 +1,5 @@
 <!-- badges: start -->
+[![DOI](https://zenodo.org/badge/379767139.svg)](https://zenodo.org/badge/latestdoi/379767139)
 [![.github/workflows/basic_checks.yaml](https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/workflows/.github/workflows/basic_checks.yaml/badge.svg)](https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/actions) 	
 <!-- badges: end -->
 
