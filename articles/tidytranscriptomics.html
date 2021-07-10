@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ismb2021tidytranscriptomics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
       </span>
     </div>
 
@@ -1442,16 +1442,16 @@ background-color: #fff4d4;
 <span class="co">#&gt; [90m# Features=51958 | Assays=reconstructed[39m</span>
 <span class="co">#&gt;    cell  label batch groups sample orig.ident nCount_RNA nFeature_RNA  S.Score</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;fct&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 CCAG… 3         1 1      GSE11… SeuratPro…       3421          979 -5.42e-2</span>
-<span class="co">#&gt;  2 ATGA… 6         1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
-<span class="co">#&gt;  3 TATG… 5         1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
-<span class="co">#&gt;  4 CATA… 12        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
-<span class="co">#&gt;  5 GAGG… 2         1 2      GSE11… SeuratPro…       2341          957 -3.74e-3</span>
-<span class="co">#&gt;  6 AGCT… 4         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
-<span class="co">#&gt;  7 TGAT… 1         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
-<span class="co">#&gt;  8 ACGA… 1         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
-<span class="co">#&gt;  9 CGGC… 3         1 1      GSE11… SeuratPro…       3500         1092 -6.87e-2</span>
-<span class="co">#&gt; 10 ATAG… 3         1 1      GSE11… SeuratPro…       3092          974 -1.24e-2</span>
+<span class="co">#&gt;  1 CCAG… 4         1 1      GSE11… SeuratPro…       3421          979 -5.42e-2</span>
+<span class="co">#&gt;  2 ATGA… 8         1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
+<span class="co">#&gt;  3 TATG… 7         1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
+<span class="co">#&gt;  4 CATA… 13        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
+<span class="co">#&gt;  5 GAGG… 1         1 2      GSE11… SeuratPro…       2341          957 -3.74e-3</span>
+<span class="co">#&gt;  6 AGCT… 5         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
+<span class="co">#&gt;  7 TGAT… 2         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
+<span class="co">#&gt;  8 ACGA… 2         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
+<span class="co">#&gt;  9 CGGC… 4         1 1      GSE11… SeuratPro…       3500         1092 -6.87e-2</span>
+<span class="co">#&gt; 10 ATAG… 4         1 1      GSE11… SeuratPro…       3092          974 -1.24e-2</span>
 <span class="co">#&gt; # … with 2,889 more rows, and 15 more variables: G2M.Score &lt;dbl&gt;, ident &lt;fct&gt;,</span>
 <span class="co">#&gt; #   sum &lt;dbl&gt;, detected &lt;int&gt;, subsets_Mito_sum &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   subsets_Mito_detected &lt;int&gt;, subsets_Mito_percent &lt;dbl&gt;, total &lt;dbl&gt;,</span>
@@ -1461,21 +1461,22 @@ background-color: #fff4d4;
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/count.html">count</a></span><span class="op">(</span><span class="va">label</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 12 x 2</span>
+<span class="co">#&gt; # A tibble: 13 x 2</span>
 <span class="co">#&gt;    label     n</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 1       367</span>
-<span class="co">#&gt;  2 2       419</span>
-<span class="co">#&gt;  3 3       339</span>
-<span class="co">#&gt;  4 4       508</span>
-<span class="co">#&gt;  5 5       276</span>
-<span class="co">#&gt;  6 6       524</span>
-<span class="co">#&gt;  7 7        21</span>
-<span class="co">#&gt;  8 8        74</span>
-<span class="co">#&gt;  9 9        41</span>
-<span class="co">#&gt; 10 10      290</span>
-<span class="co">#&gt; 11 11       14</span>
-<span class="co">#&gt; 12 12       26</span></code></pre></div>
+<span class="co">#&gt;  1 1       470</span>
+<span class="co">#&gt;  2 2       339</span>
+<span class="co">#&gt;  3 3        28</span>
+<span class="co">#&gt;  4 4       339</span>
+<span class="co">#&gt;  5 5       515</span>
+<span class="co">#&gt;  6 6        21</span>
+<span class="co">#&gt;  7 7       256</span>
+<span class="co">#&gt;  8 8       397</span>
+<span class="co">#&gt;  9 9        74</span>
+<span class="co">#&gt; 10 10       41</span>
+<span class="co">#&gt; 11 11      379</span>
+<span class="co">#&gt; 12 12       14</span>
+<span class="co">#&gt; 13 13       26</span></code></pre></div>
 </div>
 <div id="reduce-dimensions" class="section level2">
 <h2 class="hasAnchor">
@@ -1585,21 +1586,22 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">label</span>, <span class="va">first.labels</span><span class="op">)</span>
 
 <span class="va">cell_type</span>
-<span class="co">#&gt; # A tibble: 12 x 2</span>
+<span class="co">#&gt; # A tibble: 13 x 2</span>
 <span class="co">#&gt;    label first.labels   </span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;          </span>
-<span class="co">#&gt;  1 1     B-cells        </span>
-<span class="co">#&gt;  2 2     NK cells       </span>
-<span class="co">#&gt;  3 3     Monocytes      </span>
-<span class="co">#&gt;  4 4     Fibroblasts    </span>
-<span class="co">#&gt;  5 5     NK cells       </span>
-<span class="co">#&gt;  6 6     Skeletal muscle</span>
-<span class="co">#&gt;  7 7     Smooth muscle  </span>
-<span class="co">#&gt;  8 8     Neutrophils    </span>
-<span class="co">#&gt;  9 9     Macrophages    </span>
-<span class="co">#&gt; 10 10    Skeletal muscle</span>
-<span class="co">#&gt; 11 11    B-cells        </span>
-<span class="co">#&gt; 12 12    Monocytes</span></code></pre></div>
+<span class="co">#&gt;  1 1     NK cells       </span>
+<span class="co">#&gt;  2 2     B-cells        </span>
+<span class="co">#&gt;  3 3     B-cells        </span>
+<span class="co">#&gt;  4 4     Monocytes      </span>
+<span class="co">#&gt;  5 5     Fibroblasts    </span>
+<span class="co">#&gt;  6 6     Smooth muscle  </span>
+<span class="co">#&gt;  7 7     NK cells       </span>
+<span class="co">#&gt;  8 8     Skeletal muscle</span>
+<span class="co">#&gt;  9 9     Neutrophils    </span>
+<span class="co">#&gt; 10 10    Macrophages    </span>
+<span class="co">#&gt; 11 11    Smooth muscle  </span>
+<span class="co">#&gt; 12 12    B-cells        </span>
+<span class="co">#&gt; 13 13    Monocytes</span></code></pre></div>
 <p>We join the cell type information to our pbmc data.</p>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join cell type info</span>
@@ -1930,7 +1932,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;  [97] rjson_0.2.20                       bitops_1.0-7                      </span>
 <span class="co">#&gt;  [99] KernSmooth_2.23-20                 Biostrings_2.61.1                 </span>
 <span class="co">#&gt; [101] blob_1.2.1                         DelayedMatrixStats_1.15.0         </span>
-<span class="co">#&gt; [103] shape_1.4.6                        ismb2021tidytranscriptomics_0.10.1</span>
+<span class="co">#&gt; [103] shape_1.4.6                        ismb2021tidytranscriptomics_0.10.2</span>
 <span class="co">#&gt; [105] parallelly_1.26.1                  beachmat_2.9.0                    </span>
 <span class="co">#&gt; [107] scales_1.1.1                       ica_1.0-2                         </span>
 <span class="co">#&gt; [109] memoise_2.0.0                      magrittr_2.0.1                    </span>
