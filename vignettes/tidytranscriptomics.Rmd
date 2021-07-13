@@ -1295,6 +1295,10 @@ pbmc_seurat %>% bind_rows(pbmc_seurat)
 -   `tidySingleCellExperiment` is an invisible layer that operates on a `SingleCellExperiment` object and enables us to visualise and manipulate data as if it were a tidy data frame.
 -   `tidySingleCellExperiment` object is a `SingleCellExperiment object` so it can be used with any `SingleCellExperiment` compatible method
 
+# Feedback
+
+We and the ISMB Tutorial organisers would be very grateful if you could please complete the ISMB 2021 Tutorial Feedback survey so we can gather feedback on the effectiveness and usefulness of this ISMB Tutorial. The link to the survey is here: https://forms.gle/y5s1Lm5yjn5pGxHJ8. 
+
 # Contributing
 
 If you want to suggest improvements for this workshop or ask questions, you can do so as described [here](https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/blob/master/CONTRIBUTING.md).
