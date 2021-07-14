@@ -85,20 +85,226 @@
     
     
 <style type="text/css">
-# Formatting for exercises
-.exercise {
+# Formatting for challenges
+.challenge {
 background-color: #fff4d4;
 }
-.exercise code {
+.challenge code {
     background-color: #fff4d4;
 }
 </style>
 <div id="workshop-introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#workshop-introduction" class="anchor"></a>Workshop introduction</h1>
-<p>Background information and setup instructions for this workshop can be found <a href="https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/background.html">here</a>.</p>
+<p><img src="../inst/vignettes/tidybulk_logo.png" width="100px"></p>
+<div id="instructors" class="section level2">
+<h2 class="hasAnchor">
+<a href="#instructors" class="anchor"></a>Instructors</h2>
+<p>Dr. Stefano Mangiola is currently a Postdoctoral researcher in the laboratory of Prof. Tony Papenfuss. His background spans from biotechnology to bioinformatics and biostatistics. His research focuses on prostate and breast tumour microenvironment, the development of statistical model for the analysis of RNA sequencing data, and data analysis and visualisation interfaces.</p>
+<p>Dr. Maria Doyle is the Application and Training Specialist for Research Computing at the Peter MacCallum Cancer Centre in Melbourne, Australia. She has a PhD in Molecular Biology and currently works in bioinformatics and data science education and training. She is passionate about supporting researchers, reproducible research, open source and tidy data.</p>
+</div>
+<div id="overview" class="section level2">
+<h2 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h2>
+<p>This tutorial will present how to perform analysis of single-cell and bulk RNA sequencing data following the tidy data paradigm. The tidy data paradigm provides a standard way to organise data values within a dataset, where each variable is a column, each observation is a row, and data is manipulated using an easy-to-understand vocabulary. Most importantly, the data structure remains consistent across manipulation and analysis functions.</p>
+<p>This can be achieved with the integration of packages present in the R CRAN and Bioconductor ecosystem, including <a href="https://stemangiola.github.io/tidyseurat/">tidyseurat</a>, <a href="https://stemangiola.github.io/tidySingleCellExperiment/">tidySingleCellExperiment</a>, <a href="https://stemangiola.github.io/tidybulk/">tidybulk</a>, <a href="https://stemangiola.github.io/tidyHeatmap/">tidyHeatmap</a> and <a href="https://www.tidyverse.org/">tidyverse</a>. These packages are part of the tidytranscriptomics suite that introduces a tidy approach to RNA sequencing data representation and analysis.</p>
+<div id="pre-requisites" class="section level3">
+<h3 class="hasAnchor">
+<a href="#pre-requisites" class="anchor"></a>Pre-requisites</h3>
+<ul>
+<li>Basic knowledge of RStudio</li>
+<li>Some familiarity with tidyverse syntax</li>
+<li>Some familiarity with bulk RNA-seq and single cell RNA-seq</li>
+</ul>
+<p>Recommended Background Reading <a href="https://melbournebioinformatics.github.io/r-intro-biologists/intro_r_biologists.html">Introduction to R for Biologists</a></p>
+</div>
+<div id="time-outline" class="section level3">
+<h3 class="hasAnchor">
+<a href="#time-outline" class="anchor"></a>Time outline</h3>
+<p>The workshop format is a 4 hour session consisting of hands-on demos, exercises and Q&amp;A.</p>
+<p>Guide</p>
+<table class="table">
+<thead><tr class="header">
+<th>Activity</th>
+<th>Time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Part 1 Bulk RNA-seq Core</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><em>Hands-on Demos + Exercises</em></td>
+<td>90m</td>
+</tr>
+<tr class="odd">
+<td>    Differential gene expression</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>    Cell type composition analysis</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><em>Break</em></td>
+<td>30m</td>
+</tr>
+<tr class="even">
+<td><strong>Part 2 Single-cell RNA-seq</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><em>Hands-on Demos + Exercises</em></td>
+<td>90m</td>
+</tr>
+<tr class="even">
+<td>    Single-cell analysis</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>    Pseudobulk analysis</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><em>Q&amp;A</em></td>
+<td>30m</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>240m</td>
+</tr>
+</tbody>
+</table>
+<p><br><strong>Format</strong>: Hands on demos, exercises plus Q&amp;A <strong>Interact</strong>: Zoom chat <br><br></p>
+</div>
+<div id="workshop-goals-and-objectives" class="section level3">
+<h3 class="hasAnchor">
+<a href="#workshop-goals-and-objectives" class="anchor"></a>Workshop goals and objectives</h3>
+<p>In exploring and analysing RNA sequencing data, there are a number of key concepts, such as filtering, scaling, dimensionality reduction, hypothesis testing, clustering and visualisation, that need to be understood. These concepts can be intuitively explained to new users, however, (i) the use of a heterogeneous vocabulary and jargon by methodologies/algorithms/packages, (ii) the complexity of data wrangling, and (iii) the coding burden, impede effective learning of the statistics and biology underlying an informed RNA sequencing analysis.</p>
+<p>The tidytranscriptomics approach to RNA sequencing data analysis abstracts out the coding-related complexity and provides tools that use an intuitive and jargon-free vocabulary, enabling focus on the statistical and biological challenges.</p>
+<div id="learning-goals" class="section level4">
+<h4 class="hasAnchor">
+<a href="#learning-goals" class="anchor"></a>Learning goals</h4>
+<ul>
+<li>To understand the key concepts and steps of RNA sequencing data analysis</li>
+<li>To approach data representation and analysis though a tidy data paradigm, integrating tidyverse with tidybulk, tidyseurat, tidySingleCellExperiment and tidyHeatmap.</li>
+</ul>
+</div>
+<div id="learning-objectives" class="section level4">
+<h4 class="hasAnchor">
+<a href="#learning-objectives" class="anchor"></a>Learning objectives</h4>
+<ul>
+<li>Recall the key concepts of RNA sequencing data analysis</li>
+<li>Apply the concepts to publicly available data</li>
+<li>Create plots that summarise the information content of the data and analysis results</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="what-is-transcriptomics" class="section level2">
+<h2 class="hasAnchor">
+<a href="#what-is-transcriptomics" class="anchor"></a>What is transcriptomics?</h2>
+<p>“The transcriptome is the set of all RNA transcripts, including coding and non-coding, in an individual or a population of cells”</p>
+<p><em>Wikipedia</em></p>
+<p><img src="../inst/vignettes/transcriptomics.jpg" width="600px"></p>
+</div>
+<div id="why-use-transcriptomics" class="section level2">
+<h2 class="hasAnchor">
+<a href="#why-use-transcriptomics" class="anchor"></a>Why use transcriptomics?</h2>
+<ul>
+<li>Genome (DNA) pretty stable</li>
+<li>Proteome (proteins) harder to measure</li>
+<li>Transcriptome (RNA) can measure changes in expression of thousands of coding and non-coding transcripts <br><br>
+</li>
+</ul>
+</div>
+<div id="possible-experimental-design" class="section level2">
+<h2 class="hasAnchor">
+<a href="#possible-experimental-design" class="anchor"></a>Possible experimental design</h2>
+<p><img src="../inst/vignettes/ScreenShot2.png" width="600px"></p>
+</div>
+<div id="how-does-transcriptomics-work" class="section level2">
+<h2 class="hasAnchor">
+<a href="#how-does-transcriptomics-work" class="anchor"></a>How does transcriptomics work?</h2>
+<p><img src="../inst/vignettes/ScreenShot3.png" width="600px"></p>
+</div>
+<div id="types-of-transcriptomic-analyses" class="section level2">
+<h2 class="hasAnchor">
+<a href="#types-of-transcriptomic-analyses" class="anchor"></a>Types of transcriptomic analyses</h2>
+<ul>
+<li>
+<strong>Differential expression</strong><br>
+</li>
+<li>
+<strong>Cell type composition</strong><br>
+</li>
+<li>Alternative splicing<br>
+</li>
+<li>Novel transcript discovery<br>
+</li>
+<li>Fusions identification<br>
+</li>
+<li>Variant analysis<br><br> Topics in bold we will see in this workshop <br><br>
+</li>
+</ul>
+</div>
+<div id="bulk-rna-sequencing-differential-expression-workflow" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bulk-rna-sequencing-differential-expression-workflow" class="anchor"></a>Bulk RNA sequencing differential expression workflow</h2>
+<p><img src="../inst/vignettes/bulk_RNAseq_pipeline.png" width="600px"></p>
+</div>
+<div id="differences-between-bulk-and-single-cell-rna-sequencing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#differences-between-bulk-and-single-cell-rna-sequencing" class="anchor"></a>Differences between bulk and single-cell RNA sequencing</h2>
+<p><img src="../inst/vignettes/bulk_vs_single.jpg" width="600px"></p>
+<p><em>Shalek and Benson, 2017</em></p>
+</div>
+<div id="single-cell-rna-sequencing-analysis-workflow" class="section level2">
+<h2 class="hasAnchor">
+<a href="#single-cell-rna-sequencing-analysis-workflow" class="anchor"></a>Single-cell RNA sequencing analysis workflow</h2>
+<p><img src="../inst/vignettes/single_cell_RNAseq_pipeline.png" width="600px"></p>
+</div>
+<div id="tidy-data-and-the-tidyverse" class="section level2">
+<h2 class="hasAnchor">
+<a href="#tidy-data-and-the-tidyverse" class="anchor"></a>Tidy data and the tidyverse</h2>
+<p>This workshop demonstrates how to perform analysis of RNA sequencing data following the tidy data paradigm <span class="citation">(Wickham and others 2014)</span>. The tidy data paradigm provides a standard way to organise data values within a dataset, where each variable is a column, each observation is a row, and data is manipulated using an easy-to-understand vocabulary. Most importantly, the data structure remains consistent across manipulation and analysis functions. For more information, see the R for Data Science chapter on tidy data <a href="https://r4ds.had.co.nz/tidy-data.html">here</a>.</p>
+<div class="figure">
+<img src="../inst/vignettes/tidydata_1.jpg" alt="[Tidy data for efficiency, reproducibilty and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/)" width="500px"><p class="caption">
+<a href="https://www.openscapes.org/blog/2020/10/12/tidy-data/">Tidy data for efficiency, reproducibilty and collaboration</a>
+</p>
+</div>
+<p>The tidyverse is a collection of packages that can be used to tidy, manipulate and visualise data. We’ll use many functions from the tidyverse in this workshop, such as <code>filter</code>, <code>select</code>, <code>mutate</code>, <code>pivot_longer</code> and <code>ggplot</code>.</p>
+<div class="figure">
+<img src="../inst/vignettes/tidyverse.png" alt="Adapted from [Getting Started with tidyverse in R](https://www.storybench.org/getting-started-with-tidyverse-in-r/)" width="500px"><p class="caption">
+Adapted from <a href="https://www.storybench.org/getting-started-with-tidyverse-in-r/">Getting Started with tidyverse in R</a>
+</p>
+</div>
+</div>
+<div id="getting-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a>Getting started</h2>
+<div id="cloud" class="section level3">
+<h3 class="hasAnchor">
+<a href="#cloud" class="anchor"></a>Cloud</h3>
+<p>Easiest way to run this material. Only available during workshop. Many thanks to the Australian Research Data Commons (ARDC) for providing RStudio in the Australian Nectar Research Cloud and Andy Botting from ARDC for helping to set up.</p>
+<ul>
+<li>Login to one of the servers (e.g. <a href="https://rstudio1.tidytranscriptomics-workshop.cloud.edu.au/rstudio/" class="uri">https://rstudio1.tidytranscriptomics-workshop.cloud.edu.au/rstudio/</a>) with one of the usernames and passwords from the spreadsheet provided at the workshop. Add your name into the spreadsheet beside the login you’re using.</li>
+<li>Open <code>tidytranscriptomics.Rmd</code> in <code>ismb2021_tidytranscriptomcs/vignettes</code> folder</li>
+</ul>
+</div>
+<div id="local" class="section level3">
+<h3 class="hasAnchor">
+<a href="#local" class="anchor"></a>Local</h3>
+<p>We will use the Cloud during the ISMBECCB workshop and this method is available if you want to run the material after the workshop. If you want to install on your own computer, see instructions <a href="https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/index.html#workshop-package-installation">here</a>.</p>
+<p>Alternatively, you can view the material at the workshop webpage <a href="https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html">here</a>.</p>
+</div>
+</div>
+<div id="what-is-tidytranscriptomics" class="section level2">
+<h2 class="hasAnchor">
+<a href="#what-is-tidytranscriptomics" class="anchor"></a>What is tidytranscriptomics?</h2>
 <p><a href="https://stemangiola.github.io/tidybulk/">tidybulk</a>, <a href="https://stemangiola.github.io/tidySummarizedExperiment/">tidySummarizedExperiment</a> and <a href="https://stemangiola.github.io/tidySingleCellExperiment/">tidySingleCellExperiment</a> are part of the tidytranscriptomics suite that introduces a tidy approach to RNA sequencing data representation and analysis. The roadmap for the development of the tidytranscriptomics packages is shown in the figure below.</p>
 <p><img src="../inst/vignettes/roadmap.png" width="600px"></p>
+</div>
 </div>
 <div id="part-1-bulk-rna-sequencing-with-tidysummarizedexperiment-and-tidybulk" class="section level1">
 <h1 class="hasAnchor">
@@ -399,7 +605,7 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="va">custom_theme</span>
 <span class="co">#&gt; tidySummarizedExperiment says: A data frame is returned for independent data analysis.</span></code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-17-1.png" width="70%"></p>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-26-1.png" width="70%"></p>
 <p>In this dataset, the distributions of the counts are not very different to each other before scaling, but scaling does make the distributions more similar. If we saw a sample with a very different distribution, we may need to investigate it.</p>
 <p>As tidybulk smoothly integrates with ggplot2 and other tidyverse packages it can save on typing and make plots easier to generate. Compare the code for creating density plots with tidybulk versus standard base R below (standard code adapted from <span class="citation">(Law et al. 2016)</span>).</p>
 <p><strong>tidybulk</strong></p>
@@ -471,8 +677,7 @@ background-color: #fff4d4;
 <span class="co">#&gt; 1                  0.353     1</span>
 <span class="co">#&gt; 2                  0.312     2</span>
 <span class="co">#&gt; tidybulk says: to access the raw results do `attr(..., "internals")$PCA`</span></code></pre></div>
-<pre class="exercise_1 exercise"><code>Exercise: What fraction of variance is explained by PC3?
-      See ?reduce_dimensions for how to get additional dimensions.</code></pre>
+<pre class="challenge_1 challenge"><code>Challenge: What fraction of variance is explained by PC3?</code></pre>
 <p>This joins the result to the counts’ object.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Take a look</span>
@@ -521,7 +726,7 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html">geom_text_repel</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">sample_name</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
   <span class="va">custom_theme</span></code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-24-1.png" width="70%"></p>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-33-1.png" width="70%"></p>
 <p>The samples group by treatment on PC1 which is what we hope to see. PC2 separates the N080611 cell line from the other samples, indicating a greater difference between that cell line and the others.</p>
 </div>
 <div id="hierarchical-clustering-with-heatmaps" class="section level3">
@@ -553,7 +758,7 @@ background-color: #fff4d4;
 <span class="co">#&gt; Warning in add_annotation(., !!.column, type = "tile", palette_discrete</span>
 <span class="co">#&gt; = .data@data %&gt;% : tidyHeatmap says: nested/list column are present in your data</span>
 <span class="co">#&gt; frame and have been dropped as their unicity cannot be identified by dplyr.</span></code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-25-1.png" width="70%"></p>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-34-1.png" width="70%"></p>
 <p>In the heatmap, we can see the samples cluster into two groups, treated and untreated, for three of the cell lines, and the cell line (N080611) again is further away from the others.</p>
 <p>Tidybulk enables a simplified way of generating a clustered heatmap of variable genes. Compare the code below for tidybulk versus a base R method.</p>
 <p><strong>base R using edgeR</strong></p>
@@ -651,8 +856,8 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://rdrr.io/pkg/tidybulk/man/pivot_transcript-methods.html">pivot_transcript</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySummarizedExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">edgerQLT_PValue</span>, <span class="va">edgerLR_PValue</span>, <span class="va">voom_P.Value</span>, <span class="va">deseq2_pvalue</span>, <span class="va">feature</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-28-1.png" width="700"></p>
-<pre class="exercise_2 exercise"><code>Which method detects the most differentially abundant transcripts, p value adjusted for multiple testing &lt;  0.05 (FDR, adj.P.Val, padj)?</code></pre>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-37-1.png" width="700"></p>
+<pre class="challenge_2 challenge"><code>Challenge: Which method detects the most differentially abundant transcripts, p value adjusted for multiple testing &lt;  0.05 (FDR, adj.P.Val, padj)?</code></pre>
 </div>
 <div id="single-method" class="section level3">
 <h3 class="hasAnchor">
@@ -697,7 +902,7 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>trans <span class="op">=</span> <span class="st">"log10_reverse"</span><span class="op">)</span> <span class="op">+</span>
   <span class="va">custom_theme</span></code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-32-1.png" width="70%"></p>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-41-1.png" width="70%"></p>
 <p>We’ll extract the symbols for a few top genes (by P value) to use in a more informative volcano plot, integrating some of the packages in tidyverse.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">topgenes_symbols</span> <span class="op">&lt;-</span>
@@ -729,7 +934,7 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_size.html">scale_size_discrete</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 <span class="co">#&gt; which will replace the existing scale.</span></code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-34-1.png" width="70%"></p>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-43-1.png" width="70%"></p>
 </div>
 <div id="automatic-bibliography" class="section level2">
 <h2 class="hasAnchor">
@@ -887,8 +1092,8 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://rdrr.io/pkg/tidySummarizedExperiment/man/ggplot2-methods.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sample</span>, y <span class="op">=</span> <span class="va">proportion</span>, fill <span class="op">=</span> <span class="va">cell_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span>
   <span class="va">custom_theme</span></code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-39-1.png" width="700"></p>
-<pre class="exercise_3 exercise"><code>Exercise: What is the most abundant cell type overall in BRCA samples?</code></pre>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-48-1.png" width="700"></p>
+<pre class="challenge_3 challenge"><code>Challenge: What is the most abundant cell type overall in BRCA samples?</code></pre>
 </div>
 <div id="key-points" class="section level2">
 <h2 class="hasAnchor">
@@ -907,7 +1112,7 @@ background-color: #fff4d4;
 <div id="part-2-single-cell-rna-sequencing-with-tidysinglecellexperiment" class="section level1">
 <h1 class="hasAnchor">
 <a href="#part-2-single-cell-rna-sequencing-with-tidysinglecellexperiment" class="anchor"></a>Part 2 Single-cell RNA sequencing with tidySingleCellExperiment</h1>
-<p>A typical single-cell RNA sequencing workflow is shown in <a href="https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/background.html#differences-between-bulk-and-single-cell-rna-sequencing-1">Background information</a>. We don’t have time in this workshop to go into depth on each step but you can read more about single-cell RNA sequencing workflows in the online book <a href="http://bioconductor.org/books/release/OSCA/index.html">Orchestrating Single-Cell Analysis with Bioconductor</a>.</p>
+<p>A typical single-cell RNA sequencing workflow is shown in the <a href="https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html#differences-between-bulk-and-single-cell-rna-sequencing-1">Workshop Introduction</a> section. We don’t have time in this workshop to go into depth on each step but you can read more about single-cell RNA sequencing workflows in the online book <a href="http://bioconductor.org/books/release/OSCA/index.html">Orchestrating Single-Cell Analysis with Bioconductor</a>.</p>
 <p>In Part 1, we showed how we can study the cell-type composition of a biological sample using bulk RNA sequencing. Single-cell sequencing enables a more direct estimation of cell-type composition and gives a greater resolution. For bulk RNA sequencing, we need to infer the cell types using the abundance of transcripts in the whole sample. With single-cell RNA sequencing, we can directly measure the transcripts in each cell and then classify the cells into cell types.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># load packages</span>
@@ -1298,7 +1503,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;  8 SCP424_pbmc1 &lt;SnglCllE[,300]&gt;</span>
 <span class="co">#&gt;  9 SCP424_pbmc2 &lt;SnglCllE[,300]&gt;</span>
 <span class="co">#&gt; 10 SCP591       &lt;SnglCllE[,300]&gt;</span></code></pre></div>
-<pre class="exercise_4 exercise"><code>Exercise: Using the nest examples above, can you create a column that includes the mitochondrial information?</code></pre>
+<pre class="challenge_4 challenge"><code>Challenge: Using the nest examples above, can you create a column that includes the mitochondrial information?</code></pre>
 <p>We want to obtain this table</p>
 <pre><code># A tibble: 10 x 3
    dataset      data             mitochondrion_info
@@ -1391,7 +1596,7 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">50</span>, hjust <span class="op">=</span> <span class="fl">1</span>, vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: A data frame is returned for independent data analysis.</span></code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-66-1.png" width="700"></p>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-75-1.png" width="700"></p>
 <p>In the faceted plot, “detected” is the number of genes in each of the 10 datasets, “sum” is the total counts.</p>
 <p>We then proceed to filter out cells with high mitochondrial content.</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
@@ -1442,16 +1647,16 @@ background-color: #fff4d4;
 <span class="co">#&gt; [90m# Features=51958 | Assays=reconstructed[39m</span>
 <span class="co">#&gt;    cell  label batch groups sample orig.ident nCount_RNA nFeature_RNA  S.Score</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;fct&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 CCAG… 3         1 1      GSE11… SeuratPro…       3421          979 -5.42e-2</span>
-<span class="co">#&gt;  2 ATGA… 6         1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
+<span class="co">#&gt;  1 CCAG… 5         1 1      GSE11… SeuratPro…       3421          979 -5.42e-2</span>
+<span class="co">#&gt;  2 ATGA… 3         1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
 <span class="co">#&gt;  3 TATG… 7         1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
-<span class="co">#&gt;  4 CATA… 12        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
+<span class="co">#&gt;  4 CATA… 11        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
 <span class="co">#&gt;  5 GAGG… 1         1 2      GSE11… SeuratPro…       2341          957 -3.74e-3</span>
 <span class="co">#&gt;  6 AGCT… 4         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
 <span class="co">#&gt;  7 TGAT… 2         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
 <span class="co">#&gt;  8 ACGA… 2         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
-<span class="co">#&gt;  9 CGGC… 3         1 1      GSE11… SeuratPro…       3500         1092 -6.87e-2</span>
-<span class="co">#&gt; 10 ATAG… 3         1 1      GSE11… SeuratPro…       3092          974 -1.24e-2</span>
+<span class="co">#&gt;  9 CGGC… 5         1 1      GSE11… SeuratPro…       3500         1092 -6.87e-2</span>
+<span class="co">#&gt; 10 ATAG… 5         1 1      GSE11… SeuratPro…       3092          974 -1.24e-2</span>
 <span class="co">#&gt; # … with 2,889 more rows, and 15 more variables: G2M.Score &lt;dbl&gt;, ident &lt;fct&gt;,</span>
 <span class="co">#&gt; #   sum &lt;dbl&gt;, detected &lt;int&gt;, subsets_Mito_sum &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   subsets_Mito_detected &lt;int&gt;, subsets_Mito_percent &lt;dbl&gt;, total &lt;dbl&gt;,</span>
@@ -1461,21 +1666,20 @@ background-color: #fff4d4;
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/count.html">count</a></span><span class="op">(</span><span class="va">label</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 12 x 2</span>
+<span class="co">#&gt; # A tibble: 11 x 2</span>
 <span class="co">#&gt;    label     n</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 1       465</span>
+<span class="co">#&gt;  1 1       480</span>
 <span class="co">#&gt;  2 2       367</span>
-<span class="co">#&gt;  3 3       339</span>
-<span class="co">#&gt;  4 4       504</span>
-<span class="co">#&gt;  5 5        21</span>
-<span class="co">#&gt;  6 6       493</span>
-<span class="co">#&gt;  7 7       255</span>
+<span class="co">#&gt;  3 3       662</span>
+<span class="co">#&gt;  4 4       619</span>
+<span class="co">#&gt;  5 5       339</span>
+<span class="co">#&gt;  6 6        21</span>
+<span class="co">#&gt;  7 7       256</span>
 <span class="co">#&gt;  8 8        74</span>
 <span class="co">#&gt;  9 9        41</span>
 <span class="co">#&gt; 10 10       14</span>
-<span class="co">#&gt; 11 11      300</span>
-<span class="co">#&gt; 12 12       26</span></code></pre></div>
+<span class="co">#&gt; 11 11       26</span></code></pre></div>
 </div>
 <div id="reduce-dimensions" class="section level2">
 <h2 class="hasAnchor">
@@ -1505,7 +1709,7 @@ background-color: #fff4d4;
 <span class="co">#&gt; #   high_mitochondrion &lt;lgl&gt;, dataset &lt;chr&gt;, label &lt;fct&gt;, corrected1 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   corrected2 &lt;dbl&gt;, corrected3 &lt;dbl&gt;, corrected4 &lt;dbl&gt;, corrected5 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   UMAP1 &lt;dbl&gt;, UMAP2 &lt;dbl&gt;</span></code></pre></div>
-<pre class="exercise_5 exercise"><code>Without creating any variable, check if the variability explained by the first UMAP dimension when calculating 2 components (ncomponents = 2) is equal/more/less than when calculating 3 components.</code></pre>
+<pre class="challenge_5 challenge"><code>Without creating any variable, check if the variability explained by the first UMAP dimension when calculating 2 components (ncomponents = 2) is equal/more/less than when calculating 3 components.</code></pre>
 <p><strong>Tip: your can use as_tibble() to convert the tibble abstraction to a simple (and light) cell-wise tibble</strong></p>
 <div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># &lt;INSERT THE CODE HERE FROM THE SOLUTIONS&gt;</span></code></pre></div>
@@ -1552,7 +1756,7 @@ background-color: #fff4d4;
     colour_columns_by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"label"</span><span class="op">)</span>, 
     exprs_values  <span class="op">=</span> <span class="st">"reconstructed"</span>
   <span class="op">)</span> </code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-71-1.png" width="700"></p>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-80-1.png" width="700"></p>
 </div>
 <div id="automatic-cell-type-classification" class="section level3">
 <h3 class="hasAnchor">
@@ -1585,21 +1789,20 @@ background-color: #fff4d4;
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">label</span>, <span class="va">first.labels</span><span class="op">)</span>
 
 <span class="va">cell_type</span>
-<span class="co">#&gt; # A tibble: 12 x 2</span>
+<span class="co">#&gt; # A tibble: 11 x 2</span>
 <span class="co">#&gt;    label first.labels   </span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;          </span>
 <span class="co">#&gt;  1 1     NK cells       </span>
 <span class="co">#&gt;  2 2     B-cells        </span>
-<span class="co">#&gt;  3 3     Monocytes      </span>
+<span class="co">#&gt;  3 3     Skeletal muscle</span>
 <span class="co">#&gt;  4 4     Fibroblasts    </span>
-<span class="co">#&gt;  5 5     Smooth muscle  </span>
-<span class="co">#&gt;  6 6     Skeletal muscle</span>
+<span class="co">#&gt;  5 5     Monocytes      </span>
+<span class="co">#&gt;  6 6     Smooth muscle  </span>
 <span class="co">#&gt;  7 7     NK cells       </span>
 <span class="co">#&gt;  8 8     Neutrophils    </span>
 <span class="co">#&gt;  9 9     Macrophages    </span>
 <span class="co">#&gt; 10 10    B-cells        </span>
-<span class="co">#&gt; 11 11    Skeletal muscle</span>
-<span class="co">#&gt; 12 12    Monocytes</span></code></pre></div>
+<span class="co">#&gt; 11 11    Monocytes</span></code></pre></div>
 <p>We join the cell type information to our pbmc data.</p>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join cell type info</span>
@@ -1630,9 +1833,9 @@ background-color: #fff4d4;
 <span class="co">#&gt; #   dataset &lt;chr&gt;, label &lt;chr&gt;, corrected1 &lt;dbl&gt;, corrected2 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   corrected3 &lt;dbl&gt;, corrected4 &lt;dbl&gt;, corrected5 &lt;dbl&gt;, UMAP1 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   UMAP2 &lt;dbl&gt;, UMAP3 &lt;dbl&gt;</span></code></pre></div>
-<div id="exercise-use-tidyverse-grammar-to-identify-the-most-abundant-cell-type" class="section level4">
+<div id="challenge-use-tidyverse-grammar-to-identify-the-most-abundant-cell-type" class="section level4">
 <h4 class="hasAnchor">
-<a href="#exercise-use-tidyverse-grammar-to-identify-the-most-abundant-cell-type" class="anchor"></a>Exercise: use tidyverse grammar to identify the most abundant cell type</h4>
+<a href="#challenge-use-tidyverse-grammar-to-identify-the-most-abundant-cell-type" class="anchor"></a>Challenge: use tidyverse grammar to identify the most abundant cell type</h4>
 <div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># &lt;INSERT THE CODE HERE FROM THE SOLUTIONS&gt;</span></code></pre></div>
 </div>
@@ -1825,6 +2028,11 @@ background-color: #fff4d4;
 </ul>
 </div>
 </div>
+<div id="feedback" class="section level1">
+<h1 class="hasAnchor">
+<a href="#feedback" class="anchor"></a>Feedback</h1>
+<p>We and the ISMB Tutorial organisers would be very grateful if you could please complete the ISMB 2021 Tutorial Feedback survey so we can gather feedback on the effectiveness and usefulness of this ISMB Tutorial. The link to the survey is here: <a href="https://forms.gle/y5s1Lm5yjn5pGxHJ8" class="uri">https://forms.gle/y5s1Lm5yjn5pGxHJ8</a>.</p>
+</div>
 <div id="contributing" class="section level1">
 <h1 class="hasAnchor">
 <a href="#contributing" class="anchor"></a>Contributing</h1>
@@ -1861,7 +2069,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;  [5] ggbeeswarm_0.6.0               celldex_1.3.0                 </span>
 <span class="co">#&gt;  [7] EnsDb.Hsapiens.v86_2.99.0      ensembldb_2.17.2              </span>
 <span class="co">#&gt;  [9] AnnotationFilter_1.17.0        GenomicFeatures_1.45.0        </span>
-<span class="co">#&gt; [11] AnnotationDbi_1.55.1           SingleR_1.7.0                 </span>
+<span class="co">#&gt; [11] AnnotationDbi_1.55.1           SingleR_1.7.1                 </span>
 <span class="co">#&gt; [13] batchelor_1.9.0                igraph_1.2.6                  </span>
 <span class="co">#&gt; [15] scran_1.21.1                   scater_1.21.2                 </span>
 <span class="co">#&gt; [17] scuttle_1.3.0                  SingleCellExperiment_1.15.1   </span>
@@ -1900,7 +2108,7 @@ background-color: #fff4d4;
 <span class="co">#&gt;  [37] progress_1.2.2                     dendextend_1.15.1                 </span>
 <span class="co">#&gt;  [39] dbplyr_2.1.1                       DBI_1.1.1                         </span>
 <span class="co">#&gt;  [41] geneplotter_1.71.0                 htmlwidgets_1.5.3                 </span>
-<span class="co">#&gt;  [43] reshape_0.8.8                      spatstat.geom_2.2-0               </span>
+<span class="co">#&gt;  [43] reshape_0.8.8                      spatstat.geom_2.2-2               </span>
 <span class="co">#&gt;  [45] ellipsis_0.3.2                     RSpectra_0.16-0                   </span>
 <span class="co">#&gt;  [47] annotate_1.71.0                    deldir_0.2-10                     </span>
 <span class="co">#&gt;  [49] biomaRt_2.49.2                     sparseMatrixStats_1.5.0           </span>
@@ -1943,7 +2151,7 @@ background-color: #fff4d4;
 <span class="co">#&gt; [123] listenv_0.8.0                      pbapply_1.4-3                     </span>
 <span class="co">#&gt; [125] patchwork_1.1.1                    ps_1.6.0                          </span>
 <span class="co">#&gt; [127] mgcv_1.8-36                        MASS_7.3-54                       </span>
-<span class="co">#&gt; [129] tidyselect_1.1.1                   stringi_1.6.2                     </span>
+<span class="co">#&gt; [129] tidyselect_1.1.1                   stringi_1.7.2                     </span>
 <span class="co">#&gt; [131] textshaping_0.3.5                  highr_0.9                         </span>
 <span class="co">#&gt; [133] yaml_2.2.1                         BiocSingular_1.9.1                </span>
 <span class="co">#&gt; [135] locfit_1.5-9.4                     grid_4.1.0                        </span>
@@ -1969,7 +2177,7 @@ background-color: #fff4d4;
 <span class="co">#&gt; [175] R6_2.5.0                           pillar_1.6.1                      </span>
 <span class="co">#&gt; [177] htmltools_0.5.1.1                  mime_0.11                         </span>
 <span class="co">#&gt; [179] glue_1.4.2                         fastmap_1.1.0                     </span>
-<span class="co">#&gt; [181] BiocParallel_1.27.1                BiocNeighbors_1.11.0              </span>
+<span class="co">#&gt; [181] BiocParallel_1.27.2                BiocNeighbors_1.11.0              </span>
 <span class="co">#&gt; [183] class_7.3-19                       interactiveDisplayBase_1.31.0     </span>
 <span class="co">#&gt; [185] codetools_0.2-18                   pkgbuild_1.2.0                    </span>
 <span class="co">#&gt; [187] utf8_1.2.1                         spatstat.sparse_2.0-0             </span>
@@ -2040,6 +2248,9 @@ Stuart, Tim, Andrew Butler, Paul Hoffman, Christoph Hafemeister, Efthymia Papale
 </div>
 <div id="ref-wickham2019welcome" class="csl-entry">
 Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the Tidyverse.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686.
+</div>
+<div id="ref-wickham2014tidy" class="csl-entry">
+Wickham, Hadley, and others. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software</em> 59 (10): 1–23.
 </div>
 </div>
 </div>
