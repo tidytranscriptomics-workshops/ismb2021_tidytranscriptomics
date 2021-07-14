@@ -19,11 +19,11 @@ knitr::opts_chunk$set(
 ```
 
 ```{css, echo = FALSE}
-# Formatting for exercises
-.exercise {
+# Formatting for challenges
+.challenge {
 background-color: #fff4d4;
 }
-.exercise code {
+.challenge code {
 	background-color: #fff4d4;
 }
 ```
@@ -476,9 +476,8 @@ counts_scal_PCA <-
 ```
 
 
-```{exercise_1 class.source="exercise"}
-Exercise: What fraction of variance is explained by PC3?
-      See ?reduce_dimensions for how to get additional dimensions.
+```{challenge_1 class.source="challenge"}
+Challenge: What fraction of variance is explained by PC3?
 ```
 
 This joins the result to the counts' object.
@@ -612,8 +611,8 @@ de_all %>%
   ggpairs(1:4)
 ```
 
-```{exercise_2 class.source="exercise"}
-Which method detects the most differentially abundant transcripts, p value adjusted for multiple testing <  0.05 (FDR, adj.P.Val, padj)?
+```{challenge_2 class.source="challenge"}
+Challenge: Which method detects the most differentially abundant transcripts, p value adjusted for multiple testing <  0.05 (FDR, adj.P.Val, padj)?
 ```
 
 ### Single method
@@ -749,8 +748,8 @@ BRCA_cell_type_long %>%
   custom_theme
 ```
 
-```{exercise_3 class.source="exercise"}
-Exercise: What is the most abundant cell type overall in BRCA samples?
+```{challenge_3 class.source="challenge"}
+Challenge: What is the most abundant cell type overall in BRCA samples?
 ```
 
 ## Key Points
@@ -991,8 +990,8 @@ pbmc_nested <- pbmc %>%
 pbmc_nested
 ```
 
-```{exercise_4 class.source="exercise"}
-Exercise: Using the nest examples above, can you create a column that includes the mitochondrial information?
+```{challenge_4 class.source="challenge"}
+Challenge: Using the nest examples above, can you create a column that includes the mitochondrial information?
 ```
 
 We want to obtain this table
@@ -1138,7 +1137,7 @@ pbmc %>%
 runUMAP(ncomponents = 2, dimred="corrected") # from scater
 ```
 
-```{exercise_5 class.source="exercise"}
+```{challenge_5 class.source="challenge"}
 Without creating any variable, check if the variability explained by the first UMAP dimension when calculating 2 components (ncomponents = 2) is equal/more/less than when calculating 3 components.
 ```
 
@@ -1240,7 +1239,7 @@ pbmc <-
 pbmc %>% select(cell, first.labels, everything())
 ```
 
-#### Exercise: use tidyverse grammar to identify the most abundant cell type
+#### Challenge: use tidyverse grammar to identify the most abundant cell type
 
 ```{r}
 # <INSERT THE CODE HERE FROM THE SOLUTIONS>
