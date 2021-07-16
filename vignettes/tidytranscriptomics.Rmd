@@ -1257,8 +1257,8 @@ To do this, we will use a helper function called `aggregate_cells`, available in
 
 # Aggregate
 pbmc_bulk <-
-  ismb2021tidytranscriptomics::pbmc %>%
-  aggregate_cells(file)
+  pbmc %>%
+  ismb2021tidytranscriptomics::aggregate_cells(file)
 
 pbmc_bulk
 ```
