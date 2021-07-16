@@ -1253,12 +1253,13 @@ It is sometime useful to aggregate cell-wise transcript abundance into pseudobul
 
 To do this, we will use a helper function called `aggregate_cells`, available in this workshop package, to create a group for each sample.
 
-```{r warning=FALSE, message=FALSE, eval=FALSE}
+```{r warning=FALSE, message=FALSE}
 
 # Aggregate
 pbmc_bulk <-
   ismb2021tidytranscriptomics::pbmc %>%
   aggregate_cells(file)
+
 pbmc_bulk
 ```
 
