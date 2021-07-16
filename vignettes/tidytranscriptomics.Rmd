@@ -1251,14 +1251,12 @@ It is sometime useful to aggregate cell-wise transcript abundance into pseudobul
 
 ### Data exploration using pseudobulk samples
 
-To do this, we will load a helper function called `aggregate_cells` from [GitHub Gist](https://gist.github.com/stemangiola/ebce5a3f931b298611b56680d39c073c) and use it to create a group for each sample.
+To do this, we will use a helper function called `aggregate_cells`, available in this workshop package, to create a group for each sample.
 
-```{r warning=FALSE, message=FALSE}
-# Load aggregate function
-devtools::source_gist("889e4089a0e5ca2649d3c9164e3b542e")
+```{r warning=FALSE, message=FALSE, eval=FALSE}
 
 # Aggregate
-pbmc_bulk =
+pbmc_bulk <-
   ismb2021tidytranscriptomics::pbmc %>%
   aggregate_cells(file)
 pbmc_bulk
