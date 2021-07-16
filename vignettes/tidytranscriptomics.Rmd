@@ -36,9 +36,9 @@ knitr::include_graphics("../inst/vignettes/tidybulk_logo.png")
 
 ## Instructors
 
-Dr. Stefano Mangiola is currently a Postdoctoral researcher in the laboratory of Prof. Tony Papenfuss. His background spans from biotechnology to bioinformatics and biostatistics. His research focuses on prostate and breast tumour microenvironment, the development of statistical model for the analysis of RNA sequencing data, and data analysis and visualisation interfaces.
+*Dr. Stefano Mangiola* is currently a Postdoctoral researcher in the laboratory of Prof. Tony Papenfuss. His background spans from biotechnology to bioinformatics and biostatistics. His research focuses on prostate and breast tumour microenvironment, the development of statistical model for the analysis of RNA sequencing data, and data analysis and visualisation interfaces.
 
-Dr. Maria Doyle is the Application and Training Specialist for Research Computing at the Peter MacCallum Cancer Centre in Melbourne, Australia. She has a PhD in Molecular Biology and currently works in bioinformatics and data science education and training. She is passionate about supporting researchers, reproducible research, open source and tidy data.
+*Dr. Maria Doyle* is the Application and Training Specialist for Research Computing at the Peter MacCallum Cancer Centre in Melbourne, Australia. She has a PhD in Molecular Biology and currently works in bioinformatics and data science education and training. She is passionate about supporting researchers, reproducible research, open source and tidy data.
 
 ## Overview
 
@@ -77,7 +77,7 @@ Guide
 | Total                                                   | 240m |
 
 <br>
-**Format**: Hands on demos, exercises plus Q&A 
+**Format**: Hands on demos, exercises plus Q&A  
 **Interact**: Zoom chat
 <br>
 <br>
@@ -190,13 +190,13 @@ Easiest way to run this material. Only available during workshop. Many thanks to
 
 ### Local
 
-We will use the Cloud during the ISMBECCB workshop and this method is available if you want to run the material after the workshop. If you want to install on your own computer, see instructions [here](https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/index.html#workshop-package-installation). 
+We will use the Cloud during the ISMB/ECCB workshop and this method is available if you want to run the material after the workshop. If you want to install on your own computer, see instructions [here](https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/index.html#workshop-package-installation). 
 
 Alternatively, you can view the material at the workshop webpage [here](https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html). 
 
 ## What is tidytranscriptomics?
 
-[tidybulk](https://stemangiola.github.io/tidybulk/), [tidySummarizedExperiment](https://stemangiola.github.io/tidySummarizedExperiment/) and [tidySingleCellExperiment](https://stemangiola.github.io/tidySingleCellExperiment/) are part of the tidytranscriptomics suite that introduces a tidy approach to RNA sequencing data representation and analysis. The roadmap for the development of the tidytranscriptomics packages is shown in the figure below.
+[tidybulk](https://stemangiola.github.io/tidybulk/), [tidySummarizedExperiment](https://stemangiola.github.io/tidySummarizedExperiment/), [tidySingleCellExperiment](https://stemangiola.github.io/tidySingleCellExperiment/) and [tidyseurat](https://stemangiola.github.io/tidyseurat/) are part of the tidytranscriptomics suite that introduces a tidy approach to RNA sequencing data representation and analysis. The roadmap for the development of the tidytranscriptomics packages is shown in the figure below.
 
 ```{r, echo=FALSE, out.width = "600px"}
 knitr::include_graphics("../inst/vignettes/roadmap.png")
