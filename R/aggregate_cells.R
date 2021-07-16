@@ -80,6 +80,14 @@ subset = 		function(.data,	 .column)	{
 		distinct()
 	
 }
+
+#' Aggregate cells
+#'
+#' @param .data 
+#' @param .sample 
+#'
+#' @return Object of same type as .data
+#' @export
 		       
 aggregate_cells = function(.data, .sample) {
 
