@@ -767,6 +767,9 @@ A typical single-cell RNA sequencing workflow is shown in the [Workshop Introduc
 In Part 1, we showed how we can study the cell-type composition of a biological sample using bulk RNA sequencing. Single-cell sequencing enables a more direct estimation of cell-type composition and gives a greater resolution. For bulk RNA sequencing, we need to infer the cell types using the abundance of transcripts in the whole sample. With single-cell RNA sequencing, we can directly measure the transcripts in each cell and then classify the cells into cell types.
 
 ```{r message=FALSE, warning=FALSE}
+# unload tidySummarizedExperiment
+detach("package:tidySummarizedExperiment", unload=TRUE)
+
 # load packages
 library(tibble)
 library(ggplot2)
