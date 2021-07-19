@@ -767,11 +767,7 @@ A typical single-cell RNA sequencing workflow is shown in the [Workshop Introduc
 In Part 1, we showed how we can study the cell-type composition of a biological sample using bulk RNA sequencing. Single-cell sequencing enables a more direct estimation of cell-type composition and gives a greater resolution. For bulk RNA sequencing, we need to infer the cell types using the abundance of transcripts in the whole sample. With single-cell RNA sequencing, we can directly measure the transcripts in each cell and then classify the cells into cell types.
 
 ```{r message=FALSE, warning=FALSE}
-# unload tidySummarizedExperiment
-detach("package:tidySummarizedExperiment", unload=TRUE)
-
 # load packages
-library(tibble)
 library(ggplot2)
 library(purrr)
 library(scater)
@@ -1288,8 +1284,6 @@ pbmc_bulk %>%
 
 ## Introduction to tidyseurat
 
-In Part 2 we showed how we can study the cell-type composition of a biological sample using bulk RNA sequencing.  Single cell sequencing enables a more direct estimation of cell-type composition and gives greater resolution. For bulk RNA sequencing we need to infer the cell types using the abundance of transcripts in the whole sample, with single-cell RNA sequencing we can directly measure the transcripts in each cell and then classify the cells into cell types. 
-
 Seurat is a very popular analysis toolkit for single cell RNA sequencing data [@butler2018integrating; @stuart2019comprehensive] .
 
 tidyseurat provides a bridge between the Seurat single-cell package [@butler2018integrating; @stuart2019comprehensive] and the tidyverse [@wickham2019welcome]. It creates an invisible layer that enables viewing the
@@ -1308,7 +1302,7 @@ library(tidyseurat)
 pbmc_seurat
 ```
 
-It can be interacted with using [SingleCellExperiment commands](https://bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html) such as `assayNames`.
+It can be interacted with using [seurat commands](https://satijalab.org/seurat/articles/essential_commands.html) such as `Assays`.
 
 ```{r}
 Assays(pbmc_seurat)
@@ -1318,7 +1312,7 @@ We can also interact with our object as we do with any tidyverse tibble.
 
 ### Tidyverse commands
 
-We can interact to this object in the same way we interact with `SingleCellExperiment`, through the tidy paradigm
+We can interact with this object in the same way we showed for `tidySingleCellExperiment`, through the tidy paradigm.
 
 ```{r}
 # Filter
@@ -1338,12 +1332,12 @@ pbmc_seurat %>% bind_rows(pbmc_seurat)
 ```
 
 
-
 ## Key Points
 
 -   Some basic steps of a single-cell RNA sequencing analysis are dimensionality reduction, cluster identification and cell type classification
 -   `tidySingleCellExperiment` is an invisible layer that operates on a `SingleCellExperiment` object and enables us to visualise and manipulate data as if it were a tidy data frame.
 -   `tidySingleCellExperiment` object is a `SingleCellExperiment object` so it can be used with any `SingleCellExperiment` compatible method
+-   `tidyseurat`, similarly, enables us to visualise and manipulate a Seurat object as if it were a tidy data frame and can also be used with any `Seurat` compatible method
 
 # Feedback
 
