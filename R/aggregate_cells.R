@@ -11,11 +11,11 @@
 #'
 #' @return A character vector
 quo_names <- function(v) {
-
-	v = rlang::quo_name(rlang::quo_squash(v))
-	gsub('^c\\(|`|\\)$', '', v) %>% 
-		strsplit(', ') %>% 
-		unlist 
+  
+  v = rlang::quo_name(rlang::quo_squash(v))
+  gsub('^c\\(|`|\\)$', '', v) %>% 
+    strsplit(', ') %>% 
+    unlist 
 }
 
 #' Remove class to abject
@@ -26,95 +26,96 @@ quo_names <- function(v) {
 #'
 #' @return A tibble with an additional attribute
 drop_class = function(var, name) {
-	class(var) <- class(var)[!class(var)%in%name]
-	var
+  class(var) <- class(var)[!class(var)%in%name]
+  var
 }
 
 get_specific_annotation_columns = function(.data, .col){
-	
-	 
-	# Comply with CRAN NOTES
-	. = NULL
-	
-	# Make col names
-	.col = enquo(.col)
-	
-	# x-annotation df
-	n_x = .data %>% distinct_at(vars(!!.col)) %>% nrow
-	
-	# element wise columns
-	.data %>%
-		select(-!!.col) %>%
-		colnames %>%
-		map(
-			~
-				.x %>%
-				when(
-					.data %>%
-						distinct_at(vars(!!.col, .x)) %>%
-						nrow %>%
-						magrittr::equals(n_x) ~ (.),
-					~ NULL
-				)
-		) %>%
-		
-		# Drop NULL
-		{	(.)[lengths((.)) != 0]	} %>%
-		unlist
-	
+  
+  
+  # Comply with CRAN NOTES
+  . = NULL
+  
+  # Make col names
+  .col = enquo(.col)
+  
+  # x-annotation df
+  n_x = .data %>% dplyr::distinct_at(vars(!!.col)) %>% nrow
+  
+  # element wise columns
+  .data %>%
+    select(-!!.col) %>%
+    colnames %>%
+    map(
+      ~
+        .x %>%
+        when(
+          .data %>%
+            distinct_at(vars(!!.col, .x)) %>%
+            nrow %>%
+            magrittr::equals(n_x) ~ (.),
+          ~ NULL
+        )
+    ) %>%
+    
+    # Drop NULL
+    {	(.)[lengths((.)) != 0]	} %>%
+    unlist
+  
 }
 
 
 subset = 		function(.data,	 .column)	{
-	# Make col names
-	.column = enquo(.column)
-	
-	# Check if column present
-	if(quo_names(.column) %in% colnames(.data) %>% all %>% `!`)
-		stop("nanny says: some of the .column specified do not exist in the input data frame.")
-		
-	.data %>%
-		
-		# Selecting the right columns
-		select(	!!.column,	get_specific_annotation_columns(.data, !!.column)	) %>%
-		distinct()
-	
+  # Make col names
+  .column = enquo(.column)
+  
+  # Check if column present
+  if(quo_names(.column) %in% colnames(.data) %>% all %>% `!`)
+    stop("nanny says: some of the .column specified do not exist in the input data frame.")
+  
+  .data %>%
+    
+    # Selecting the right columns
+    select(	!!.column,	get_specific_annotation_columns(.data, !!.column)	) %>%
+    distinct()
+  
 }
 
-#' Aggregate cells
-#'
-#' @param .data 
-#' @param .sample 
-#'
-#' @return Object of same type as .data
 #' @export
-		       
 aggregate_cells = function(.data, .sample) {
-
-	.sample = enquo(.sample)
-	
-	.data %>%
-		
-		tidyseurat::nest(data = -!!.sample) %>%
-		mutate(data = map(data, ~ 
-				
-			# loop over assays
-			map2(.x@assays, names(.x@assays),
-					 
-					 # Get counts
-					 ~ .x@data %>%
-					 	Matrix::rowSums(na.rm = T) %>%
-					 	tibble::enframe(
-					 		name  = "transcript",
-					 		value = sprintf("abundance_%s", .y)
-					 	)
-			) %>%
-			Reduce(function(...) full_join(..., by=c("transcript")), .)
-			
-		)) %>%
-		left_join(.data %>% tidyseurat::as_tibble() %>% subset(!!.sample)) %>%
-		tidyseurat::unnest(data) %>%
-		
-		drop_class("tidyseurat_nested")
-	
+  
+  .sample = enquo(.sample)
+  
+  .data %>%
+    
+    tidySingleCellExperiment::nest(data = -!!.sample) %>%
+    mutate(data = map(data, ~ 
+                        
+                        # loop over assays
+                        map2(
+                          .x %>% assays %>% as.list() ,
+                          .x %>% assays %>% names(),
+                          
+                          # Get counts
+                          ~ .x %>%
+                            Matrix::rowSums(na.rm = T) %>%
+                            tibble::enframe(
+                              name  = "transcript",
+                              value = sprintf("abundance_%s", .y)
+                            )
+                        ) %>%
+                        Reduce(function(...) full_join(..., by=c("transcript")), .)
+                      
+    )) %>%
+    left_join(.data %>% tidySingleCellExperiment::as_tibble() %>% subset(!!.sample)) %>%
+    tidySingleCellExperiment::unnest(data) %>%
+    
+    drop_class("tidySingleCellExperiment_nested") %>%
+    
+    tidybulk::as_SummarizedExperiment(
+      .sample = !!.sample,
+      .transcript = transcript,
+      .abundance = !!as.symbol(sprintf("abundance_%s", names(assays(.data))[1]))
+    ) 
+  
 }
