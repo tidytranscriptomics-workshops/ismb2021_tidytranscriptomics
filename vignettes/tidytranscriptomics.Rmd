@@ -768,6 +768,7 @@ In Part 1, we showed how we can study the cell-type composition of a biological 
 
 ```{r message=FALSE, warning=FALSE}
 # load packages
+library(tibble)
 library(ggplot2)
 library(purrr)
 library(scater)
@@ -779,7 +780,8 @@ library(scuttle)
 library(EnsDb.Hsapiens.v86)
 library(celldex)
 library(ggbeeswarm)
-library(tidySingleCellExperiment)
+friendly_cols <- dittoSeq::dittoColors()
+
 ```
 
 ## Introduction to tidySingleCellExperiment
@@ -788,7 +790,7 @@ The single-cell RNA sequencing data used here is 3000 cells in total, subsetted 
 
 Similar to what we saw with tidySummarizedExperiment, `tidySingleCellExperiment` package enables any *SingleCellExperiment* object to be displayed and manipulated according to tidy data principles without affecting any *SingleCellExperiment* behaviour.
 
-If we load the *tidySingleCellExperiment* package and then view the PBMC data, it displays as a tibble.
+
 
 ```{r}
 # load pbmc single cell RNA sequencing data
@@ -797,6 +799,16 @@ pbmc <- ismb2021tidytranscriptomics::pbmc
 # take a look
 pbmc
 ```
+
+If we load the *tidySingleCellExperiment* package and then view the PBMC data, it displays as a tibble.
+
+```{r}
+library(tidySingleCellExperiment)
+
+pbmc
+```
+
+
 
 It can be interacted with using [SingleCellExperiment commands](https://bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html) such as `assayNames`.
 
@@ -911,7 +923,7 @@ mito_info_one_dataset
 Finally, we join the mitochondrial information back to the original data so we will be able to filter out the cells with high mitochondrial content.
 
 ```{r}
-mito_info_one_dataset <- left_join(one_dataset, mito_info_one_dataset, by = "cell")
+mito_info_one_dataset <- one_dataset %>%  left_join(mito_info_one_dataset, by = "cell")
 
 mito_info_one_dataset
 ```
@@ -985,7 +997,7 @@ We will created nested tables for our 10 datasets.
 
 ```{r}
 pbmc_nested <- pbmc %>% 
-    nest(data = -dataset)
+    nest(data = -sample)
 
 pbmc_nested
 ```
@@ -1054,7 +1066,7 @@ pbmc %>%
   # Reshaping
   pivot_longer(c(detected, sum, subsets_Mito_percent)) %>%
   ggplot(aes(
-    x = dataset, y = value,
+    x = sample, y = value,
     color = high_mitochondrion,
     alpha = high_mitochondrion,
     size = high_mitochondrion
@@ -1089,8 +1101,7 @@ pbmc <-
   pbmc %>%
 
   # Define batch
-  mutate(batch = dataset) %>%
-  nest(data = -batch) %>%
+  nest(data = -dataset) %>%
 
   # Normalisation   
   mutate(data = multiBatchNorm(data)) %>%
