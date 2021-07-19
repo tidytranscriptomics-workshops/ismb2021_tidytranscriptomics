@@ -768,7 +768,6 @@ In Part 1, we showed how we can study the cell-type composition of a biological 
 
 ```{r message=FALSE, warning=FALSE}
 # load packages
-library(tibble)
 library(ggplot2)
 library(purrr)
 library(scater)
