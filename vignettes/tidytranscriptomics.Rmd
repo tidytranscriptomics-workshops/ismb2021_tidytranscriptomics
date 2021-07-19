@@ -779,8 +779,9 @@ library(scuttle)
 library(EnsDb.Hsapiens.v86)
 library(celldex)
 library(ggbeeswarm)
-friendly_cols <- dittoSeq::dittoColors()
 
+# set colours
+friendly_cols <- dittoSeq::dittoColors()
 ```
 
 ## Introduction to tidySingleCellExperiment
