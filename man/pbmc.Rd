@@ -5,7 +5,7 @@
 \alias{pbmc}
 \title{pbmc}
 \format{
-A Seurat object.
+A SingleCellExperiment object.
 }
 \usage{
 data(pbmc)
