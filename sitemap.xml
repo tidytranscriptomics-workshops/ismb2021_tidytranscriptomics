@@ -7,13 +7,19 @@
     <loc>https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/reference/BRCA.html</loc>
   </url>
   <url>
+    <loc>https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/reference/drop_class.html</loc>
+  </url>
+  <url>
     <loc>https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/reference/mito_info_all_datasets.html</loc>
   </url>
   <url>
     <loc>https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/reference/pbmc.html</loc>
   </url>
   <url>
-    <loc>https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/background.html</loc>
+    <loc>https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/reference/pbmc_seurat.html</loc>
+  </url>
+  <url>
+    <loc>https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/reference/quo_names.html</loc>
   </url>
   <url>
     <loc>https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/solutions.html</loc>
