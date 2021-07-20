@@ -767,6 +767,9 @@ A typical single-cell RNA sequencing workflow is shown in the [Workshop Introduc
 In Part 1, we showed how we can study the cell-type composition of a biological sample using bulk RNA sequencing. Single-cell sequencing enables a more direct estimation of cell-type composition and gives a greater resolution. For bulk RNA sequencing, we need to infer the cell types using the abundance of transcripts in the whole sample. With single-cell RNA sequencing, we can directly measure the transcripts in each cell and then classify the cells into cell types.
 
 ```{r message=FALSE, warning=FALSE}
+# unload tidySummarizedExperiment
+detach("package:tidySummarizedExperiment", unload=TRUE)
+
 # load packages
 library(ggplot2)
 library(purrr)
@@ -789,7 +792,6 @@ friendly_cols <- dittoSeq::dittoColors()
 The single-cell RNA sequencing data used here is 3000 cells in total, subsetted from 20 samples from 10 peripheral blood mononuclear cell (PBMC) datasets. The datasets are from GSE115189/SRR7244582 [@Freytag2018], SRR11038995 [@Cai2020, SCP345 (singlecell.broadinstitute.org), SCP424 [@Ding2020], SCP591 [@Karagiannis2020] and 10x-derived 6K and 8K datasets (support.10xgenomics.com/). The data is in [SingleCellExperiment](https://www.bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html) format. SingleCellExperiment is a very popular container of single-cell RNA sequencing data.
 
 Similar to what we saw with tidySummarizedExperiment, `tidySingleCellExperiment` package enables any *SingleCellExperiment* object to be displayed and manipulated according to tidy data principles without affecting any *SingleCellExperiment* behaviour.
-
 
 
 ```{r}
@@ -944,8 +946,7 @@ knitr::include_graphics("../inst/vignettes/nesting.png")
 
 As a simple example of nesting. Imagine we had two groups, a and b that contained some values.
 ```{r}
-
-my_tibble = 
+my_tibble <- 
   tibble(
   label = c("a","a","a","a","a","b","b","b","b","b" ),
   value = 1:10
@@ -1265,6 +1266,7 @@ It is sometime useful to aggregate cell-wise transcript abundance into pseudobul
 To do this, we will use a helper function called `aggregate_cells`, available in this workshop package, to create a group for each sample.
 
 ```{r warning=FALSE, message=FALSE}
+library(tidySummarizedExperiment)
 
 # Aggregate
 pbmc_bulk <-
