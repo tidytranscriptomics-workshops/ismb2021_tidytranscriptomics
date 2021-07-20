@@ -97,7 +97,7 @@ background-color: #fff4d4;
 <div id="instructors" class="section level2">
 <h2 class="hasAnchor">
 <a href="#instructors" class="anchor"></a>Instructors</h2>
-<p><em>Dr. Stefano Mangiola</em> is currently a Postdoctoral researcher in the laboratory of Prof. Tony Papenfuss. His background spans from biotechnology to bioinformatics and biostatistics. His research focuses on prostate and breast tumour microenvironment, the development of statistical model for the analysis of RNA sequencing data, and data analysis and visualisation interfaces.</p>
+<p><em>Dr. Stefano Mangiola</em> is currently a Postdoctoral researcher in the laboratory of Prof. Tony Papenfuss at the Walter and Eliza Hall Institute in Melbourne, Australia. His background spans from biotechnology to bioinformatics and biostatistics. His research focuses on prostate and breast tumour microenvironment, the development of statistical models for the analysis of RNA sequencing data, and data analysis and visualisation interfaces.</p>
 <p><em>Dr. Maria Doyle</em> is the Application and Training Specialist for Research Computing at the Peter MacCallum Cancer Centre in Melbourne, Australia. She has a PhD in Molecular Biology and currently works in bioinformatics and data science education and training. She is passionate about supporting researchers, reproducible research, open source and tidy data.</p>
 </div>
 <div id="overview" class="section level2">
@@ -118,7 +118,7 @@ background-color: #fff4d4;
 <div id="time-outline" class="section level3">
 <h3 class="hasAnchor">
 <a href="#time-outline" class="anchor"></a>Time outline</h3>
-<p>The workshop format is a 4 hour session consisting of hands-on demos, exercises and Q&amp;A.</p>
+<p>This workshop is a 4 hour session.</p>
 <p>Guide</p>
 <table class="table">
 <thead><tr class="header">
@@ -172,7 +172,7 @@ background-color: #fff4d4;
 </tr>
 </tbody>
 </table>
-<p><br><strong>Format</strong>: Hands on demos, exercises plus Q&amp;A<br><strong>Interact</strong>: Zoom chat <br><br></p>
+<p><br><strong>Format</strong>: Hands on demos, challenges plus Q&amp;A<br><strong>Interact</strong>: Zoom chat, Menti quiz for challenges <br><br></p>
 </div>
 <div id="workshop-goals-and-objectives" class="section level3">
 <h3 class="hasAnchor">
@@ -203,17 +203,17 @@ background-color: #fff4d4;
 <p><a href="https://docs.google.com/document/d/1RpdYAy8sgu9Dxg-Jcv9BKiVXNt1dRKGf8_xtJjT1ctE/edit?usp=sharing">This Google doc</a> has all the links you need for this workshop. As it contains logins to the Cloud servers, it will be accessible during the workshop only.</p>
 <ul>
 <li>Material</li>
-<li>Menti for Background Question and Challenges Quiz</li>
+<li>Menti for Audience Questions and Challenges Quiz</li>
 <li>RStudio cloud logins</li>
 <li>Feedback survey</li>
 </ul>
 </div>
-<div id="audience-background" class="section level3">
+<div id="audience-questions" class="section level3">
 <h3 class="hasAnchor">
-<a href="#audience-background" class="anchor"></a>Audience Background</h3>
-<p>First let’s get an idea of today’s audience.</p>
-<p>Please either open a tab in your browser or use your phone. Go go to Menti (www.menti.com) and type the code given the Google doc above.</p>
-<p>Then please rate the following 1-5 (1=no/none, 5=yes/a lot)</p>
+<a href="#audience-questions" class="anchor"></a>Audience Questions</h3>
+<p>First we have a few questions for you, the audience.</p>
+<p>Please either open a tab in your browser or use your phone. Go to Menti (www.menti.com) and type the code given in the Google doc above.</p>
+<p>Then please rate the following on a scale of 1-5 (1=no/none, 5=yes/a lot)</p>
 <ul>
 <li>I will code along and/or try out exercises during this workshop.<br>
 </li>
@@ -1503,34 +1503,24 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <p>We will created nested tables for our 10 datasets.</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc_nested</span> <span class="op">&lt;-</span> <span class="va">pbmc</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tidyr-methods.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">-</span><span class="va">sample</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tidyr-methods.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">-</span><span class="va">dataset</span><span class="op">)</span>
 
 <span class="va">pbmc_nested</span>
-<span class="co">#&gt; # A tibble: 20 x 2</span>
-<span class="co">#&gt;    sample         data            </span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;list&gt;          </span>
-<span class="co">#&gt;  1 GSE115189_1    &lt;SnglCllE[,154]&gt;</span>
-<span class="co">#&gt;  2 GSE115189_2    &lt;SnglCllE[,146]&gt;</span>
-<span class="co">#&gt;  3 10x_6K_1       &lt;SnglCllE[,151]&gt;</span>
-<span class="co">#&gt;  4 10x_6K_2       &lt;SnglCllE[,149]&gt;</span>
-<span class="co">#&gt;  5 10x_8K_2       &lt;SnglCllE[,149]&gt;</span>
-<span class="co">#&gt;  6 10x_8K_1       &lt;SnglCllE[,151]&gt;</span>
-<span class="co">#&gt;  7 SRR11038995_1  &lt;SnglCllE[,160]&gt;</span>
-<span class="co">#&gt;  8 SRR11038995_2  &lt;SnglCllE[,140]&gt;</span>
-<span class="co">#&gt;  9 SRR7244582_1   &lt;SnglCllE[,139]&gt;</span>
-<span class="co">#&gt; 10 SRR7244582_2   &lt;SnglCllE[,161]&gt;</span>
-<span class="co">#&gt; 11 SCP345_580_2   &lt;SnglCllE[,148]&gt;</span>
-<span class="co">#&gt; 12 SCP345_580_1   &lt;SnglCllE[,152]&gt;</span>
-<span class="co">#&gt; 13 SCP345_860_2   &lt;SnglCllE[,167]&gt;</span>
-<span class="co">#&gt; 14 SCP345_860_1   &lt;SnglCllE[,133]&gt;</span>
-<span class="co">#&gt; 15 SCP424_pbmc1_1 &lt;SnglCllE[,148]&gt;</span>
-<span class="co">#&gt; 16 SCP424_pbmc1_2 &lt;SnglCllE[,152]&gt;</span>
-<span class="co">#&gt; 17 SCP424_pbmc2_1 &lt;SnglCllE[,155]&gt;</span>
-<span class="co">#&gt; 18 SCP424_pbmc2_2 &lt;SnglCllE[,145]&gt;</span>
-<span class="co">#&gt; 19 SCP591_2       &lt;SnglCllE[,142]&gt;</span>
-<span class="co">#&gt; 20 SCP591_1       &lt;SnglCllE[,158]&gt;</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 10 x 2</span>
+<span class="co">#&gt;    dataset      data            </span>
+<span class="co">#&gt;    &lt;chr&gt;        &lt;list&gt;          </span>
+<span class="co">#&gt;  1 GSE115189    &lt;SnglCllE[,300]&gt;</span>
+<span class="co">#&gt;  2 10x_6K       &lt;SnglCllE[,300]&gt;</span>
+<span class="co">#&gt;  3 10x_8K       &lt;SnglCllE[,300]&gt;</span>
+<span class="co">#&gt;  4 SRR11038995  &lt;SnglCllE[,300]&gt;</span>
+<span class="co">#&gt;  5 SRR7244582   &lt;SnglCllE[,300]&gt;</span>
+<span class="co">#&gt;  6 SCP345_580   &lt;SnglCllE[,300]&gt;</span>
+<span class="co">#&gt;  7 SCP345_860   &lt;SnglCllE[,300]&gt;</span>
+<span class="co">#&gt;  8 SCP424_pbmc1 &lt;SnglCllE[,300]&gt;</span>
+<span class="co">#&gt;  9 SCP424_pbmc2 &lt;SnglCllE[,300]&gt;</span>
+<span class="co">#&gt; 10 SCP591       &lt;SnglCllE[,300]&gt;</span></code></pre></div>
 <pre class="challenge_4 challenge"><code>Challenge: Using the nest examples above, can you create a column that includes the mitochondrial information?
-This one is not a multiple choice menti question.</code></pre>
+This one is not a Menti quiz question.</code></pre>
 <p>We want to obtain this table</p>
 <pre><code># A tibble: 10 x 3
    dataset      data             mitochondrion_info
@@ -1672,16 +1662,16 @@ This one is not a multiple choice menti question.</code></pre>
 <span class="co">#&gt; [90m# Features=51958 | Assays=reconstructed[39m</span>
 <span class="co">#&gt;    cell  label batch groups sample orig.ident nCount_RNA nFeature_RNA  S.Score</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;fct&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 CCAG… 4         1 1      GSE11… SeuratPro…       3421          979 -5.42e-2</span>
-<span class="co">#&gt;  2 ATGA… 7         1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
-<span class="co">#&gt;  3 TATG… 8         1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
-<span class="co">#&gt;  4 CATA… 13        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
+<span class="co">#&gt;  1 CCAG… 5         1 1      GSE11… SeuratPro…       3421          979 -5.42e-2</span>
+<span class="co">#&gt;  2 ATGA… 3         1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
+<span class="co">#&gt;  3 TATG… 7         1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
+<span class="co">#&gt;  4 CATA… 11        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
 <span class="co">#&gt;  5 GAGG… 1         1 2      GSE11… SeuratPro…       2341          957 -3.74e-3</span>
-<span class="co">#&gt;  6 AGCT… 5         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
-<span class="co">#&gt;  7 TGAT… 2         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
-<span class="co">#&gt;  8 ACGA… 2         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
-<span class="co">#&gt;  9 CGGC… 4         1 1      GSE11… SeuratPro…       3500         1092 -6.87e-2</span>
-<span class="co">#&gt; 10 ATAG… 4         1 1      GSE11… SeuratPro…       3092          974 -1.24e-2</span>
+<span class="co">#&gt;  6 AGCT… 2         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
+<span class="co">#&gt;  7 TGAT… 4         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
+<span class="co">#&gt;  8 ACGA… 4         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
+<span class="co">#&gt;  9 CGGC… 5         1 1      GSE11… SeuratPro…       3500         1092 -6.87e-2</span>
+<span class="co">#&gt; 10 ATAG… 5         1 1      GSE11… SeuratPro…       3092          974 -1.24e-2</span>
 <span class="co">#&gt; # … with 2,889 more rows, and 15 more variables: G2M.Score &lt;dbl&gt;, ident &lt;fct&gt;,</span>
 <span class="co">#&gt; #   sum &lt;dbl&gt;, detected &lt;int&gt;, subsets_Mito_sum &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   subsets_Mito_detected &lt;int&gt;, subsets_Mito_percent &lt;dbl&gt;, total &lt;dbl&gt;,</span>
@@ -1691,22 +1681,20 @@ This one is not a multiple choice menti question.</code></pre>
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/count.html">count</a></span><span class="op">(</span><span class="va">label</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 13 x 2</span>
+<span class="co">#&gt; # A tibble: 11 x 2</span>
 <span class="co">#&gt;    label     n</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 1       482</span>
-<span class="co">#&gt;  2 2       339</span>
-<span class="co">#&gt;  3 3        28</span>
-<span class="co">#&gt;  4 4       339</span>
-<span class="co">#&gt;  5 5       505</span>
+<span class="co">#&gt;  1 1       479</span>
+<span class="co">#&gt;  2 2       596</span>
+<span class="co">#&gt;  3 3       703</span>
+<span class="co">#&gt;  4 4       351</span>
+<span class="co">#&gt;  5 5       339</span>
 <span class="co">#&gt;  6 6        21</span>
-<span class="co">#&gt;  7 7       482</span>
-<span class="co">#&gt;  8 8       256</span>
-<span class="co">#&gt;  9 9        74</span>
-<span class="co">#&gt; 10 10       41</span>
-<span class="co">#&gt; 11 11      292</span>
-<span class="co">#&gt; 12 12       14</span>
-<span class="co">#&gt; 13 13       26</span></code></pre></div>
+<span class="co">#&gt;  7 7       255</span>
+<span class="co">#&gt;  8 8        74</span>
+<span class="co">#&gt;  9 9        41</span>
+<span class="co">#&gt; 10 10       14</span>
+<span class="co">#&gt; 11 11       26</span></code></pre></div>
 </div>
 <div id="reduce-dimensions" class="section level2">
 <h2 class="hasAnchor">
@@ -1815,22 +1803,20 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">label</span>, <span class="va">first.labels</span><span class="op">)</span>
 
 <span class="va">cell_type</span>
-<span class="co">#&gt; # A tibble: 13 x 2</span>
+<span class="co">#&gt; # A tibble: 11 x 2</span>
 <span class="co">#&gt;    label first.labels   </span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;          </span>
 <span class="co">#&gt;  1 1     NK cells       </span>
-<span class="co">#&gt;  2 2     B-cells        </span>
-<span class="co">#&gt;  3 3     B-cells        </span>
-<span class="co">#&gt;  4 4     Monocytes      </span>
-<span class="co">#&gt;  5 5     Fibroblasts    </span>
+<span class="co">#&gt;  2 2     Fibroblasts    </span>
+<span class="co">#&gt;  3 3     Skeletal muscle</span>
+<span class="co">#&gt;  4 4     B-cells        </span>
+<span class="co">#&gt;  5 5     Monocytes      </span>
 <span class="co">#&gt;  6 6     Smooth muscle  </span>
-<span class="co">#&gt;  7 7     Skeletal muscle</span>
-<span class="co">#&gt;  8 8     NK cells       </span>
-<span class="co">#&gt;  9 9     Neutrophils    </span>
-<span class="co">#&gt; 10 10    Macrophages    </span>
-<span class="co">#&gt; 11 11    Skeletal muscle</span>
-<span class="co">#&gt; 12 12    B-cells        </span>
-<span class="co">#&gt; 13 13    Monocytes</span></code></pre></div>
+<span class="co">#&gt;  7 7     NK cells       </span>
+<span class="co">#&gt;  8 8     Neutrophils    </span>
+<span class="co">#&gt;  9 9     Macrophages    </span>
+<span class="co">#&gt; 10 10    B-cells        </span>
+<span class="co">#&gt; 11 11    Monocytes</span></code></pre></div>
 <p>We join the cell type information to our pbmc data.</p>
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join cell type info</span>
@@ -1894,6 +1880,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt;  9 A2M      ../data/1…                0                0 ../data/benign_… Singl…</span>
 <span class="co">#&gt; 10 A2M-AS1  ../data/1…                1                1 ../data/benign_… Singl…</span>
 <span class="co">#&gt; # … with 40 more rows</span></code></pre></div>
+<p>Once we have aggregated the single cells for each sample, we can use the bulk RNA sequencing methods available through tidybulk.</p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc_bulk</span> <span class="op">%&gt;%</span>
 
@@ -2089,7 +2076,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt;  [1] tidyseurat_0.2.0               SeuratObject_4.0.2            </span>
 <span class="co">#&gt;  [3] Seurat_4.0.3                   tidySingleCellExperiment_1.3.0</span>
 <span class="co">#&gt;  [5] ggbeeswarm_0.6.0               celldex_1.3.0                 </span>
-<span class="co">#&gt;  [7] EnsDb.Hsapiens.v86_2.99.0      ensembldb_2.17.2              </span>
+<span class="co">#&gt;  [7] EnsDb.Hsapiens.v86_2.99.0      ensembldb_2.17.3              </span>
 <span class="co">#&gt;  [9] AnnotationFilter_1.17.0        GenomicFeatures_1.45.0        </span>
 <span class="co">#&gt; [11] AnnotationDbi_1.55.1           SingleR_1.7.1                 </span>
 <span class="co">#&gt; [13] batchelor_1.9.0                igraph_1.2.6                  </span>
@@ -2120,7 +2107,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt;  [17] cowplot_1.1.1                      RSQLite_2.2.7                     </span>
 <span class="co">#&gt;  [19] RANN_2.6.1                         future_1.21.0                     </span>
 <span class="co">#&gt;  [21] proxy_0.4-26                       bit_4.0.4                         </span>
-<span class="co">#&gt;  [23] tzdb_0.1.1                         spatstat.data_2.1-0               </span>
+<span class="co">#&gt;  [23] tzdb_0.1.2                         spatstat.data_2.1-0               </span>
 <span class="co">#&gt;  [25] xml2_1.3.2                         httpuv_1.6.1                      </span>
 <span class="co">#&gt;  [27] assertthat_0.2.1                   viridis_0.6.1                     </span>
 <span class="co">#&gt;  [29] xfun_0.24                          hms_1.1.0                         </span>
