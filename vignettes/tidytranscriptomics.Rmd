@@ -779,6 +779,7 @@ library(scuttle)
 library(EnsDb.Hsapiens.v86)
 library(celldex)
 library(ggbeeswarm)
+library(SingleCellExperiment)
 
 # set colours
 friendly_cols <- dittoSeq::dittoColors()
