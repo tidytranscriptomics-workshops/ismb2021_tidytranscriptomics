@@ -36,7 +36,7 @@ knitr::include_graphics("../inst/vignettes/tidybulk_logo.png")
 
 ## Instructors
 
-*Dr. Stefano Mangiola* is currently a Postdoctoral researcher in the laboratory of Prof. Tony Papenfuss. His background spans from biotechnology to bioinformatics and biostatistics. His research focuses on prostate and breast tumour microenvironment, the development of statistical model for the analysis of RNA sequencing data, and data analysis and visualisation interfaces.
+*Dr. Stefano Mangiola* is currently a Postdoctoral researcher in the laboratory of Prof. Tony Papenfuss at the Walter and Eliza Hall Institute in Melbourne, Australia. His background spans from biotechnology to bioinformatics and biostatistics. His research focuses on prostate and breast tumour microenvironment, the development of statistical models for the analysis of RNA sequencing data, and data analysis and visualisation interfaces.
 
 *Dr. Maria Doyle* is the Application and Training Specialist for Research Computing at the Peter MacCallum Cancer Centre in Melbourne, Australia. She has a PhD in Molecular Biology and currently works in bioinformatics and data science education and training. She is passionate about supporting researchers, reproducible research, open source and tidy data.
 
@@ -58,7 +58,7 @@ Recommended Background Reading
 
 ### Time outline
 
-The workshop format is a 4 hour session consisting of hands-on demos, exercises and Q&A.
+This workshop is a 4 hour session.
 
 Guide
 
@@ -77,8 +77,8 @@ Guide
 | Total                                                   | 240m |
 
 <br>
-**Format**: Hands on demos, exercises plus Q&A  
-**Interact**: Zoom chat
+**Format**: Hands on demos, challenges plus Q&A  
+**Interact**: Zoom chat, Menti quiz for challenges
 <br>
 <br>
 
@@ -105,17 +105,17 @@ The tidytranscriptomics approach to RNA sequencing data analysis abstracts out t
 [This Google doc](https://docs.google.com/document/d/1RpdYAy8sgu9Dxg-Jcv9BKiVXNt1dRKGf8_xtJjT1ctE/edit?usp=sharing) has all the links you need for this workshop. As it contains logins to the Cloud servers, it will be accessible during the workshop only.
 
 * Material
-* Menti for Background Question and Challenges Quiz
+* Menti for Audience Questions and Challenges Quiz
 * RStudio cloud logins
 * Feedback survey
 
-### Audience Background
+### Audience Questions
 
-First let's get an idea of today's audience.
+First we have a few questions for you, the audience.
 
-Please either open a tab in your browser or use your phone. Go go to Menti (www.menti.com) and type the code given the Google doc above.
+Please either open a tab in your browser or use your phone. Go to Menti (www.menti.com) and type the code given in the Google doc above.
 
-Then please rate the following 1-5 (1=no/none, 5=yes/a lot)
+Then please rate the following on a scale of 1-5 (1=no/none, 5=yes/a lot)
 
 * I will code along and/or try out exercises during this workshop.  
 * I have experience with transcriptomic analyses  
@@ -1010,14 +1010,14 @@ We will created nested tables for our 10 datasets.
 
 ```{r}
 pbmc_nested <- pbmc %>% 
-    nest(data = -sample)
+    nest(data = -dataset)
 
 pbmc_nested
 ```
 
 ```{challenge_4 class.source="challenge"}
 Challenge: Using the nest examples above, can you create a column that includes the mitochondrial information?
-This one is not a multiple choice menti question.
+This one is not a Menti quiz question.
 ```
 
 We want to obtain this table
@@ -1282,6 +1282,8 @@ pbmc_bulk <-
 
 pbmc_bulk
 ```
+
+Once we have aggregated the single cells for each sample, we can use the bulk RNA sequencing methods available through tidybulk.
 
 ```{r}
 pbmc_bulk %>%
