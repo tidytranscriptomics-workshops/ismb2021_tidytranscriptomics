@@ -767,6 +767,9 @@ A typical single-cell RNA sequencing workflow is shown in the [Workshop Introduc
 In Part 1, we showed how we can study the cell-type composition of a biological sample using bulk RNA sequencing. Single-cell sequencing enables a more direct estimation of cell-type composition and gives a greater resolution. For bulk RNA sequencing, we need to infer the cell types using the abundance of transcripts in the whole sample. With single-cell RNA sequencing, we can directly measure the transcripts in each cell and then classify the cells into cell types.
 
 ```{r message=FALSE, warning=FALSE}
+# unload tidySummarizedExperiment
+detach("package:tidySummarizedExperiment", unload=TRUE)
+
 # load packages
 library(ggplot2)
 library(purrr)
@@ -779,7 +782,9 @@ library(scuttle)
 library(EnsDb.Hsapiens.v86)
 library(celldex)
 library(ggbeeswarm)
-library(tidySingleCellExperiment)
+
+# set colours
+friendly_cols <- dittoSeq::dittoColors()
 ```
 
 ## Introduction to tidySingleCellExperiment
@@ -788,7 +793,6 @@ The single-cell RNA sequencing data used here is 3000 cells in total, subsetted 
 
 Similar to what we saw with tidySummarizedExperiment, `tidySingleCellExperiment` package enables any *SingleCellExperiment* object to be displayed and manipulated according to tidy data principles without affecting any *SingleCellExperiment* behaviour.
 
-If we load the *tidySingleCellExperiment* package and then view the PBMC data, it displays as a tibble.
 
 ```{r}
 # load pbmc single cell RNA sequencing data
@@ -797,6 +801,16 @@ pbmc <- ismb2021tidytranscriptomics::pbmc
 # take a look
 pbmc
 ```
+
+If we load the *tidySingleCellExperiment* package and then view the PBMC data, it displays as a tibble.
+
+```{r}
+library(tidySingleCellExperiment)
+
+pbmc
+```
+
+
 
 It can be interacted with using [SingleCellExperiment commands](https://bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html) such as `assayNames`.
 
@@ -911,7 +925,7 @@ mito_info_one_dataset
 Finally, we join the mitochondrial information back to the original data so we will be able to filter out the cells with high mitochondrial content.
 
 ```{r}
-mito_info_one_dataset <- left_join(one_dataset, mito_info_one_dataset, by = "cell")
+mito_info_one_dataset <- one_dataset %>%  left_join(mito_info_one_dataset, by = "cell")
 
 mito_info_one_dataset
 ```
@@ -932,8 +946,7 @@ knitr::include_graphics("../inst/vignettes/nesting.png")
 
 As a simple example of nesting. Imagine we had two groups, a and b that contained some values.
 ```{r}
-
-my_tibble = 
+my_tibble <- 
   tibble(
   label = c("a","a","a","a","a","b","b","b","b","b" ),
   value = 1:10
@@ -985,7 +998,7 @@ We will created nested tables for our 10 datasets.
 
 ```{r}
 pbmc_nested <- pbmc %>% 
-    nest(data = -dataset)
+    nest(data = -sample)
 
 pbmc_nested
 ```
@@ -1054,7 +1067,7 @@ pbmc %>%
   # Reshaping
   pivot_longer(c(detected, sum, subsets_Mito_percent)) %>%
   ggplot(aes(
-    x = dataset, y = value,
+    x = sample, y = value,
     color = high_mitochondrion,
     alpha = high_mitochondrion,
     size = high_mitochondrion
@@ -1089,8 +1102,7 @@ pbmc <-
   pbmc %>%
 
   # Define batch
-  mutate(batch = dataset) %>%
-  nest(data = -batch) %>%
+  nest(data = -dataset) %>%
 
   # Normalisation   
   mutate(data = multiBatchNorm(data)) %>%
@@ -1254,6 +1266,7 @@ It is sometime useful to aggregate cell-wise transcript abundance into pseudobul
 To do this, we will use a helper function called `aggregate_cells`, available in this workshop package, to create a group for each sample.
 
 ```{r warning=FALSE, message=FALSE}
+library(tidySummarizedExperiment)
 
 # Aggregate
 pbmc_bulk <-
@@ -1273,8 +1286,6 @@ pbmc_bulk %>%
 
 ## Introduction to tidyseurat
 
-In Part 2 we showed how we can study the cell-type composition of a biological sample using bulk RNA sequencing.  Single cell sequencing enables a more direct estimation of cell-type composition and gives greater resolution. For bulk RNA sequencing we need to infer the cell types using the abundance of transcripts in the whole sample, with single-cell RNA sequencing we can directly measure the transcripts in each cell and then classify the cells into cell types. 
-
 Seurat is a very popular analysis toolkit for single cell RNA sequencing data [@butler2018integrating; @stuart2019comprehensive] .
 
 tidyseurat provides a bridge between the Seurat single-cell package [@butler2018integrating; @stuart2019comprehensive] and the tidyverse [@wickham2019welcome]. It creates an invisible layer that enables viewing the
@@ -1293,7 +1304,7 @@ library(tidyseurat)
 pbmc_seurat
 ```
 
-It can be interacted with using [SingleCellExperiment commands](https://bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html) such as `assayNames`.
+It can be interacted with using [seurat commands](https://satijalab.org/seurat/articles/essential_commands.html) such as `Assays`.
 
 ```{r}
 Assays(pbmc_seurat)
@@ -1303,7 +1314,7 @@ We can also interact with our object as we do with any tidyverse tibble.
 
 ### Tidyverse commands
 
-We can interact to this object in the same way we interact with `SingleCellExperiment`, through the tidy paradigm
+We can interact with this object in the same way we showed for `tidySingleCellExperiment`, through the tidy paradigm.
 
 ```{r}
 # Filter
@@ -1323,12 +1334,12 @@ pbmc_seurat %>% bind_rows(pbmc_seurat)
 ```
 
 
-
 ## Key Points
 
 -   Some basic steps of a single-cell RNA sequencing analysis are dimensionality reduction, cluster identification and cell type classification
 -   `tidySingleCellExperiment` is an invisible layer that operates on a `SingleCellExperiment` object and enables us to visualise and manipulate data as if it were a tidy data frame.
 -   `tidySingleCellExperiment` object is a `SingleCellExperiment object` so it can be used with any `SingleCellExperiment` compatible method
+-   `tidyseurat`, similarly, enables us to visualise and manipulate a Seurat object as if it were a tidy data frame and can also be used with any `Seurat` compatible method
 
 # Feedback
 
