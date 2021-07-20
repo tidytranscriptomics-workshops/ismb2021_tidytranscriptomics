@@ -100,6 +100,27 @@ The tidytranscriptomics approach to RNA sequencing data analysis abstracts out t
 * Apply the concepts to publicly available data
 * Create plots that summarise the information content of the data and analysis results
 
+### Google doc with all links
+
+[This Google doc](https://docs.google.com/document/d/1RpdYAy8sgu9Dxg-Jcv9BKiVXNt1dRKGf8_xtJjT1ctE/edit?usp=sharing) has all the links you need for this workshop. As it contains logins to the Cloud servers, it will be accessible during the workshop only.
+
+* Material
+* Menti for Background Question and Challenges Quiz
+* RStudio cloud logins
+* Feedback survey
+
+### Audience Background
+
+First let's get an idea of today's audience.
+
+Please either open a tab in your browser or use your phone. Go go to Menti (www.menti.com) and type the code given the Google doc above.
+
+Then please rate the following 1-5 (1=no/none, 5=yes/a lot)
+
+* I will code along and/or try out exercises during this workshop.  
+* I have experience with transcriptomic analyses  
+* I have experience with tidyverse  
+
 
 ## What is transcriptomics?
 
@@ -478,6 +499,7 @@ counts_scal_PCA <-
 
 ```{challenge_1 class.source="challenge"}
 Challenge: What fraction of variance is explained by PC3?
+Select one of the multiple choice options in www.menti.com (code in Google doc).
 ```
 
 This joins the result to the counts' object.
@@ -612,7 +634,8 @@ de_all %>%
 ```
 
 ```{challenge_2 class.source="challenge"}
-Challenge: Which method detects the most differentially abundant transcripts, p value adjusted for multiple testing <  0.05 (FDR, adj.P.Val, padj)?
+Challenge: Which method detects the largest no. of differentially abundant transcripts, p value adjusted for multiple testing <  0.05 (FDR, adj.P.Val, padj)?
+Select one of the multiple choice options in www.menti.com (code in Google doc).
 ```
 
 ### Single method
@@ -750,6 +773,7 @@ BRCA_cell_type_long %>%
 
 ```{challenge_3 class.source="challenge"}
 Challenge: What is the most abundant cell type overall in BRCA samples?
+Select one of the multiple choice options in www.menti.com (code in Google doc).
 ```
 
 ## Key Points
@@ -767,9 +791,6 @@ A typical single-cell RNA sequencing workflow is shown in the [Workshop Introduc
 In Part 1, we showed how we can study the cell-type composition of a biological sample using bulk RNA sequencing. Single-cell sequencing enables a more direct estimation of cell-type composition and gives a greater resolution. For bulk RNA sequencing, we need to infer the cell types using the abundance of transcripts in the whole sample. With single-cell RNA sequencing, we can directly measure the transcripts in each cell and then classify the cells into cell types.
 
 ```{r message=FALSE, warning=FALSE}
-# unload tidySummarizedExperiment
-detach("package:tidySummarizedExperiment", unload=TRUE)
-
 # load packages
 library(ggplot2)
 library(purrr)
@@ -782,6 +803,7 @@ library(scuttle)
 library(EnsDb.Hsapiens.v86)
 library(celldex)
 library(ggbeeswarm)
+library(tidySingleCellExperiment)
 
 # set colours
 friendly_cols <- dittoSeq::dittoColors()
@@ -802,17 +824,7 @@ pbmc <- ismb2021tidytranscriptomics::pbmc
 pbmc
 ```
 
-If we load the *tidySingleCellExperiment* package and then view the PBMC data, it displays as a tibble.
-
-```{r}
-library(tidySingleCellExperiment)
-
-pbmc
-```
-
-
-
-It can be interacted with using [SingleCellExperiment commands](https://bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html) such as `assayNames`.
+This tidy SingleCellExperiment object can be interacted with using [SingleCellExperiment commands](https://bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html) such as `assayNames`.
 
 ```{r}
 assayNames(pbmc)
@@ -1005,6 +1017,7 @@ pbmc_nested
 
 ```{challenge_4 class.source="challenge"}
 Challenge: Using the nest examples above, can you create a column that includes the mitochondrial information?
+This one is not a multiple choice menti question.
 ```
 
 We want to obtain this table
@@ -1028,7 +1041,6 @@ We want to obtain this table
 We will create a table (tibble) with the mitochondrial QC information for each dataset. 
 
 ```{r}
-# <INSERT THE CODE HERE FROM THE SOLUTIONS>
 mito_info_all_datasets = ismb2021tidytranscriptomics::mito_info_all_datasets 
 ```
 
@@ -1150,14 +1162,11 @@ runUMAP(ncomponents = 2, dimred="corrected") # from scater
 ```
 
 ```{challenge_5 class.source="challenge"}
-Without creating any variable, check if the variability explained by the first UMAP dimension when calculating 2 components (ncomponents = 2) is equal/more/less than when calculating 3 components.
+Challenge: Without creating any variable, check if the variability of the 1st UMAP dimension when calculating 2 components (ncomponents = 2) is equal/more/less than when calculating 3 components.
+Select one of the multiple choice options in www.menti.com (code in Google doc).
 ```
 
 **Tip: your can use as_tibble() to convert the tibble abstraction to a simple (and light) cell-wise tibble**
-
-```{r}
-# <INSERT THE CODE HERE FROM THE SOLUTIONS>
-```
 
 We can calculate the first 3 UMAP dimensions using the scater framework.
 
@@ -1251,11 +1260,11 @@ pbmc <-
 pbmc %>% select(cell, first.labels, everything())
 ```
 
-#### Challenge: use tidyverse grammar to identify the most abundant cell type
 
-```{r}
-# <INSERT THE CODE HERE FROM THE SOLUTIONS>
+```{challenge_6 class.source="challenge"}
+Challenge: Which cell type (first.label) has the largest no. of cells?
 ```
+
 
 ## Pseudobulk analyses
 
@@ -1266,8 +1275,6 @@ It is sometime useful to aggregate cell-wise transcript abundance into pseudobul
 To do this, we will use a helper function called `aggregate_cells`, available in this workshop package, to create a group for each sample.
 
 ```{r warning=FALSE, message=FALSE}
-library(tidySummarizedExperiment)
-
 # Aggregate
 pbmc_bulk <-
   ismb2021tidytranscriptomics::pbmc %>%
@@ -1304,7 +1311,7 @@ library(tidyseurat)
 pbmc_seurat
 ```
 
-It can be interacted with using [seurat commands](https://satijalab.org/seurat/articles/essential_commands.html) such as `Assays`.
+It can be interacted with using [Seurat commands](https://satijalab.org/seurat/articles/essential_commands.html) such as `Assays`.
 
 ```{r}
 Assays(pbmc_seurat)
