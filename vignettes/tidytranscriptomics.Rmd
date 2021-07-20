@@ -779,7 +779,7 @@ library(scuttle)
 library(EnsDb.Hsapiens.v86)
 library(celldex)
 library(ggbeeswarm)
-library(SingleCellExperiment)
+library(tidySingleCellExperiment)
 
 # set colours
 friendly_cols <- dittoSeq::dittoColors()
@@ -800,17 +800,7 @@ pbmc <- ismb2021tidytranscriptomics::pbmc
 pbmc
 ```
 
-If we load the *tidySingleCellExperiment* package and then view the PBMC data, it displays as a tibble.
-
-```{r}
-library(tidySingleCellExperiment)
-
-pbmc
-```
-
-
-
-It can be interacted with using [SingleCellExperiment commands](https://bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html) such as `assayNames`.
+This tidy SingleCellExperiment object can be interacted with using [SingleCellExperiment commands](https://bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html) such as `assayNames`.
 
 ```{r}
 assayNames(pbmc)
