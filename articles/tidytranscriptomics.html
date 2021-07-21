@@ -64,7 +64,9 @@
 
       
 
-      </header><script src="tidytranscriptomics_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="tidytranscriptomics_files/header-attrs-2.9/header-attrs.js"></script><script src="tidytranscriptomics_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="tidytranscriptomics_files/plotly-binding-4.9.4.1/plotly.js"></script><script src="tidytranscriptomics_files/typedarray-0.1/typedarray.min.js"></script><script src="tidytranscriptomics_files/jquery-3.5.1/jquery.min.js"></script><link href="tidytranscriptomics_files/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
+<script src="tidytranscriptomics_files/crosstalk-1.1.1/js/crosstalk.min.js"></script><link href="tidytranscriptomics_files/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="tidytranscriptomics_files/plotly-main-1.57.1/plotly-latest.min.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to Tidy Transcriptomics</h1>
@@ -701,7 +703,7 @@ Adapted from <a href="https://www.storybench.org/getting-started-with-tidyverse-
 <span class="co">#&gt; tidybulk says: to access the raw results do `attr(..., "internals")$PCA`</span></code></pre></div>
 <pre class="challenge_1 challenge"><code>Challenge: What fraction of variance is explained by PC3?
 Select one of the multiple choice options in www.menti.com (code in Google doc).</code></pre>
-<p>This joins the result to the counts’ object.</p>
+<p>The Principal component (PC) information is joined as columns to the counts object.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Take a look</span>
 <span class="va">counts_scal_PCA</span>
@@ -915,9 +917,12 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="va">qlf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmQLFTest.html">glmQLFTest</a></span><span class="op">(</span><span class="va">fit</span>, coef<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="volcano-plots" class="section level2">
+<div id="plots-after-testing-for-differentially-expressed" class="section level2">
 <h2 class="hasAnchor">
-<a href="#volcano-plots" class="anchor"></a>Volcano plots</h2>
+<a href="#plots-after-testing-for-differentially-expressed" class="anchor"></a>Plots after testing for differentially expressed</h2>
+<div id="volcano-plots" class="section level3">
+<h3 class="hasAnchor">
+<a href="#volcano-plots" class="anchor"></a>Volcano plots</h3>
 <p>Volcano plots are a useful genome-wide tool for checking that the analysis looks good. Volcano plots enable us to visualise the significance of change (p-value) versus the fold change (logFC). Highly significant genes are towards the top of the plot. We can also colour significant genes, e.g. genes with false-discovery rate &lt; 0.05. To decide which genes are differentially expressed, we usually take a cut-off of 0.05 on the FDR (or adjusted P-value), NOT the raw p-value. This is because we are testing many genes (multiple testing), and the chances of finding differentially expressed genes are very high when you do that many tests. Hence we need to control the false discovery rate, the adjusted p-value column in the results table. That is, if 100 genes are significant at a 5% false discovery rate, we are willing to accept that 5 will be false positives.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># volcano plot, minimal</span>
@@ -960,11 +965,45 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; which will replace the existing scale.</span></code></pre></div>
 <p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-43-1.png" width="70%"></p>
 </div>
+<div id="stripcharts" class="section level3">
+<h3 class="hasAnchor">
+<a href="#stripcharts" class="anchor"></a>Stripcharts</h3>
+<p>Before following up on the differentially expressed genes with further lab work, it is also recommended to have a look at the expression levels of the individual samples for the genes of interest. We can use stripcharts to do this. These will help show if expression is consistent amongst replicates in the groups.</p>
+<p>With stripcharts we can see if replicates tend to group together and how the expression compares to the other groups. We’ll also add a box plot to show the distribution. Tidyverse faceting makes it easy to create a plot for each gene.</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">strip_chart</span> <span class="op">&lt;-</span>
+  <span class="va">counts_scaled</span> <span class="op">%&gt;%</span>
+
+  <span class="co"># extract counts for top differentially expressed genes</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tidySummarizedExperiment/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">%in%</span> <span class="va">topgenes_symbols</span><span class="op">)</span> <span class="op">%&gt;%</span>
+
+  <span class="co"># make faceted stripchart</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tidySummarizedExperiment/man/ggplot2-methods.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dex</span>, y <span class="op">=</span> <span class="va">counts_scaled</span> <span class="op">+</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="va">dex</span>, label <span class="op">=</span> <span class="va">sample</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">symbol</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="va">custom_theme</span>
+
+<span class="va">strip_chart</span></code></pre></div>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-44-1.png" width="70%"></p>
+</div>
+</div>
+<div id="interactive-plots" class="section level2">
+<h2 class="hasAnchor">
+<a href="#interactive-plots" class="anchor"></a>Interactive Plots</h2>
+<p>A really nice feature of using tidyverse and ggplot2 is that we can make interactive plots quite easily using the plotly package. This can be very useful for exploring what genes or samples are in the plots. We can make interactive plots directly from our ggplot2 object (strip_chart). Having <code>label</code> in the <code>aes</code> is useful to visualise the identifier of the data point (here the sample id) or other variables when we hover over the plot.</p>
+<p>We can also specify which parameters from the <code>aes</code> we want to show up when we hover over the plot with <code>tooltip</code>.</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">strip_chart</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/ggplotly.html">ggplotly</a></span><span class="op">(</span>tooltip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"label"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div id="htmlwidget-64a8c1a8c9922a3c4183" style="width:70%;height:432.632880098888px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-64a8c1a8c9922a3c4183">{"x":{"data":[{"x":[1,1,1,1],"y":[2.86608249463043,3.24428117804533,3.06839624907108,3.17562691547741],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,1)","legendgroup":"(trt,1)","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[1,1,1,1],"y":[3.90486548729367,3.98688675644558,3.81279263895916,4.01655797294455],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,2)","legendgroup":"(trt,2)","showlegend":true,"xaxis":"x2","yaxis":"y","frame":null},{"x":[1,1,1,1],"y":[3.37908997587412,3.66026489164023,3.00017818484172,3.29260776256911],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,3)","legendgroup":"(trt,3)","showlegend":true,"xaxis":"x3","yaxis":"y","frame":null},{"x":[1,1,1,1],"y":[1.82346213237665,2.28135855354415,2.10451752140043,1.96435155901173],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,4)","legendgroup":"(trt,4)","showlegend":true,"xaxis":"x","yaxis":"y2","frame":null},{"x":[1,1,1,1],"y":[3.51387090817402,3.39879151528986,3.29560989216947,3.51160150168158],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,5)","legendgroup":"(trt,5)","showlegend":true,"xaxis":"x2","yaxis":"y2","frame":null},{"x":[1,1,1,1],"y":[3.07311929412043,2.96262137058671,2.77608890608068,3.22821209119327],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,6)","legendgroup":"(trt,6)","showlegend":true,"xaxis":"x3","yaxis":"y2","frame":null},{"x":[2,2,2,2],"y":[2.05771154279207,2.26026869796211,1.92520451632265,2.18242192953093],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,1)","legendgroup":"(untrt,1)","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[2,2,2,2],"y":[2.97408516838107,3.17471098929289,3.03966925197695,2.99963058574393],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,2)","legendgroup":"(untrt,2)","showlegend":true,"xaxis":"x2","yaxis":"y","frame":null},{"x":[2,2,2,2],"y":[3.10102428031286,2.79711680070444,2.42359990302169,2.7519404453481],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,3)","legendgroup":"(untrt,3)","showlegend":true,"xaxis":"x3","yaxis":"y","frame":null},{"x":[2,2,2,2],"y":[2.67024519392228,3.04855545571997,2.94533087476182,2.84038005433171],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,4)","legendgroup":"(untrt,4)","showlegend":true,"xaxis":"x","yaxis":"y2","frame":null},{"x":[2,2,2,2],"y":[1.94811580518406,2.08974145700628,2.09104152346256,2.09839137652196],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,5)","legendgroup":"(untrt,5)","showlegend":true,"xaxis":"x2","yaxis":"y2","frame":null},{"x":[2,2,2,2],"y":[0.823513186820998,1.29886003353581,0.346982975464258,0.854869087183615],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,6)","legendgroup":"(untrt,6)","showlegend":true,"xaxis":"x3","yaxis":"y2","frame":null},{"x":[1.34176891446114,0.885846932046115,0.930729894712567,1.2231147043407],"y":[3.0684942810729,3.24444938421295,2.86627956084988,3.17544455155283],"text":["counts_scaled + 1:  1170.566926<br />sample: SRR1039509","counts_scaled + 1:  1755.016396<br />sample: SRR1039513","counts_scaled + 1:   734.653403<br />sample: SRR1039517","counts_scaled + 1:  1498.397071<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,1)","legendgroup":"(trt,1)","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.617720215208828,0.779543892666698,0.99755601156503,0.925779177807271],"y":[3.9048524248177,3.98685714603727,3.81291403166302,4.01638652780777],"text":["counts_scaled + 1:  8032.772870<br />sample: SRR1039509","counts_scaled + 1:  9702.569369<br />sample: SRR1039513","counts_scaled + 1:  6498.193493<br />sample: SRR1039517","counts_scaled + 1: 10388.622684<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,2)","legendgroup":"(trt,2)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1.08410988952965,0.725919484905899,0.960811107233167,1.12441996056587],"y":[3.66041311145698,3.37925424042826,3.00039446021442,3.29264296745845],"text":["counts_scaled + 1:  4573.670690<br />sample: SRR1039509","counts_scaled + 1:  2393.811648<br />sample: SRR1039513","counts_scaled + 1:  1000.410370<br />sample: SRR1039517","counts_scaled + 1:  1961.587849<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,3)","legendgroup":"(trt,3)","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1.31750510428101,0.687981289811432,1.35281938631088,1.3848814746365],"y":[1.82342587484711,2.28147029635483,2.10445656441877,1.96426704662637],"text":["counts_scaled + 1:    66.598145<br />sample: SRR1039509","counts_scaled + 1:   191.143068<br />sample: SRR1039513","counts_scaled + 1:   127.208907<br />sample: SRR1039517","counts_scaled + 1:    92.119497<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,4)","legendgroup":"(trt,4)","showlegend":false,"xaxis":"x","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[0.857933858409524,1.18417219035327,1.04512699898332,0.726184616237879],"y":[3.51380300194089,3.39873471815792,3.29575128075279,3.51160770675074],"text":["counts_scaled + 1:  3264.907700<br />sample: SRR1039509","counts_scaled + 1:  2504.906475<br />sample: SRR1039513","counts_scaled + 1:  1975.194612<br />sample: SRR1039517","counts_scaled + 1:  3247.891418<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,5)","legendgroup":"(trt,5)","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[0.795438695512712,1.00570565089583,0.829233848489821,1.20644554980099],"y":[3.07311626069606,2.96265919352608,2.77622768590528,3.22837974899447],"text":["counts_scaled + 1:  1183.366564<br />sample: SRR1039509","counts_scaled + 1:   917.532319<br />sample: SRR1039513","counts_scaled + 1:   597.157520<br />sample: SRR1039517","counts_scaled + 1:  1691.266674<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,6)","legendgroup":"(trt,6)","showlegend":false,"xaxis":"x3","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[2.27314314953983,1.63152102008462,2.34596374109387,2.26957345623523],"y":[2.0578348143322,2.26028561416535,1.92538784838186,2.18263187173535],"text":["counts_scaled + 1:   114.211949<br />sample: SRR1039508","counts_scaled + 1:   182.082706<br />sample: SRR1039512","counts_scaled + 1:    84.179146<br />sample: SRR1039516","counts_scaled + 1:   152.202550<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,1)","legendgroup":"(untrt,1)","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1.98573178760707,2.05876853242516,2.28739393018186,2.3318456236273],"y":[2.97393197949523,3.17463573834678,2.99963092647112,3.03966862763283],"text":["counts_scaled + 1:   942.074326<br />sample: SRR1039508","counts_scaled + 1:  1495.240285<br />sample: SRR1039512","counts_scaled + 1:   999.149754<br />sample: SRR1039516","counts_scaled + 1:  1095.643463<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,2)","legendgroup":"(untrt,2)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1.60825816188008,1.60160183329135,2.02258593980223,1.99847725965083],"y":[3.10090580665678,2.79731578475146,2.42345107043313,2.75178847077994],"text":["counts_scaled + 1:  1261.898082<br />sample: SRR1039508","counts_scaled + 1:   626.782411<br />sample: SRR1039512","counts_scaled + 1:   265.216111<br />sample: SRR1039516","counts_scaled + 1:   564.859511<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,3)","legendgroup":"(untrt,3)","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2.0730866920203,2.16907768864185,2.09496682398021,2.26621863469481],"y":[2.6700549160927,3.04844939502562,2.94524943039803,2.84033225325236],"text":["counts_scaled + 1:   467.999290<br />sample: SRR1039508","counts_scaled + 1:  1118.292612<br />sample: SRR1039512","counts_scaled + 1:   881.720371<br />sample: SRR1039516","counts_scaled + 1:   692.436662<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,4)","legendgroup":"(untrt,4)","showlegend":false,"xaxis":"x","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[2.06874076183885,1.79125591777265,1.67759720571339,1.92630067113787],"y":[1.94809934199067,2.08952743524651,2.09118268473597,2.09835439572547],"text":["counts_scaled + 1:    88.739260<br />sample: SRR1039508","counts_scaled + 1:   122.953659<br />sample: SRR1039512","counts_scaled + 1:   123.322274<br />sample: SRR1039516","counts_scaled + 1:   125.427099<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,5)","legendgroup":"(untrt,5)","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[2.01836956236511,2.09766752533615,1.71093702241778,1.78682986069471],"y":[0.823611324770569,0.854701314337328,0.346771487995175,1.29888383028714],"text":["counts_scaled + 1:     6.660597<br />sample: SRR1039508","counts_scaled + 1:     7.159276<br />sample: SRR1039512","counts_scaled + 1:     2.223223<br />sample: SRR1039516","counts_scaled + 1:    19.900319<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,6)","legendgroup":"(untrt,6)","showlegend":false,"xaxis":"x3","yaxis":"y2","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.5768157463462,"r":7.30593607305936,"b":44.1700079422781,"l":58.7795765877958},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xaxis":{"domain":[0,0.32941943900848],"automargin":true,"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["trt","untrt"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["trt","untrt"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-30,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"annotations":[{"text":"dex","x":0.5,"y":-0.0211346180148144,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"top","annotationType":"axis"},{"text":"counts_scaled + 1","x":-0.0233054616616261,"y":0.5,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xref":"paper","yref":"paper","textangle":-90,"xanchor":"right","yanchor":"center","annotationType":"axis"},{"text":"CACNB2","x":0.16470971950424,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"DUSP1","x":0.5,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"PDPN","x":0.83529028049576,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"PRSS35","x":0.16470971950424,"y":0.482608570461924,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"SPARCL1","x":0.5,"y":0.482608570461924,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"ZBTB16","x":0.83529028049576,"y":0.482608570461924,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"dex","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"yaxis":{"domain":[0.517391429538076,1],"automargin":true,"type":"linear","autorange":false,"range":[0.163282163747706,4.20004729719202],"tickmode":"array","ticktext":["10","100","1000","10000"],"tickvals":[1,2,3,4],"categoryorder":"array","categoryarray":["10","100","1000","10000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.32941943900848,"y0":0.517391429538076,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.32941943900848,"y0":0,"y1":24.4416770444168,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.337247227658187,"x1":0.662752772341813,"y0":0.517391429538076,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.337247227658187,"x1":0.662752772341813,"y0":0,"y1":24.4416770444168,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.67058056099152,"x1":1,"y0":0.517391429538076,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.67058056099152,"x1":1,"y0":0,"y1":24.4416770444168,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.32941943900848,"y0":0,"y1":0.482608570461924},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.32941943900848,"y0":0,"y1":24.4416770444168,"yanchor":0.482608570461924,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.337247227658187,"x1":0.662752772341813,"y0":0,"y1":0.482608570461924},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.337247227658187,"x1":0.662752772341813,"y0":0,"y1":24.4416770444168,"yanchor":0.482608570461924,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.67058056099152,"x1":1,"y0":0,"y1":0.482608570461924},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.67058056099152,"x1":1,"y0":0,"y1":24.4416770444168,"yanchor":0.482608570461924,"ysizemode":"pixel"}],"xaxis2":{"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["trt","untrt"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["trt","untrt"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-30,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"domain":[0.337247227658187,0.662752772341813],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"xaxis3":{"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["trt","untrt"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["trt","untrt"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-30,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"domain":[0.67058056099152,1],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"yaxis2":{"type":"linear","autorange":false,"range":[0.163282163747706,4.20004729719202],"tickmode":"array","ticktext":["10","100","1000","10000"],"tickvals":[1,2,3,4],"categoryorder":"array","categoryarray":["10","100","1000","10000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"domain":[0,0.482608570461924],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218},"y":0.960675435801739},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"11b24f7cf48b":{"x":{},"y":{},"fill":{},"label":{},"type":"box"},"11b26aef9436":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"11b24f7cf48b","visdat":{"11b24f7cf48b":["function (y) ","x"],"11b26aef9436":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
 <div id="automatic-bibliography" class="section level2">
 <h2 class="hasAnchor">
 <a href="#automatic-bibliography" class="anchor"></a>Automatic bibliography</h2>
 <p>Tidybulk provides a handy function called <code>get_bibliography</code> that keeps track of the references for the methods used in your tidybulk workflow. The references are in BibTeX format and can be imported into your reference manager.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/tidybulk/man/get_bibliography-methods.html">get_bibliography</a></span><span class="op">(</span><span class="va">counts_de</span><span class="op">)</span>
 <span class="co">#&gt;  @Article{tidybulk,</span>
 <span class="co">#&gt;   title = {tidybulk: an R tidy framework for modular transcriptomic data analysis},</span>
@@ -1027,7 +1066,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <a href="#cell-type-composition-analysis" class="anchor"></a>Cell type composition analysis</h2>
 <p>If we are sequencing tissue samples, we may want to know what cell types are present and if there are differences in expression between them. <code>tidybulk</code> has a <code>deconvolve_cellularity</code> function that can help us do this.</p>
 <p>For this example, we will use a subset of the breast cancer dataset from <a href="https://www.cancer.gov/tcga">The Cancer Genome Atlas (TCGA)</a>.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">BRCA</span> <span class="op">&lt;-</span> <span class="fu">ismb2021tidytranscriptomics</span><span class="fu">::</span><span class="va"><a href="../reference/BRCA.html">BRCA</a></span> 
 <span class="va">BRCA</span>
 <span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 198,374 x 5</span>
@@ -1046,7 +1085,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; 10 AAMP     TCGA-A2-A04P  5798   102              1</span>
 <span class="co">#&gt; # … with 40 more rows</span></code></pre></div>
 <p>With tidybulk, we can easily infer the proportions of cell types within a tissue using one of several published methods (Cibersort <span class="citation">(Newman et al. 2015)</span>, EPIC <span class="citation">(Racle et al. 2017)</span> and llsr <span class="citation">(Abbas et al. 2009)</span>). Here we will use Cibersort which provides a default signature called LM22 to define the cell types. LM22 contains 547 genes that identify 22 human immune cell types.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">BRCA_cell_type</span> <span class="op">&lt;-</span>
   <span class="va">BRCA</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidybulk/man/deconvolve_cellularity-methods.html">deconvolve_cellularity</a></span><span class="op">(</span>prefix<span class="op">=</span><span class="st">"cibersort: "</span>, cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -1080,7 +1119,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; #   cibersort..Mast.cells.resting &lt;dbl&gt;, cibersort..Mast.cells.activated &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   cibersort..Eosinophils &lt;dbl&gt;, cibersort..Neutrophils &lt;dbl&gt;</span></code></pre></div>
 <p>Cell type proportions are added to the tibble as new columns. The prefix makes it easy to reshape the data frame if needed, for visualisation or further analyses.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">BRCA_cell_type_long</span> <span class="op">&lt;-</span>
   <span class="va">BRCA_cell_type</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidybulk/man/pivot_sample-methods.html">pivot_sample</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1109,14 +1148,14 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; 10 TCGA-A2-A0…   102              1 cibersort..T.cells.gamma.delta        0     </span>
 <span class="co">#&gt; # … with 474 more rows</span></code></pre></div>
 <p>We can plot the proportions of immune cell types for each patient.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">BRCA_cell_type_long</span> <span class="op">%&gt;%</span>
 
   <span class="co"># Plot proportions</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySummarizedExperiment/man/ggplot2-methods.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sample</span>, y <span class="op">=</span> <span class="va">proportion</span>, fill <span class="op">=</span> <span class="va">cell_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span>
   <span class="va">custom_theme</span></code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-48-1.png" width="700"></p>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-50-1.png" width="700"></p>
 <pre class="challenge_3 challenge"><code>Challenge: What is the most abundant cell type overall in BRCA samples?
 Select one of the multiple choice options in www.menti.com (code in Google doc).</code></pre>
 </div>
@@ -1139,7 +1178,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <a href="#part-2-single-cell-rna-sequencing-with-tidysinglecellexperiment" class="anchor"></a>Part 2 Single-cell RNA sequencing with tidySingleCellExperiment</h1>
 <p>A typical single-cell RNA sequencing workflow is shown in the <a href="https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/articles/tidytranscriptomics.html#differences-between-bulk-and-single-cell-rna-sequencing-1">Workshop Introduction</a> section. We don’t have time in this workshop to go into depth on each step but you can read more about single-cell RNA sequencing workflows in the online book <a href="http://bioconductor.org/books/release/OSCA/index.html">Orchestrating Single-Cell Analysis with Bioconductor</a>.</p>
 <p>In Part 1, we showed how we can study the cell-type composition of a biological sample using bulk RNA sequencing. Single-cell sequencing enables a more direct estimation of cell-type composition and gives a greater resolution. For bulk RNA sequencing, we need to infer the cell types using the abundance of transcripts in the whole sample. With single-cell RNA sequencing, we can directly measure the transcripts in each cell and then classify the cells into cell types.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># load packages</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
@@ -1161,7 +1200,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <a href="#introduction-to-tidysinglecellexperiment" class="anchor"></a>Introduction to tidySingleCellExperiment</h2>
 <p>The single-cell RNA sequencing data used here is 3000 cells in total, subsetted from 20 samples from 10 peripheral blood mononuclear cell (PBMC) datasets. The datasets are from GSE115189/SRR7244582 <span class="citation">(Freytag et al. 2018)</span>, SRR11038995 [<span class="citation">Cai et al. (2020)</span>, SCP345 (singlecell.broadinstitute.org), SCP424 <span class="citation">(Ding et al. 2020)</span>, SCP591 <span class="citation">(Karagiannis et al. 2020)</span> and 10x-derived 6K and 8K datasets (support.10xgenomics.com/). The data is in <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html">SingleCellExperiment</a> format. SingleCellExperiment is a very popular container of single-cell RNA sequencing data.</p>
 <p>Similar to what we saw with tidySummarizedExperiment, <code>tidySingleCellExperiment</code> package enables any <em>SingleCellExperiment</em> object to be displayed and manipulated according to tidy data principles without affecting any <em>SingleCellExperiment</em> behaviour.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># load pbmc single cell RNA sequencing data</span>
 <span class="va">pbmc</span> <span class="op">&lt;-</span> <span class="fu">ismb2021tidytranscriptomics</span><span class="fu">::</span><span class="va"><a href="../reference/pbmc.html">pbmc</a></span>
 
@@ -1183,16 +1222,16 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; 10 ATAGC… ../data/… SeuratPro…       3092          974 -1.24e-2  -0.0271  Singl…</span>
 <span class="co">#&gt; # … with 2,990 more rows</span></code></pre></div>
 <p>This tidy SingleCellExperiment object can be interacted with using <a href="https://bioconductor.org/packages/release/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html">SingleCellExperiment commands</a> such as <code>assayNames</code>.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">assayNames</span><span class="op">(</span><span class="va">pbmc</span><span class="op">)</span>
 <span class="co">#&gt; [1] "counts"    "logcounts"</span></code></pre></div>
 <p>We can also interact with our object as we do with any tidyverse tibble.</p>
 <div id="tidyverse-commands-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#tidyverse-commands-1" class="anchor"></a>Tidyverse commands</h3>
-<p>And now we can also use tidyverse commands, such as <code>filter</code>, <code>select</code> and <code>mutate</code> to explore the tidySingleCellExperiment object. Some examples are shown below and more can be seen at the tidySingleCellExperiment website <a href="https://stemangiola.github.io/tidySingleCellExperiment/articles/introduction.html#tidyverse-commands-1">here</a>. We can also use the tidyverse pipe <code><a href="https://rdrr.io/pkg/tidyseurat/man/pipe.html">%&gt;%</a></code>. This ‘pipes’ the output from the command on the left into the command on the right/below. Using the pipe is not essential but it reduces the amount of code we need to write when we have multiple steps. It also can make the steps clearer and easier to see. For more details on the pipe see <a href="https://r4ds.had.co.nz/pipes.html">here</a>.</p>
+<p>We can use tidyverse commands, such as <code>filter</code>, <code>select</code> and <code>mutate</code> to explore the tidySingleCellExperiment object. Some examples are shown below and more can be seen at the tidySingleCellExperiment website <a href="https://stemangiola.github.io/tidySingleCellExperiment/articles/introduction.html#tidyverse-commands-1">here</a>. We can also use the tidyverse pipe <code><a href="https://rdrr.io/pkg/tidyseurat/man/pipe.html">%&gt;%</a></code>. This ‘pipes’ the output from the command on the left into the command on the right/below. Using the pipe is not essential but it reduces the amount of code we need to write when we have multiple steps. It also can make the steps clearer and easier to see. For more details on the pipe see <a href="https://r4ds.had.co.nz/pipes.html">here</a>.</p>
 <p>We can use <code>filter</code> to choose rows, for example, to see just the rows for the treated samples.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="va">ident</span> <span class="op">==</span> <span class="st">"G1"</span><span class="op">)</span>
 <span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 0 x 8</span>
 <span class="co">#&gt; [90m# Features=51958 | Assays=counts, logcounts[39m</span>
@@ -1200,7 +1239,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; #   nCount_RNA &lt;dbl&gt;, nFeature_RNA &lt;int&gt;, S.Score &lt;dbl&gt;, G2M.Score &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   ident &lt;fct&gt;</span></code></pre></div>
 <p>We can use <code>select</code> to choose columns, for example, to see the sample, cell, total cellular RNA</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">cell</span>, <span class="va">nCount_RNA</span> , <span class="va">ident</span><span class="op">)</span>
 <span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 3,000 x 3</span>
 <span class="co">#&gt; [90m# Features=51958 | Assays=counts, logcounts[39m</span>
@@ -1218,7 +1257,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; 10 ATAGCGTGCCCTTG-1       3092 SingleCellExperiment</span>
 <span class="co">#&gt; # … with 2,990 more rows</span></code></pre></div>
 <p>We can use <code>mutate</code> to create a column. For example, we could create a new sample_name column that contains shorter sample names. We can remove the SRR1039 prefix that’s present in all of the samples, as shorter names can fit better in some of the plots we will create. We can use <code>mutate</code> together with <code>str_replace</code> to remove the SRR1039 string from the sample column.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>ident_l<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">ident</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># select columns to view    </span>
@@ -1243,7 +1282,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <h3 class="hasAnchor">
 <a href="#join-datasets" class="anchor"></a>Join datasets</h3>
 <p>We can join datasets as if they were tibbles</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">bind_rows</a></span><span class="op">(</span><span class="va">pbmc</span><span class="op">)</span>
 <span class="co">#&gt; Warning in bind_rows.SingleCellExperiment(., pbmc): tidySingleCellExperiment</span>
 <span class="co">#&gt; says: you have duplicated cell names, they will be made unique.</span>
@@ -1268,7 +1307,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <h2 class="hasAnchor">
 <a href="#setting-up-the-data-1" class="anchor"></a>Setting up the data</h2>
 <p>In this case, we want to polish an annotation column. We will extract the sample, dataset and group information from the file name column into separate columns.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># First take a look at the file column</span>
 <span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: Key columns are missing. A data frame is returned for independent data analysis.</span>
@@ -1286,7 +1325,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt;  9 ../data/GSE115189_1/outs/filtered_feature_bc_matrix/</span>
 <span class="co">#&gt; 10 ../data/GSE115189_1/outs/filtered_feature_bc_matrix/</span>
 <span class="co">#&gt; # … with 2,990 more rows</span></code></pre></div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create columns for sample, dataset and groups</span>
 <span class="va">pbmc</span> <span class="op">&lt;-</span>
   <span class="va">pbmc</span> <span class="op">%&gt;%</span>
@@ -1320,10 +1359,10 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <a href="#quality-control" class="anchor"></a>Quality control</h2>
 <p>A key quality control step performed in single-cell analyses is the assessment of the proportion of mitochondrial transcripts. A high mitochondrial count indicates cell death, and it is useful for filtering cells in a dying state.</p>
 <p>We’ll first show the mitochondrial analysis for one of the 10 datasets.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">one_dataset</span> <span class="op">&lt;-</span> <span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="va">dataset</span> <span class="op">==</span><span class="st">"GSE115189"</span><span class="op">)</span></code></pre></div>
 <p>We get the chromosomal location for each gene in the dataset so we can identify the mitochondrial genes. We’ll get a warning that some of the ids don’t find a match, but it should be just a small proportion.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">location</span> <span class="op">&lt;-</span> <span class="fu">mapIds</span><span class="op">(</span>
   <span class="va">EnsDb.Hsapiens.v86</span>,
   keys <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames</a></span><span class="op">(</span><span class="va">one_dataset</span><span class="op">)</span>,
@@ -1332,7 +1371,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="op">)</span>
 <span class="co">#&gt; Warning: Unable to map 5313 of 51958 requested IDs.</span></code></pre></div>
 <p>Next we calculate the mitchondrial content for each cell in the dataset.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mito_info_one_dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/perCellQCMetrics.html">perCellQCMetrics</a></span><span class="op">(</span><span class="va">one_dataset</span>, subsets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>Mito <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">location</span> <span class="op">==</span> <span class="st">"MT"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">mito_info_one_dataset</span>
@@ -1364,7 +1403,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; TCAGCAGACTCCAC-1              1.06876      2807</span>
 <span class="co">#&gt; AACACGTGTACGAC-1              2.80524      3743</span></code></pre></div>
 <p>We then label the cells with high mitochondrial content as outliers.</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mito_info_one_dataset</span> <span class="op">&lt;-</span> <span class="va">mito_info_one_dataset</span> <span class="op">%&gt;%</span>
       <span class="co"># Converting to tibble</span>
       <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tibble-methods.html">as_tibble</a></span><span class="op">(</span>rownames <span class="op">=</span> <span class="st">"cell"</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1388,7 +1427,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; 10 ATAG…  3092      974               37               10            1.20   3092</span>
 <span class="co">#&gt; # … with 290 more rows, and 1 more variable: high_mitochondrion &lt;otlr.flt&gt;</span></code></pre></div>
 <p>Finally, we join the mitochondrial information back to the original data so we will be able to filter out the cells with high mitochondrial content.</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mito_info_one_dataset</span> <span class="op">&lt;-</span> <span class="va">one_dataset</span> <span class="op">%&gt;%</span>  <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">left_join</a></span><span class="op">(</span><span class="va">mito_info_one_dataset</span>, by <span class="op">=</span> <span class="st">"cell"</span><span class="op">)</span>
 
 <span class="va">mito_info_one_dataset</span>
@@ -1421,7 +1460,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <h4 class="hasAnchor">
 <a href="#examples-of-nesting" class="anchor"></a>Examples of nesting</h4>
 <p>As a simple example of nesting. Imagine we had two groups, a and b that contained some values.</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_tibble</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>,<span class="st">"a"</span>,<span class="st">"a"</span>,<span class="st">"a"</span>,<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"b"</span>,<span class="st">"b"</span>,<span class="st">"b"</span>,<span class="st">"b"</span> <span class="op">)</span>,
@@ -1443,7 +1482,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt;  9 b         9</span>
 <span class="co">#&gt; 10 b        10</span></code></pre></div>
 <p>We could nest this data to make tables containing the values for each of our a and b groups. With <code>nest</code>, <code>data=</code> specifies the columns that will be in the tables and creates a list of these smaller tables.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Nest</span>
 <span class="va">my_tibble_nested</span> <span class="op">=</span> 
   <span class="va">my_tibble</span> <span class="op">%&gt;%</span>
@@ -1456,7 +1495,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; 1 a     &lt;tibble [5 × 1]&gt;</span>
 <span class="co">#&gt; 2 b     &lt;tibble [5 × 1]&gt;</span></code></pre></div>
 <p>We can then iterate over these smaller tables. <code>map</code> is often used in combination with <code>nest</code> to perform commands on nested data. There are a few map commands that you can choose from depending on what you want to return. For example, <code>map_dbl</code> will return a double (floating point number) and we can use it to calculate the average value for each group. You can use <code><a href="https://purrr.tidyverse.org/reference/map.html">?map</a></code> to see the options. The map syntax is <code><a href="https://purrr.tidyverse.org/reference/map.html">map(.x, .f)</a></code> where <code>.x</code> is the table to be iterated over and <code>.f</code> is the function. So in this example, <code>.x</code> is <code>data</code> and <code>.f</code> is <code>~ mean(.x$value)</code>. We get the mean of the value column for each of the nested tables in data.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Summarise</span>
 <span class="va">my_tibble_nested</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">value</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
@@ -1466,7 +1505,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; 1 a     &lt;tibble [5 × 1]&gt;       3</span>
 <span class="co">#&gt; 2 b     &lt;tibble [5 × 1]&gt;       8</span></code></pre></div>
 <p>We can apply multiple commands to the nested data using the <code><a href="https://rdrr.io/pkg/tidyseurat/man/pipe.html">%&gt;%</a></code>. We can use <code>unnest</code> if we want to get back our large (unnested) table to view the results.</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Summarise + filter</span>
 <span class="va">my_tibble_nested</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">value</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1481,7 +1520,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; 4 b         9       8</span>
 <span class="co">#&gt; 5 b        10       8</span></code></pre></div>
 <p>We can use <code>map2</code> when we have two arguments that we are iterating over. In the example below we have the nested tables (data) and the average for each (average). The map2 syntax is <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2(.x, .y, .f)</a></code>.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Summarise + update</span>
 <span class="va">my_tibble_nested</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">value</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1501,7 +1540,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt;  9 b         1       8</span>
 <span class="co">#&gt; 10 b         2       8</span></code></pre></div>
 <p>We will created nested tables for our 10 datasets.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc_nested</span> <span class="op">&lt;-</span> <span class="va">pbmc</span> <span class="op">%&gt;%</span> 
     <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tidyr-methods.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">-</span><span class="va">dataset</span><span class="op">)</span>
 
@@ -1536,10 +1575,10 @@ This one is not a Menti quiz question.</code></pre>
  9 SCP424_pbmc2 &lt;SnglCllE[,300]&gt; &lt;tibble [300 × 8]&gt;
 10 SCP591       &lt;SnglCllE[,300]&gt; &lt;tibble [300 × 8]&gt;</code></pre>
 <p>We will create a table (tibble) with the mitochondrial QC information for each dataset.</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mito_info_all_datasets</span> <span class="op">=</span> <span class="fu">ismb2021tidytranscriptomics</span><span class="fu">::</span><span class="va"><a href="../reference/mito_info_all_datasets.html">mito_info_all_datasets</a></span> </code></pre></div>
 <p>As before, we join the mitochondrial information to the original data.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="co"># Join the mitochondrial information to the original SingleCellExperiment data</span>
  <span class="va">mito_info_all_datasets</span> <span class="op">&lt;-</span> <span class="va">mito_info_all_datasets</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span>
@@ -1565,7 +1604,7 @@ This one is not a Menti quiz question.</code></pre>
 <span class="co">#&gt;  9 SCP424_pbmc2 &lt;SnglCllE[,300]&gt;</span>
 <span class="co">#&gt; 10 SCP591       &lt;SnglCllE[,300]&gt;</span></code></pre></div>
 <p>Remove the nesting to get back one table containing all datasets.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">&lt;-</span> <span class="va">mito_info_all_datasets</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tidyr-methods.html">unnest</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 
@@ -1590,7 +1629,7 @@ This one is not a Menti quiz question.</code></pre>
 <span class="co">#&gt; #   dataset &lt;chr&gt;</span></code></pre></div>
 <p>Nesting has allowed us to perform the QC on each dataset in an efficient way.</p>
 <p>We can use tidyverse to reshape the data and create <a href="http://www.cbs.dtu.dk/~eklund/beeswarm/">beeswarm plots</a> to visualise the mitochondrial content.</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span>
 
   <span class="co"># Reshaping</span>
@@ -1612,10 +1651,10 @@ This one is not a Menti quiz question.</code></pre>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">50</span>, hjust <span class="op">=</span> <span class="fl">1</span>, vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: A data frame is returned for independent data analysis.</span></code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-75-1.png" width="700"></p>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-77-1.png" width="700"></p>
 <p>In the faceted plot, “detected” is the number of genes in each of the 10 datasets, “sum” is the total counts.</p>
 <p>We then proceed to filter out cells with high mitochondrial content.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">&lt;-</span> <span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">high_mitochondrion</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
@@ -1624,7 +1663,7 @@ This one is not a Menti quiz question.</code></pre>
 <h2 class="hasAnchor">
 <a href="#scaling-and-integrating" class="anchor"></a>Scaling and Integrating</h2>
 <p>As we are working with multiple datasets, we need to integrate them and adjust for technical variability between them. Here we’ll nest by dataset (batch), normalise within each batch with <code>multiBatchNorm</code> and correct for batch effects with <code>fastMNN</code>.</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Scaling within each dataset</span>
 <span class="va">pbmc</span> <span class="op">&lt;-</span>
   <span class="va">pbmc</span> <span class="op">%&gt;%</span>
@@ -1646,7 +1685,7 @@ This one is not a Menti quiz question.</code></pre>
 <h2 class="hasAnchor">
 <a href="#identify-clusters" class="anchor"></a>Identify clusters</h2>
 <p>We proceed with identifying cell clusters.</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Assign clusters to the 'colLabels'</span>
 <span class="co"># of the SingleCellExperiment object</span>
 <span class="fu">colLabels</span><span class="op">(</span><span class="va">pbmc</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="co"># from SingleCellExperiment</span>
@@ -1663,13 +1702,13 @@ This one is not a Menti quiz question.</code></pre>
 <span class="co">#&gt;    cell  label batch groups sample orig.ident nCount_RNA nFeature_RNA  S.Score</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;fct&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 CCAG… 5         1 1      GSE11… SeuratPro…       3421          979 -5.42e-2</span>
-<span class="co">#&gt;  2 ATGA… 2         1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
+<span class="co">#&gt;  2 ATGA… 3         1 2      GSE11… SeuratPro…       2752          898 -5.01e-2</span>
 <span class="co">#&gt;  3 TATG… 7         1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
 <span class="co">#&gt;  4 CATA… 11        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
 <span class="co">#&gt;  5 GAGG… 1         1 2      GSE11… SeuratPro…       2341          957 -3.74e-3</span>
-<span class="co">#&gt;  6 AGCT… 3         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
-<span class="co">#&gt;  7 TGAT… 4         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
-<span class="co">#&gt;  8 ACGA… 4         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
+<span class="co">#&gt;  6 AGCT… 4         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
+<span class="co">#&gt;  7 TGAT… 2         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
+<span class="co">#&gt;  8 ACGA… 2         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
 <span class="co">#&gt;  9 CGGC… 5         1 1      GSE11… SeuratPro…       3500         1092 -6.87e-2</span>
 <span class="co">#&gt; 10 ATAG… 5         1 1      GSE11… SeuratPro…       3092          974 -1.24e-2</span>
 <span class="co">#&gt; # … with 2,889 more rows, and 15 more variables: G2M.Score &lt;dbl&gt;, ident &lt;fct&gt;,</span>
@@ -1678,21 +1717,21 @@ This one is not a Menti quiz question.</code></pre>
 <span class="co">#&gt; #   high_mitochondrion &lt;lgl&gt;, dataset &lt;chr&gt;, corrected1 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   corrected2 &lt;dbl&gt;, corrected3 &lt;dbl&gt;, corrected4 &lt;dbl&gt;, corrected5 &lt;dbl&gt;</span></code></pre></div>
 <p>Thanks to tidySingleCellExperiment we can interrogate the object with tidyverse commands and use <code>count</code> to count the number of cells in each cluster.</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/count.html">count</a></span><span class="op">(</span><span class="va">label</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: A data frame is returned for independent data analysis.</span>
 <span class="co">#&gt; # A tibble: 11 x 2</span>
 <span class="co">#&gt;    label     n</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 1       483</span>
-<span class="co">#&gt;  2 2       786</span>
-<span class="co">#&gt;  3 3       510</span>
-<span class="co">#&gt;  4 4       350</span>
+<span class="co">#&gt;  1 1       484</span>
+<span class="co">#&gt;  2 2       367</span>
+<span class="co">#&gt;  3 3       649</span>
+<span class="co">#&gt;  4 4       629</span>
 <span class="co">#&gt;  5 5       339</span>
 <span class="co">#&gt;  6 6        21</span>
 <span class="co">#&gt;  7 7       255</span>
-<span class="co">#&gt;  8 8        74</span>
-<span class="co">#&gt;  9 9        41</span>
+<span class="co">#&gt;  8 8        41</span>
+<span class="co">#&gt;  9 9        74</span>
 <span class="co">#&gt; 10 10       14</span>
 <span class="co">#&gt; 11 11       26</span></code></pre></div>
 </div>
@@ -1700,7 +1739,7 @@ This one is not a Menti quiz question.</code></pre>
 <h2 class="hasAnchor">
 <a href="#reduce-dimensions" class="anchor"></a>Reduce dimensions</h2>
 <p>Besides PCA which is a linear dimensionality reduction, we can apply neighbour aware methods such as UMAP, to better define locally similar cells.</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calculate UMAP with scater</span>
 <span class="va">pbmc</span> <span class="op">%&gt;%</span>
 <span class="fu"><a href="https://rdrr.io/pkg/scater/man/runUMAP.html">runUMAP</a></span><span class="op">(</span>ncomponents <span class="op">=</span> <span class="fl">2</span>, dimred<span class="op">=</span><span class="st">"corrected"</span><span class="op">)</span> <span class="co"># from scater</span>
@@ -1728,13 +1767,13 @@ This one is not a Menti quiz question.</code></pre>
 Select one of the multiple choice options in www.menti.com (code in Google doc).</code></pre>
 <p><strong>Tip: your can use as_tibble() to convert the tibble abstraction to a simple (and light) cell-wise tibble</strong></p>
 <p>We can calculate the first 3 UMAP dimensions using the scater framework.</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calculate UMAP with scater</span>
 <span class="va">pbmc</span> <span class="op">&lt;-</span>
   <span class="va">pbmc</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/scater/man/runUMAP.html">runUMAP</a></span><span class="op">(</span>ncomponents <span class="op">=</span> <span class="fl">3</span>, dimred<span class="op">=</span><span class="st">"corrected"</span><span class="op">)</span> <span class="co"># from scater</span></code></pre></div>
 <p>And we can plot the clusters as a 3D plot using plotly. This time we are colouring by estimated cluster labels to visually check the cluster labels.</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/plot_ly.html">plot_ly</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="op">~</span><span class="va">`UMAP1`</span>,
@@ -1753,7 +1792,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <h3 class="hasAnchor">
 <a href="#manual-cell-type-classification" class="anchor"></a>Manual cell type classification</h3>
 <p>We can identify cluster markers (genes). As example, we are selecting the top 10 for each cluster. We can then plot a heatmap of those gene markers across cells.</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Identify top 10 markers per cluster</span>
 <span class="va">marker_genes</span> <span class="op">&lt;-</span>
     <span class="va">pbmc</span> <span class="op">%&gt;%</span>
@@ -1770,13 +1809,13 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
     colour_columns_by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"label"</span><span class="op">)</span>, 
     exprs_values  <span class="op">=</span> <span class="st">"reconstructed"</span>
   <span class="op">)</span> </code></pre></div>
-<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-79-1.png" width="700"></p>
+<p><img src="tidytranscriptomics_files/figure-html/unnamed-chunk-81-1.png" width="700"></p>
 </div>
 <div id="automatic-cell-type-classification" class="section level3">
 <h3 class="hasAnchor">
 <a href="#automatic-cell-type-classification" class="anchor"></a>Automatic cell type classification</h3>
 <p>We can infer cell type identities (e.g. T cell) using <em>SingleR</em> <span class="citation">(Aran et al. 2019)</span> and manipulate the output using tidyverse. SingleR <a href="https://bioconductor.org/packages/devel/bioc/vignettes/SingleR/inst/doc/SingleR.html">accepts any log-normalised transcript abundance matrix</a></p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Reference cell types</span>
 <span class="va">blueprint</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SingleR/man/datasets.html">BlueprintEncodeData</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; snapshotDate(): 2021-07-16</span>
@@ -1807,18 +1846,18 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt;    label first.labels   </span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;          </span>
 <span class="co">#&gt;  1 1     NK cells       </span>
-<span class="co">#&gt;  2 2     Skeletal muscle</span>
-<span class="co">#&gt;  3 3     Fibroblasts    </span>
-<span class="co">#&gt;  4 4     B-cells        </span>
+<span class="co">#&gt;  2 2     B-cells        </span>
+<span class="co">#&gt;  3 3     Skeletal muscle</span>
+<span class="co">#&gt;  4 4     Fibroblasts    </span>
 <span class="co">#&gt;  5 5     Monocytes      </span>
 <span class="co">#&gt;  6 6     Smooth muscle  </span>
 <span class="co">#&gt;  7 7     NK cells       </span>
-<span class="co">#&gt;  8 8     Neutrophils    </span>
-<span class="co">#&gt;  9 9     Macrophages    </span>
+<span class="co">#&gt;  8 8     Macrophages    </span>
+<span class="co">#&gt;  9 9     Neutrophils    </span>
 <span class="co">#&gt; 10 10    B-cells        </span>
 <span class="co">#&gt; 11 11    Monocytes</span></code></pre></div>
 <p>We join the cell type information to our pbmc data.</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join cell type info</span>
 <span class="va">pbmc</span> <span class="op">&lt;-</span>
   <span class="va">pbmc</span> <span class="op">%&gt;%</span>
@@ -1858,7 +1897,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <h3 class="hasAnchor">
 <a href="#data-exploration-using-pseudobulk-samples" class="anchor"></a>Data exploration using pseudobulk samples</h3>
 <p>To do this, we will use a helper function called <code>aggregate_cells</code>, available in this workshop package, to create a group for each sample.</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Aggregate</span>
 <span class="va">pbmc_bulk</span> <span class="op">&lt;-</span>
   <span class="fu">ismb2021tidytranscriptomics</span><span class="fu">::</span><span class="va"><a href="../reference/pbmc.html">pbmc</a></span> <span class="op">%&gt;%</span>
@@ -1881,7 +1920,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; 10 A2M-AS1  ../data/1…                1                1 ../data/benign_… Singl…</span>
 <span class="co">#&gt; # … with 40 more rows</span></code></pre></div>
 <p>Once we have aggregated the single cells for each sample, we can use the bulk RNA sequencing methods available through tidybulk.</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc_bulk</span> <span class="op">%&gt;%</span>
 
   <span class="co"># Tidybulk operations</span>
@@ -1911,14 +1950,14 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <a href="#introduction-to-tidyseurat" class="anchor"></a>Introduction to tidyseurat</h2>
 <p>Seurat is a very popular analysis toolkit for single cell RNA sequencing data <span class="citation">(Butler et al. 2018; Stuart et al. 2019)</span> .</p>
 <p>tidyseurat provides a bridge between the Seurat single-cell package <span class="citation">(Butler et al. 2018; Stuart et al. 2019)</span> and the tidyverse <span class="citation">(Wickham et al. 2019)</span>. It creates an invisible layer that enables viewing the Seurat object as a tidyverse tibble, and provides Seurat-compatible <em>dplyr</em>, <em>tidyr</em>, <em>ggplot</em> and <em>plotly</em> functions.</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc_seurat</span> <span class="op">&lt;-</span> <span class="fu">ismb2021tidytranscriptomics</span><span class="fu">::</span><span class="va"><a href="../reference/pbmc_seurat.html">pbmc_seurat</a></span>
 <span class="co">#&gt; Registered S3 method overwritten by 'spatstat.geom':</span>
 <span class="co">#&gt;   method     from</span>
 <span class="co">#&gt;   print.boxx cli</span></code></pre></div>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyseurat</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc_seurat</span>
 <span class="co">#&gt; # A Seurat-tibble abstraction: 80 x 9</span>
 <span class="co">#&gt; [90m# Transcripts=230 | Active assay=RNA | Assays=RNA[39m</span>
@@ -1936,7 +1975,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; 10 AATG… SeuratPro…        100           41 0               A             g1    </span>
 <span class="co">#&gt; # … with 70 more rows, and 2 more variables: RNA_snn_res.1 &lt;fct&gt;, file &lt;chr&gt;</span></code></pre></div>
 <p>It can be interacted with using <a href="https://satijalab.org/seurat/articles/essential_commands.html">Seurat commands</a> such as <code>Assays</code>.</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">Assays</span><span class="op">(</span><span class="va">pbmc_seurat</span><span class="op">)</span>
 <span class="co">#&gt; [1] "RNA"</span></code></pre></div>
 <p>We can also interact with our object as we do with any tidyverse tibble.</p>
@@ -1944,7 +1983,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <h3 class="hasAnchor">
 <a href="#tidyverse-commands-2" class="anchor"></a>Tidyverse commands</h3>
 <p>We can interact with this object in the same way we showed for <code>tidySingleCellExperiment</code>, through the tidy paradigm.</p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filter</span>
 <span class="va">pbmc_seurat</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyseurat/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="va">groups</span> <span class="op">==</span> <span class="st">"g1"</span><span class="op">)</span>
 <span class="co">#&gt; # A Seurat-tibble abstraction: 44 x 9</span>
@@ -2051,7 +2090,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <h1 class="hasAnchor">
 <a href="#reproducibility" class="anchor"></a>Reproducibility</h1>
 <p>Record package and version information with <code>sessionInfo</code></p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; R version 4.1.0 (2021-05-18)</span>
 <span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span>
@@ -2118,81 +2157,82 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt;  [39] DBI_1.1.1                          geneplotter_1.71.0                </span>
 <span class="co">#&gt;  [41] htmlwidgets_1.5.3                  reshape_0.8.8                     </span>
 <span class="co">#&gt;  [43] spatstat.geom_2.2-2                ellipsis_0.3.2                    </span>
-<span class="co">#&gt;  [45] RSpectra_0.16-0                    annotate_1.71.0                   </span>
-<span class="co">#&gt;  [47] deldir_0.2-10                      biomaRt_2.49.2                    </span>
-<span class="co">#&gt;  [49] sparseMatrixStats_1.5.0            vctrs_0.3.8                       </span>
-<span class="co">#&gt;  [51] Cairo_1.5-12.2                     ROCR_1.0-11                       </span>
-<span class="co">#&gt;  [53] abind_1.4-5                        cachem_1.0.5                      </span>
-<span class="co">#&gt;  [55] withr_2.4.2                        sctransform_0.3.2                 </span>
-<span class="co">#&gt;  [57] GenomicAlignments_1.29.0           prettyunits_1.1.1                 </span>
-<span class="co">#&gt;  [59] dittoSeq_1.5.1                     goftest_1.2-2                     </span>
-<span class="co">#&gt;  [61] cluster_2.1.2                      ExperimentHub_2.1.1               </span>
-<span class="co">#&gt;  [63] lazyeval_0.2.2                     crayon_1.4.1                      </span>
-<span class="co">#&gt;  [65] genefilter_1.75.0                  edgeR_3.35.0                      </span>
-<span class="co">#&gt;  [67] pkgconfig_2.0.3                    labeling_0.4.2                    </span>
-<span class="co">#&gt;  [69] nlme_3.1-152                       vipor_0.4.5                       </span>
-<span class="co">#&gt;  [71] ProtGenerics_1.25.1                globals_0.14.0                    </span>
-<span class="co">#&gt;  [73] rlang_0.4.11                       miniUI_0.1.1.1                    </span>
-<span class="co">#&gt;  [75] lifecycle_1.0.0                    filelock_1.0.2                    </span>
-<span class="co">#&gt;  [77] BiocFileCache_2.1.1                rsvd_1.0.5                        </span>
-<span class="co">#&gt;  [79] AnnotationHub_3.1.3                polyclip_1.10-0                   </span>
-<span class="co">#&gt;  [81] rprojroot_2.0.2                    lmtest_0.9-38                     </span>
-<span class="co">#&gt;  [83] Matrix_1.3-4                       zoo_1.8-9                         </span>
-<span class="co">#&gt;  [85] beeswarm_0.4.0                     ggridges_0.5.3                    </span>
-<span class="co">#&gt;  [87] GlobalOptions_0.1.2                pheatmap_1.0.12                   </span>
-<span class="co">#&gt;  [89] png_0.1-7                          viridisLite_0.4.0                 </span>
-<span class="co">#&gt;  [91] rjson_0.2.20                       bitops_1.0-7                      </span>
-<span class="co">#&gt;  [93] KernSmooth_2.23-20                 Biostrings_2.61.1                 </span>
-<span class="co">#&gt;  [95] blob_1.2.1                         DelayedMatrixStats_1.15.0         </span>
-<span class="co">#&gt;  [97] shape_1.4.6                        ismb2021tidytranscriptomics_0.10.2</span>
-<span class="co">#&gt;  [99] parallelly_1.27.0                  beachmat_2.9.0                    </span>
-<span class="co">#&gt; [101] scales_1.1.1                       ica_1.0-2                         </span>
-<span class="co">#&gt; [103] memoise_2.0.0                      magrittr_2.0.1                    </span>
-<span class="co">#&gt; [105] plyr_1.8.6                         zlibbioc_1.39.0                   </span>
-<span class="co">#&gt; [107] compiler_4.1.0                     dqrng_0.3.0                       </span>
-<span class="co">#&gt; [109] BiocIO_1.3.0                       RColorBrewer_1.1-2                </span>
-<span class="co">#&gt; [111] clue_0.3-59                        fitdistrplus_1.1-5                </span>
-<span class="co">#&gt; [113] DESeq2_1.33.1                      Rsamtools_2.9.1                   </span>
-<span class="co">#&gt; [115] cli_3.0.1                          XVector_0.33.0                    </span>
-<span class="co">#&gt; [117] listenv_0.8.0                      pbapply_1.4-3                     </span>
-<span class="co">#&gt; [119] patchwork_1.1.1                    mgcv_1.8-36                       </span>
-<span class="co">#&gt; [121] MASS_7.3-54                        tidyselect_1.1.1                  </span>
-<span class="co">#&gt; [123] stringi_1.7.3                      textshaping_0.3.5                 </span>
-<span class="co">#&gt; [125] highr_0.9                          yaml_2.2.1                        </span>
-<span class="co">#&gt; [127] BiocSingular_1.9.1                 locfit_1.5-9.4                    </span>
-<span class="co">#&gt; [129] grid_4.1.0                         sass_0.4.0                        </span>
-<span class="co">#&gt; [131] tools_4.1.0                        future.apply_1.7.0                </span>
-<span class="co">#&gt; [133] parallel_4.1.0                     circlize_0.4.13                   </span>
-<span class="co">#&gt; [135] bluster_1.3.0                      foreach_1.5.1                     </span>
-<span class="co">#&gt; [137] metapod_1.1.0                      gridExtra_2.3                     </span>
-<span class="co">#&gt; [139] farver_2.1.0                       Rtsne_0.15                        </span>
-<span class="co">#&gt; [141] digest_0.6.27                      BiocManager_1.30.16               </span>
-<span class="co">#&gt; [143] FNN_1.1.3                          shiny_1.6.0                       </span>
-<span class="co">#&gt; [145] Rcpp_1.0.7                         BiocVersion_3.14.0                </span>
-<span class="co">#&gt; [147] later_1.2.0                        RcppAnnoy_0.0.18                  </span>
-<span class="co">#&gt; [149] org.Hs.eg.db_3.13.0                httr_1.4.2                        </span>
-<span class="co">#&gt; [151] ComplexHeatmap_2.9.0               colorspace_2.0-2                  </span>
-<span class="co">#&gt; [153] tensor_1.5                         reticulate_1.20                   </span>
-<span class="co">#&gt; [155] XML_3.99-0.6                       fs_1.5.0                          </span>
-<span class="co">#&gt; [157] splines_4.1.0                      uwot_0.1.10                       </span>
-<span class="co">#&gt; [159] statmod_1.4.36                     spatstat.utils_2.2-0              </span>
-<span class="co">#&gt; [161] pkgdown_1.6.1                      systemfonts_1.0.2                 </span>
-<span class="co">#&gt; [163] xtable_1.8-4                       jsonlite_1.7.2                    </span>
-<span class="co">#&gt; [165] R6_2.5.0                           pillar_1.6.1                      </span>
-<span class="co">#&gt; [167] htmltools_0.5.1.1                  mime_0.11                         </span>
-<span class="co">#&gt; [169] glue_1.4.2                         fastmap_1.1.0                     </span>
-<span class="co">#&gt; [171] BiocParallel_1.27.2                BiocNeighbors_1.11.0              </span>
-<span class="co">#&gt; [173] class_7.3-19                       interactiveDisplayBase_1.31.0     </span>
-<span class="co">#&gt; [175] codetools_0.2-18                   utf8_1.2.1                        </span>
-<span class="co">#&gt; [177] spatstat.sparse_2.0-0              lattice_0.20-44                   </span>
-<span class="co">#&gt; [179] bslib_0.2.5.1                      ResidualMatrix_1.3.0              </span>
-<span class="co">#&gt; [181] curl_4.3.2                         leiden_0.3.8                      </span>
-<span class="co">#&gt; [183] survival_3.2-11                    limma_3.49.1                      </span>
-<span class="co">#&gt; [185] rmarkdown_2.9                      desc_1.3.0                        </span>
-<span class="co">#&gt; [187] munsell_0.5.0                      e1071_1.7-7                       </span>
-<span class="co">#&gt; [189] GetoptLong_1.0.5                   GenomeInfoDbData_1.2.6            </span>
-<span class="co">#&gt; [191] iterators_1.0.13                   reshape2_1.4.4                    </span>
-<span class="co">#&gt; [193] gtable_0.3.0                       spatstat.core_2.3-0</span></code></pre></div>
+<span class="co">#&gt;  [45] RSpectra_0.16-0                    crosstalk_1.1.1                   </span>
+<span class="co">#&gt;  [47] annotate_1.71.0                    deldir_0.2-10                     </span>
+<span class="co">#&gt;  [49] biomaRt_2.49.2                     sparseMatrixStats_1.5.0           </span>
+<span class="co">#&gt;  [51] vctrs_0.3.8                        Cairo_1.5-12.2                    </span>
+<span class="co">#&gt;  [53] ROCR_1.0-11                        abind_1.4-5                       </span>
+<span class="co">#&gt;  [55] cachem_1.0.5                       withr_2.4.2                       </span>
+<span class="co">#&gt;  [57] sctransform_0.3.2                  GenomicAlignments_1.29.0          </span>
+<span class="co">#&gt;  [59] prettyunits_1.1.1                  dittoSeq_1.5.1                    </span>
+<span class="co">#&gt;  [61] goftest_1.2-2                      cluster_2.1.2                     </span>
+<span class="co">#&gt;  [63] ExperimentHub_2.1.1                lazyeval_0.2.2                    </span>
+<span class="co">#&gt;  [65] crayon_1.4.1                       genefilter_1.75.0                 </span>
+<span class="co">#&gt;  [67] edgeR_3.35.0                       pkgconfig_2.0.3                   </span>
+<span class="co">#&gt;  [69] labeling_0.4.2                     nlme_3.1-152                      </span>
+<span class="co">#&gt;  [71] vipor_0.4.5                        ProtGenerics_1.25.1               </span>
+<span class="co">#&gt;  [73] globals_0.14.0                     rlang_0.4.11                      </span>
+<span class="co">#&gt;  [75] miniUI_0.1.1.1                     lifecycle_1.0.0                   </span>
+<span class="co">#&gt;  [77] filelock_1.0.2                     BiocFileCache_2.1.1               </span>
+<span class="co">#&gt;  [79] rsvd_1.0.5                         AnnotationHub_3.1.3               </span>
+<span class="co">#&gt;  [81] polyclip_1.10-0                    rprojroot_2.0.2                   </span>
+<span class="co">#&gt;  [83] lmtest_0.9-38                      Matrix_1.3-4                      </span>
+<span class="co">#&gt;  [85] zoo_1.8-9                          beeswarm_0.4.0                    </span>
+<span class="co">#&gt;  [87] ggridges_0.5.3                     GlobalOptions_0.1.2               </span>
+<span class="co">#&gt;  [89] pheatmap_1.0.12                    png_0.1-7                         </span>
+<span class="co">#&gt;  [91] viridisLite_0.4.0                  rjson_0.2.20                      </span>
+<span class="co">#&gt;  [93] bitops_1.0-7                       KernSmooth_2.23-20                </span>
+<span class="co">#&gt;  [95] Biostrings_2.61.1                  blob_1.2.1                        </span>
+<span class="co">#&gt;  [97] DelayedMatrixStats_1.15.0          shape_1.4.6                       </span>
+<span class="co">#&gt;  [99] ismb2021tidytranscriptomics_0.10.2 parallelly_1.27.0                 </span>
+<span class="co">#&gt; [101] beachmat_2.9.0                     scales_1.1.1                      </span>
+<span class="co">#&gt; [103] ica_1.0-2                          memoise_2.0.0                     </span>
+<span class="co">#&gt; [105] magrittr_2.0.1                     plyr_1.8.6                        </span>
+<span class="co">#&gt; [107] zlibbioc_1.39.0                    compiler_4.1.0                    </span>
+<span class="co">#&gt; [109] dqrng_0.3.0                        BiocIO_1.3.0                      </span>
+<span class="co">#&gt; [111] RColorBrewer_1.1-2                 clue_0.3-59                       </span>
+<span class="co">#&gt; [113] fitdistrplus_1.1-5                 DESeq2_1.33.1                     </span>
+<span class="co">#&gt; [115] Rsamtools_2.9.1                    cli_3.0.1                         </span>
+<span class="co">#&gt; [117] XVector_0.33.0                     listenv_0.8.0                     </span>
+<span class="co">#&gt; [119] pbapply_1.4-3                      patchwork_1.1.1                   </span>
+<span class="co">#&gt; [121] mgcv_1.8-36                        MASS_7.3-54                       </span>
+<span class="co">#&gt; [123] tidyselect_1.1.1                   stringi_1.7.3                     </span>
+<span class="co">#&gt; [125] textshaping_0.3.5                  highr_0.9                         </span>
+<span class="co">#&gt; [127] yaml_2.2.1                         BiocSingular_1.9.1                </span>
+<span class="co">#&gt; [129] locfit_1.5-9.4                     grid_4.1.0                        </span>
+<span class="co">#&gt; [131] sass_0.4.0                         tools_4.1.0                       </span>
+<span class="co">#&gt; [133] future.apply_1.7.0                 parallel_4.1.0                    </span>
+<span class="co">#&gt; [135] circlize_0.4.13                    bluster_1.3.0                     </span>
+<span class="co">#&gt; [137] foreach_1.5.1                      metapod_1.1.0                     </span>
+<span class="co">#&gt; [139] gridExtra_2.3                      farver_2.1.0                      </span>
+<span class="co">#&gt; [141] Rtsne_0.15                         digest_0.6.27                     </span>
+<span class="co">#&gt; [143] BiocManager_1.30.16                FNN_1.1.3                         </span>
+<span class="co">#&gt; [145] shiny_1.6.0                        Rcpp_1.0.7                        </span>
+<span class="co">#&gt; [147] BiocVersion_3.14.0                 later_1.2.0                       </span>
+<span class="co">#&gt; [149] RcppAnnoy_0.0.18                   org.Hs.eg.db_3.13.0               </span>
+<span class="co">#&gt; [151] httr_1.4.2                         ComplexHeatmap_2.9.0              </span>
+<span class="co">#&gt; [153] colorspace_2.0-2                   tensor_1.5                        </span>
+<span class="co">#&gt; [155] reticulate_1.20                    XML_3.99-0.6                      </span>
+<span class="co">#&gt; [157] fs_1.5.0                           splines_4.1.0                     </span>
+<span class="co">#&gt; [159] uwot_0.1.10                        statmod_1.4.36                    </span>
+<span class="co">#&gt; [161] spatstat.utils_2.2-0               pkgdown_1.6.1                     </span>
+<span class="co">#&gt; [163] systemfonts_1.0.2                  xtable_1.8-4                      </span>
+<span class="co">#&gt; [165] jsonlite_1.7.2                     R6_2.5.0                          </span>
+<span class="co">#&gt; [167] pillar_1.6.1                       htmltools_0.5.1.1                 </span>
+<span class="co">#&gt; [169] mime_0.11                          glue_1.4.2                        </span>
+<span class="co">#&gt; [171] fastmap_1.1.0                      BiocParallel_1.27.2               </span>
+<span class="co">#&gt; [173] BiocNeighbors_1.11.0               class_7.3-19                      </span>
+<span class="co">#&gt; [175] interactiveDisplayBase_1.31.0      codetools_0.2-18                  </span>
+<span class="co">#&gt; [177] utf8_1.2.1                         spatstat.sparse_2.0-0             </span>
+<span class="co">#&gt; [179] lattice_0.20-44                    bslib_0.2.5.1                     </span>
+<span class="co">#&gt; [181] ResidualMatrix_1.3.0               curl_4.3.2                        </span>
+<span class="co">#&gt; [183] leiden_0.3.8                       survival_3.2-11                   </span>
+<span class="co">#&gt; [185] limma_3.49.1                       rmarkdown_2.9                     </span>
+<span class="co">#&gt; [187] desc_1.3.0                         munsell_0.5.0                     </span>
+<span class="co">#&gt; [189] e1071_1.7-7                        GetoptLong_1.0.5                  </span>
+<span class="co">#&gt; [191] GenomeInfoDbData_1.2.6             iterators_1.0.13                  </span>
+<span class="co">#&gt; [193] reshape2_1.4.4                     gtable_0.3.0                      </span>
+<span class="co">#&gt; [195] spatstat.core_2.3-0</span></code></pre></div>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
