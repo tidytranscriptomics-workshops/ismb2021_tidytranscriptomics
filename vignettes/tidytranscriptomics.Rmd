@@ -502,7 +502,7 @@ Challenge: What fraction of variance is explained by PC3?
 Select one of the multiple choice options in www.menti.com (code in Google doc).
 ```
 
-This joins the result to the counts' object.
+The Principal component (PC) information is joined as columns to the counts object.
 
 ```{r}
 # Take a look
@@ -667,7 +667,9 @@ fit <- glmQLFit(dgList, design)
 qlf <- glmQLFTest(fit, coef=2)
 ```
 
-## Volcano plots
+## Plots after testing for differentially expressed
+
+### Volcano plots
 
 Volcano plots are a useful genome-wide tool for checking that the analysis looks good. Volcano plots enable us to visualise the significance of change (p-value) versus the fold change (logFC). Highly significant genes are towards the top of the plot. We can also colour significant genes, e.g. genes with false-discovery rate \< 0.05. To decide which genes are differentially expressed, we usually take a cut-off of 0.05 on the FDR (or adjusted P-value), NOT the raw p-value. This is because we are testing many genes (multiple testing), and the chances of finding differentially expressed genes are very high when you do that many tests. Hence we need to control the false discovery rate, the adjusted p-value column in the results table. That is, if 100 genes are significant at a 5% false discovery rate, we are willing to accept that 5 will be false positives.
 
@@ -712,6 +714,42 @@ counts_de %>%
   scale_color_manual(values = c("black", "#e11f28")) +
   scale_size_discrete(range = c(0, 2))
 ```
+
+### Stripcharts
+
+Before following up on the differentially expressed genes with further lab work, it is also recommended to have a look at the expression levels of the individual samples for the genes of interest. We can use stripcharts to do this. These will help show if expression is consistent amongst replicates in the groups.
+
+With stripcharts we can see if replicates tend to group together and how the expression compares to the other groups. We'll also add a box plot to show the distribution. Tidyverse faceting makes it easy to create a plot for each gene.
+
+```{r out.width = "70%"}
+strip_chart <-
+  counts_scaled %>%
+
+  # extract counts for top differentially expressed genes
+  filter(symbol %in% topgenes_symbols) %>%
+
+  # make faceted stripchart
+  ggplot(aes(x = dex, y = counts_scaled + 1, fill = dex, label = sample)) +
+  geom_boxplot() +
+  geom_jitter() +
+  facet_wrap(~symbol) +
+  scale_y_log10() +
+  custom_theme
+
+strip_chart
+```
+
+
+## Interactive Plots
+
+A really nice feature of using tidyverse and ggplot2 is that we can make interactive plots quite easily using the plotly package. This can be very useful for exploring what genes or samples are in the plots. We can make interactive plots directly from our ggplot2 object (strip_chart). Having `label` in the `aes` is useful to visualise the identifier of the data point (here the sample id) or other variables when we hover over the plot.
+
+We can also specify which parameters from the `aes` we want to show up when we hover over the plot with `tooltip`.
+
+```{r, out.width = "70%", warning=FALSE}
+strip_chart %>% ggplotly(tooltip = c("label", "y"))
+```
+
 
 ## Automatic bibliography
 
@@ -834,7 +872,7 @@ We can also interact with our object as we do with any tidyverse tibble.
 
 ### Tidyverse commands
 
-And now we can also use tidyverse commands, such as `filter`, `select` and `mutate` to explore the tidySingleCellExperiment object. Some examples are shown below and more can be seen at the tidySingleCellExperiment website [here](https://stemangiola.github.io/tidySingleCellExperiment/articles/introduction.html#tidyverse-commands-1). We can also use the tidyverse pipe `%>%`. This 'pipes' the output from the command on the left into the command on the right/below. Using the pipe is not essential but it reduces the amount of code we need to write when we have multiple steps. It also can make the steps clearer and easier to see. For more details on the pipe see [here](https://r4ds.had.co.nz/pipes.html).
+We can use tidyverse commands, such as `filter`, `select` and `mutate` to explore the tidySingleCellExperiment object. Some examples are shown below and more can be seen at the tidySingleCellExperiment website [here](https://stemangiola.github.io/tidySingleCellExperiment/articles/introduction.html#tidyverse-commands-1). We can also use the tidyverse pipe `%>%`. This 'pipes' the output from the command on the left into the command on the right/below. Using the pipe is not essential but it reduces the amount of code we need to write when we have multiple steps. It also can make the steps clearer and easier to see. For more details on the pipe see [here](https://r4ds.had.co.nz/pipes.html).
 
 We can use `filter` to choose rows, for example, to see just the rows for the treated samples.
 
