@@ -91,29 +91,32 @@
 <h2 class="hasAnchor">
 <a href="#which-method-detects-the-most-differentially-abundant-transcripts-p-value-adjusted-for-multiple-testing-0-05-fdr-adj-p-val-padj" class="anchor"></a>Which method detects the most differentially abundant transcripts, p value adjusted for multiple testing &lt; 0.05 (FDR, adj.P.Val, padj)?</h2>
 <pre><code>de_all %&gt;%
-
+  
   # Subset transcript information
   pivot_transcript() %&gt;%
-
+  
   # Reshape for nesting
   pivot_longer(
-    cols = -c(feature, .abundant, albut, symbol),
+    cols = -c(feature, symbol, .abundant, group:exon_name),
     names_sep = "_",
     names_to = c("method", "statistic"),
     values_to = "value"
   ) %&gt;%
-
+  
   # Filter statistic
-  filter(statistic %in% c("FDR", "adj.P.Val", "padj")) %&gt;%
+  filter(statistic %in% c("FDR", "adj.P.Val", "padj")) %&gt;%  
   filter(value &lt; 0.05) %&gt;%
-
-  # Nesting
-  count(method)</code></pre>
+  
+  # Counting
+  count(method) %&gt;%
+  
+  # Sort
+  arrange(desc(n))</code></pre>
 <p>What is the most abundant cell type overall in BRCA samples?</p>
 <pre><code>BRCA_cell_type_long %&gt;%
   group_by(cell_type) %&gt;%
   summarise(m = median(proportion)) %&gt;%
-  dplyr::arrange(dplyr::desc(m))</code></pre>
+  arrange(desc(m))</code></pre>
 </div>
 <div id="single-cell-nesting---quality-control" class="section level2">
 <h2 class="hasAnchor">
@@ -154,7 +157,9 @@ mito_info_all_datasets</code></pre>
 <h2 class="hasAnchor">
 <a href="#cell-annotation" class="anchor"></a>Cell annotation</h2>
 <p>Skeletal muscle</p>
-<pre><code>pbmc %&gt;% count(label, first.labels) %&gt;% arrange(desc(n))</code></pre>
+<pre><code>pbmc %&gt;% 
+count(label, first.labels) %&gt;% 
+arrange(desc(n))</code></pre>
 </div>
   </div>
 
