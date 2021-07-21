@@ -667,7 +667,7 @@ fit <- glmQLFit(dgList, design)
 qlf <- glmQLFTest(fit, coef=2)
 ```
 
-## Plots after testing for differentially expressed
+## Plots after differential expression
 
 ### Volcano plots
 
@@ -740,7 +740,7 @@ strip_chart
 ```
 
 
-## Interactive Plots
+### Interactive Plots
 
 A really nice feature of using tidyverse and ggplot2 is that we can make interactive plots quite easily using the plotly package. This can be very useful for exploring what genes or samples are in the plots. We can make interactive plots directly from our ggplot2 object (strip_chart). Having `label` in the `aes` is useful to visualise the identifier of the data point (here the sample id) or other variables when we hover over the plot.
 
