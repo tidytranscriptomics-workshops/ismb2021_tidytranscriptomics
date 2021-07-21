@@ -82,9 +82,7 @@
 <div id="what-fraction-of-variance-is-explained-by-pc3" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-fraction-of-variance-is-explained-by-pc3" class="anchor"></a>What fraction of variance is explained by PC3?</h2>
-<pre><code>counts_scal_PCA &lt;-
-  counts_tt %&gt;%
-  scale_abundance() %&gt;%
+<pre><code>counts_scaled %&gt;%
   reduce_dimensions(method = "PCA", .dims = 3)</code></pre>
 </div>
 <div id="which-method-detects-the-most-differentially-abundant-transcripts-p-value-adjusted-for-multiple-testing-0-05-fdr-adj-p-val-padj" class="section level2">
