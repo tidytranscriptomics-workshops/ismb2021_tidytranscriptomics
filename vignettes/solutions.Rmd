@@ -8,9 +8,7 @@ output: html_document
 ## What fraction of variance is explained by PC3?
 
 ```
-counts_scal_PCA <-
-  counts_tt %>%
-  scale_abundance() %>%
+counts_scaled %>%
   reduce_dimensions(method = "PCA", .dims = 3)
 ```
 
