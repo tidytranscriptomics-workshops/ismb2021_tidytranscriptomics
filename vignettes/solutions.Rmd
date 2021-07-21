@@ -19,24 +19,27 @@ counts_scal_PCA <-
 
 ```
 de_all %>%
-
+  
   # Subset transcript information
   pivot_transcript() %>%
-
+  
   # Reshape for nesting
   pivot_longer(
-    cols = -c(feature, .abundant, albut, symbol),
+    cols = -c(feature, symbol, .abundant, group:exon_name),
     names_sep = "_",
     names_to = c("method", "statistic"),
     values_to = "value"
   ) %>%
-
+  
   # Filter statistic
-  filter(statistic %in% c("FDR", "adj.P.Val", "padj")) %>%
+  filter(statistic %in% c("FDR", "adj.P.Val", "padj")) %>%  
   filter(value < 0.05) %>%
-
-  # Nesting
-  count(method)
+  
+  # Counting
+  count(method) %>%
+  
+  # Sort
+  arrange(desc(n))
 ```
 
 What is the most abundant cell type overall in BRCA samples?
@@ -45,7 +48,7 @@ What is the most abundant cell type overall in BRCA samples?
 BRCA_cell_type_long %>%
   group_by(cell_type) %>%
   summarise(m = median(proportion)) %>%
-  dplyr::arrange(dplyr::desc(m))
+  arrange(desc(m))
 ```
 
 ## Single-cell nesting - quality control
@@ -90,5 +93,7 @@ left_join(
 Skeletal muscle
 
 ```
-pbmc %>% count(label, first.labels) %>% arrange(desc(n))
+pbmc %>% 
+count(label, first.labels) %>% 
+arrange(desc(n))
 ```
