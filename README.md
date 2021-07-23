@@ -1,5 +1,5 @@
 <!-- badges: start -->
-[![DOI](https://zenodo.org/badge/379767139.svg)](https://zenodo.org/badge/latestdoi/379767139)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5124929.svg)](https://doi.org/10.5281/zenodo.5124929)
 [![.github/workflows/basic_checks.yaml](https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/workflows/.github/workflows/basic_checks.yaml/badge.svg)](https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/actions) 	
 <!-- badges: end -->
 
