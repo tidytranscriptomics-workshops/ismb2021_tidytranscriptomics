@@ -70,3 +70,4 @@ biocViews: RNASeq, DifferentialExpression, GeneExpression, Normalization, Cluste
 URL: https://tidytranscriptomics-workshops.github.io/ismb2021_tidytranscriptomics/
 BugReports: https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/issues/new/choose
 VignetteBuilder: knitr
+DockerImage: tidytranscriptomics-workshops/ismb2021_tidytranscriptomics:ismb2021
