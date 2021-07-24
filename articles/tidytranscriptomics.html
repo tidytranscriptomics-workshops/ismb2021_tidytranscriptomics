@@ -54,6 +54,12 @@
      
   </a>
 </li>
+<li>
+  <a href="https://hub.docker.com/repository/docker/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics">
+    <span class="fab fa-docker"></span>
+     
+  </a>
+</li>
       </ul>
 </div>
 <!--/.nav-collapse -->
@@ -417,7 +423,7 @@ Adapted from <a href="https://www.storybench.org/getting-started-with-tidyverse-
 
 <span class="co"># take a look</span>
 <span class="va">airway</span>
-<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 512,816 x 13</span>
+<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 512,816 × 13</span>
 <span class="co">#&gt; [90m# Transcripts=64102 | Samples=8 | Assays=counts[39m</span>
 <span class="co">#&gt;    feature sample counts SampleName cell  dex   albut Run   avgLength Experiment</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt; &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;     &lt;int&gt; &lt;fct&gt;     </span>
@@ -447,7 +453,7 @@ Adapted from <a href="https://www.storybench.org/getting-started-with-tidyverse-
 <p>We can use <code>filter</code> to choose rows, for example, to see just the rows for the treated samples.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">airway</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySummarizedExperiment/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="va">dex</span> <span class="op">==</span> <span class="st">"trt"</span><span class="op">)</span>
-<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 256,408 x 13</span>
+<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 256,408 × 13</span>
 <span class="co">#&gt; [90m# Transcripts=64102 | Samples=4 | Assays=counts[39m</span>
 <span class="co">#&gt;    feature sample counts SampleName cell  dex   albut Run   avgLength Experiment</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt; &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;     &lt;int&gt; &lt;fct&gt;     </span>
@@ -467,7 +473,7 @@ Adapted from <a href="https://www.storybench.org/getting-started-with-tidyverse-
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">airway</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySummarizedExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">sample</span>, <span class="va">cell</span>, <span class="va">dex</span><span class="op">)</span>
 <span class="co">#&gt; tidySummarizedExperiment says: Key columns are missing. A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 512,816 x 3</span>
+<span class="co">#&gt; # A tibble: 512,816 × 3</span>
 <span class="co">#&gt;    sample     cell   dex  </span>
 <span class="co">#&gt;    &lt;chr&gt;      &lt;fct&gt;  &lt;fct&gt;</span>
 <span class="co">#&gt;  1 SRR1039508 N61311 untrt</span>
@@ -487,7 +493,7 @@ Adapted from <a href="https://www.storybench.org/getting-started-with-tidyverse-
     <span class="fu"><a href="https://rdrr.io/pkg/tidySummarizedExperiment/man/dplyr-methods.html">group_by</a></span><span class="op">(</span><span class="va">sample</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/tidySummarizedExperiment/man/dplyr-methods.html">summarise</a></span><span class="op">(</span>total_counts<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; tidySummarizedExperiment says: A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 8 x 2</span>
+<span class="co">#&gt; # A tibble: 8 × 2</span>
 <span class="co">#&gt;   sample     total_counts</span>
 <span class="co">#&gt;   &lt;chr&gt;             &lt;int&gt;</span>
 <span class="co">#&gt; 1 SRR1039508     20637971</span>
@@ -505,7 +511,7 @@ Adapted from <a href="https://www.storybench.org/getting-started-with-tidyverse-
   <span class="co"># select columns to view    </span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySummarizedExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">sample</span>, <span class="va">sample_name</span><span class="op">)</span>
 <span class="co">#&gt; tidySummarizedExperiment says: Key columns are missing. A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 512,816 x 2</span>
+<span class="co">#&gt; # A tibble: 512,816 × 2</span>
 <span class="co">#&gt;    sample     sample_name</span>
 <span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;      </span>
 <span class="co">#&gt;  1 SRR1039508 508        </span>
@@ -540,7 +546,7 @@ Adapted from <a href="https://www.storybench.org/getting-started-with-tidyverse-
 <span class="co">#&gt; 'select()' returned 1:many mapping between keys and columns</span>
 <span class="co"># take a look</span>
 <span class="va">counts</span>
-<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 512,816 x 15</span>
+<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 512,816 × 15</span>
 <span class="co">#&gt; [90m# Transcripts=64102 | Samples=8 | Assays=counts[39m</span>
 <span class="co">#&gt;    feature sample counts SampleName cell  dex   albut Run   avgLength Experiment</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt; &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;     &lt;int&gt; &lt;fct&gt;     </span>
@@ -568,7 +574,7 @@ Adapted from <a href="https://www.storybench.org/getting-started-with-tidyverse-
 
 <span class="co"># take a look</span>
 <span class="va">counts_filtered</span>
-<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 127,408 x 16</span>
+<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 127,408 × 16</span>
 <span class="co">#&gt; [90m# Transcripts=15926 | Samples=8 | Assays=counts[39m</span>
 <span class="co">#&gt;    feature sample counts SampleName cell  dex   albut Run   avgLength Experiment</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt; &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;     &lt;int&gt; &lt;fct&gt;     </span>
@@ -596,7 +602,7 @@ Adapted from <a href="https://www.storybench.org/getting-started-with-tidyverse-
 
 <span class="co"># take a look</span>
 <span class="va">counts_scaled</span>
-<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 127,408 x 19</span>
+<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 127,408 × 19</span>
 <span class="co">#&gt; [90m# Transcripts=15926 | Samples=8 | Assays=counts, counts_scaled[39m</span>
 <span class="co">#&gt;    feature sample counts counts_scaled SampleName cell  dex   albut Run  </span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;         &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;</span>
@@ -695,7 +701,7 @@ Adapted from <a href="https://www.storybench.org/getting-started-with-tidyverse-
   <span class="fu"><a href="https://rdrr.io/pkg/tidybulk/man/reduce_dimensions-methods.html">reduce_dimensions</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"PCA"</span><span class="op">)</span>
 <span class="co">#&gt; Getting the 500 most variable genes</span>
 <span class="co">#&gt; Fraction of variance explained by the selected principal components</span>
-<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;   `Fraction of variance`    PC</span>
 <span class="co">#&gt;                    &lt;dbl&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1                  0.353     1</span>
@@ -707,7 +713,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Take a look</span>
 <span class="va">counts_scal_PCA</span>
-<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 127,408 x 21</span>
+<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 127,408 × 21</span>
 <span class="co">#&gt; [90m# Transcripts=15926 | Samples=8 | Assays=counts, counts_scaled[39m</span>
 <span class="co">#&gt;    feature sample counts counts_scaled SampleName cell  dex   albut Run  </span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;         &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;</span>
@@ -729,7 +735,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># take a look</span>
 <span class="va">counts_scal_PCA</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidybulk/man/pivot_sample-methods.html">pivot_sample</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 8 x 15</span>
+<span class="co">#&gt; # A tibble: 8 × 15</span>
 <span class="co">#&gt;   sample    SampleName cell    dex   albut Run      avgLength Experiment Sample </span>
 <span class="co">#&gt;   &lt;chr&gt;     &lt;fct&gt;      &lt;fct&gt;   &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;fct&gt;  </span>
 <span class="co">#&gt; 1 SRR10395… GSM1275862 N61311  untrt untrt SRR1039…       126 SRX384345  SRS508…</span>
@@ -846,7 +852,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co"># take a look</span>
 
 <span class="va">de_all</span>
-<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 127,408 x 43</span>
+<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 127,408 × 43</span>
 <span class="co">#&gt; [90m# Transcripts=15926 | Samples=8 | Assays=counts, counts_scaled[39m</span>
 <span class="co">#&gt;    feature sample counts counts_scaled SampleName cell  dex   albut Run  </span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;         &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;</span>
@@ -995,8 +1001,8 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <p>We can also specify which parameters from the <code>aes</code> we want to show up when we hover over the plot with <code>tooltip</code>.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">strip_chart</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://docs.ropensci.org/plotly/reference/ggplotly.html">ggplotly</a></span><span class="op">(</span>tooltip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"label"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-cd211306e388f1caf7c9" style="width:70%;height:432.632880098888px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cd211306e388f1caf7c9">{"x":{"data":[{"x":[1,1,1,1],"y":[2.86608249463043,3.24428117804533,3.06839624907108,3.17562691547741],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,1)","legendgroup":"(trt,1)","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[1,1,1,1],"y":[3.90486548729367,3.98688675644558,3.81279263895916,4.01655797294455],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,2)","legendgroup":"(trt,2)","showlegend":true,"xaxis":"x2","yaxis":"y","frame":null},{"x":[1,1,1,1],"y":[3.37908997587412,3.66026489164023,3.00017818484172,3.29260776256911],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,3)","legendgroup":"(trt,3)","showlegend":true,"xaxis":"x3","yaxis":"y","frame":null},{"x":[1,1,1,1],"y":[1.82346213237665,2.28135855354415,2.10451752140043,1.96435155901173],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,4)","legendgroup":"(trt,4)","showlegend":true,"xaxis":"x","yaxis":"y2","frame":null},{"x":[1,1,1,1],"y":[3.51387090817402,3.39879151528986,3.29560989216947,3.51160150168158],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,5)","legendgroup":"(trt,5)","showlegend":true,"xaxis":"x2","yaxis":"y2","frame":null},{"x":[1,1,1,1],"y":[3.07311929412043,2.96262137058671,2.77608890608068,3.22821209119327],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,6)","legendgroup":"(trt,6)","showlegend":true,"xaxis":"x3","yaxis":"y2","frame":null},{"x":[2,2,2,2],"y":[2.05771154279207,2.26026869796211,1.92520451632265,2.18242192953093],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,1)","legendgroup":"(untrt,1)","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[2,2,2,2],"y":[2.97408516838107,3.17471098929289,3.03966925197695,2.99963058574393],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,2)","legendgroup":"(untrt,2)","showlegend":true,"xaxis":"x2","yaxis":"y","frame":null},{"x":[2,2,2,2],"y":[3.10102428031286,2.79711680070444,2.42359990302169,2.7519404453481],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,3)","legendgroup":"(untrt,3)","showlegend":true,"xaxis":"x3","yaxis":"y","frame":null},{"x":[2,2,2,2],"y":[2.67024519392228,3.04855545571997,2.94533087476182,2.84038005433171],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,4)","legendgroup":"(untrt,4)","showlegend":true,"xaxis":"x","yaxis":"y2","frame":null},{"x":[2,2,2,2],"y":[1.94811580518406,2.08974145700628,2.09104152346256,2.09839137652196],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,5)","legendgroup":"(untrt,5)","showlegend":true,"xaxis":"x2","yaxis":"y2","frame":null},{"x":[2,2,2,2],"y":[0.823513186820998,1.29886003353581,0.346982975464258,0.854869087183615],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,6)","legendgroup":"(untrt,6)","showlegend":true,"xaxis":"x3","yaxis":"y2","frame":null},{"x":[0.916154351085424,0.823233341611922,1.23628048785031,1.26194590516388],"y":[3.06835552652163,3.24448510990724,2.86604237520426,3.17571760169241],"text":["counts_scaled + 1:  1170.566926<br />sample: SRR1039509","counts_scaled + 1:  1755.016396<br />sample: SRR1039513","counts_scaled + 1:   734.653403<br />sample: SRR1039517","counts_scaled + 1:  1498.397071<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,1)","legendgroup":"(trt,1)","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.884825991280377,1.08366965949535,0.878044108487666,1.05203941464424],"y":[3.90501187202396,3.98702859581365,3.81285474954769,4.016486344668],"text":["counts_scaled + 1:  8032.772870<br />sample: SRR1039509","counts_scaled + 1:  9702.569369<br />sample: SRR1039513","counts_scaled + 1:  6498.193493<br />sample: SRR1039517","counts_scaled + 1: 10388.622684<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,2)","legendgroup":"(trt,2)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1.29167770631611,1.07355574462563,0.824407293833792,1.26706366352737],"y":[3.660273854927,3.37924114912094,3.00004584479605,3.29281651167211],"text":["counts_scaled + 1:  4573.670690<br />sample: SRR1039509","counts_scaled + 1:  2393.811648<br />sample: SRR1039513","counts_scaled + 1:  1000.410370<br />sample: SRR1039517","counts_scaled + 1:  1961.587849<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,3)","legendgroup":"(trt,3)","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.885164287872612,0.758116440288722,1.03395711965859,1.04476199466735],"y":[1.82329506545689,2.28132006867969,2.10448772653028,1.96454509767125],"text":["counts_scaled + 1:    66.598145<br />sample: SRR1039509","counts_scaled + 1:   191.143068<br />sample: SRR1039513","counts_scaled + 1:   127.208907<br />sample: SRR1039517","counts_scaled + 1:    92.119497<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,4)","legendgroup":"(trt,4)","showlegend":false,"xaxis":"x","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[0.968787458539009,0.945962714962661,0.874000059813261,0.877228145115077],"y":[3.5140251764229,3.39869267976946,3.29570779433462,3.51148872013317],"text":["counts_scaled + 1:  3264.907700<br />sample: SRR1039509","counts_scaled + 1:  2504.906475<br />sample: SRR1039513","counts_scaled + 1:  1975.194612<br />sample: SRR1039517","counts_scaled + 1:  3247.891418<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,5)","legendgroup":"(trt,5)","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[0.769565687514842,1.18204644005746,0.991113568283618,0.923927664384246],"y":[3.0732017125882,2.96248638960564,2.77614803210824,3.22808286004416],"text":["counts_scaled + 1:  1183.366564<br />sample: SRR1039509","counts_scaled + 1:   917.532319<br />sample: SRR1039513","counts_scaled + 1:   597.157520<br />sample: SRR1039517","counts_scaled + 1:  1691.266674<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,6)","legendgroup":"(trt,6)","showlegend":false,"xaxis":"x3","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[2.06415934301913,1.66208344176412,1.94732954408973,1.986217985861],"y":[2.0577730797233,2.26020556912658,1.92505719740234,2.18231094509991],"text":["counts_scaled + 1:   114.211949<br />sample: SRR1039508","counts_scaled + 1:   182.082706<br />sample: SRR1039512","counts_scaled + 1:    84.179146<br />sample: SRR1039516","counts_scaled + 1:   152.202550<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,1)","legendgroup":"(untrt,1)","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2.33928701616824,2.27177323810756,2.00060382131487,2.33744266889989],"y":[2.97405464186654,3.1747693554453,2.99951111302152,3.03963267847122],"text":["counts_scaled + 1:   942.074326<br />sample: SRR1039508","counts_scaled + 1:  1495.240285<br />sample: SRR1039512","counts_scaled + 1:   999.149754<br />sample: SRR1039516","counts_scaled + 1:  1095.643463<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,2)","legendgroup":"(untrt,2)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2.16945302393287,2.31500903908163,2.2357357442379,2.11966563314199],"y":[3.10112801010191,2.79730834675758,2.42365023005326,2.751744185458],"text":["counts_scaled + 1:  1261.898082<br />sample: SRR1039508","counts_scaled + 1:   626.782411<br />sample: SRR1039512","counts_scaled + 1:   265.216111<br />sample: SRR1039516","counts_scaled + 1:   564.859511<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,3)","legendgroup":"(untrt,3)","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1.76734439190477,1.7989684144035,2.31332771461457,1.78784432522953],"y":[2.67040774590214,3.04858856855226,2.94539476633988,2.84050188057141],"text":["counts_scaled + 1:   467.999290<br />sample: SRR1039508","counts_scaled + 1:  1118.292612<br />sample: SRR1039512","counts_scaled + 1:   881.720371<br />sample: SRR1039516","counts_scaled + 1:   692.436662<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,4)","legendgroup":"(untrt,4)","showlegend":false,"xaxis":"x","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[2.24115325510502,2.07676611896604,1.98062723111361,1.75057883989066],"y":[1.94828925633561,2.08961668880284,2.09092864893252,2.09857960250079],"text":["counts_scaled + 1:    88.739260<br />sample: SRR1039508","counts_scaled + 1:   122.953659<br />sample: SRR1039512","counts_scaled + 1:   123.322274<br />sample: SRR1039516","counts_scaled + 1:   125.427099<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,5)","legendgroup":"(untrt,5)","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[1.63476202972233,2.39101785086095,2.08721981197596,2.04840402975678],"y":[0.823322780434215,0.85499480876324,0.347027438689356,1.29865496040953],"text":["counts_scaled + 1:     6.660597<br />sample: SRR1039508","counts_scaled + 1:     7.159276<br />sample: SRR1039512","counts_scaled + 1:     2.223223<br />sample: SRR1039516","counts_scaled + 1:    19.900319<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,6)","legendgroup":"(untrt,6)","showlegend":false,"xaxis":"x3","yaxis":"y2","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.5768157463462,"r":7.30593607305936,"b":44.1700079422781,"l":58.7795765877958},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xaxis":{"domain":[0,0.32941943900848],"automargin":true,"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["trt","untrt"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["trt","untrt"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-30,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"annotations":[{"text":"dex","x":0.5,"y":-0.0211346180148144,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"top","annotationType":"axis"},{"text":"counts_scaled + 1","x":-0.0233054616616261,"y":0.5,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xref":"paper","yref":"paper","textangle":-90,"xanchor":"right","yanchor":"center","annotationType":"axis"},{"text":"CACNB2","x":0.16470971950424,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"DUSP1","x":0.5,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"PDPN","x":0.83529028049576,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"PRSS35","x":0.16470971950424,"y":0.482608570461924,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"SPARCL1","x":0.5,"y":0.482608570461924,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"ZBTB16","x":0.83529028049576,"y":0.482608570461924,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"dex","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"yaxis":{"domain":[0.517391429538076,1],"automargin":true,"type":"linear","autorange":false,"range":[0.163504225590244,4.20003672281857],"tickmode":"array","ticktext":["10","100","1000","10000"],"tickvals":[1,2,3,4],"categoryorder":"array","categoryarray":["10","100","1000","10000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.32941943900848,"y0":0.517391429538076,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.32941943900848,"y0":0,"y1":24.4416770444168,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.337247227658187,"x1":0.662752772341813,"y0":0.517391429538076,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.337247227658187,"x1":0.662752772341813,"y0":0,"y1":24.4416770444168,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.67058056099152,"x1":1,"y0":0.517391429538076,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.67058056099152,"x1":1,"y0":0,"y1":24.4416770444168,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.32941943900848,"y0":0,"y1":0.482608570461924},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.32941943900848,"y0":0,"y1":24.4416770444168,"yanchor":0.482608570461924,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.337247227658187,"x1":0.662752772341813,"y0":0,"y1":0.482608570461924},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.337247227658187,"x1":0.662752772341813,"y0":0,"y1":24.4416770444168,"yanchor":0.482608570461924,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.67058056099152,"x1":1,"y0":0,"y1":0.482608570461924},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.67058056099152,"x1":1,"y0":0,"y1":24.4416770444168,"yanchor":0.482608570461924,"ysizemode":"pixel"}],"xaxis2":{"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["trt","untrt"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["trt","untrt"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-30,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"domain":[0.337247227658187,0.662752772341813],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"xaxis3":{"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["trt","untrt"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["trt","untrt"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-30,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"domain":[0.67058056099152,1],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"yaxis2":{"type":"linear","autorange":false,"range":[0.163504225590244,4.20003672281857],"tickmode":"array","ticktext":["10","100","1000","10000"],"tickvals":[1,2,3,4],"categoryorder":"array","categoryarray":["10","100","1000","10000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"domain":[0,0.482608570461924],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218},"y":0.960675435801739},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"1216575ca37e":{"x":{},"y":{},"fill":{},"label":{},"type":"box"},"121621d0bd72":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"1216575ca37e","visdat":{"1216575ca37e":["function (y) ","x"],"121621d0bd72":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7fe5e5e0ccbcb7a490a8" style="width:70%;height:432.632880098888px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7fe5e5e0ccbcb7a490a8">{"x":{"data":[{"x":[1,1,1,1],"y":[2.86608249463043,3.24428117804533,3.06839624907108,3.17562691547741],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,1)","legendgroup":"(trt,1)","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[1,1,1,1],"y":[3.90486548729367,3.98688675644558,3.81279263895916,4.01655797294455],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,2)","legendgroup":"(trt,2)","showlegend":true,"xaxis":"x2","yaxis":"y","frame":null},{"x":[1,1,1,1],"y":[3.37908997587412,3.66026489164023,3.00017818484172,3.29260776256911],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,3)","legendgroup":"(trt,3)","showlegend":true,"xaxis":"x3","yaxis":"y","frame":null},{"x":[1,1,1,1],"y":[1.82346213237665,2.28135855354415,2.10451752140043,1.96435155901173],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,4)","legendgroup":"(trt,4)","showlegend":true,"xaxis":"x","yaxis":"y2","frame":null},{"x":[1,1,1,1],"y":[3.51387090817402,3.39879151528986,3.29560989216947,3.51160150168158],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,5)","legendgroup":"(trt,5)","showlegend":true,"xaxis":"x2","yaxis":"y2","frame":null},{"x":[1,1,1,1],"y":[3.07311929412043,2.96262137058671,2.77608890608068,3.22821209119327],"hoverinfo":"y","type":"box","fillcolor":"rgba(230,159,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(trt,6)","legendgroup":"(trt,6)","showlegend":true,"xaxis":"x3","yaxis":"y2","frame":null},{"x":[2,2,2,2],"y":[2.05771154279207,2.26026869796211,1.92520451632265,2.18242192953093],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,1)","legendgroup":"(untrt,1)","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[2,2,2,2],"y":[2.97408516838107,3.17471098929289,3.03966925197695,2.99963058574393],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,2)","legendgroup":"(untrt,2)","showlegend":true,"xaxis":"x2","yaxis":"y","frame":null},{"x":[2,2,2,2],"y":[3.10102428031286,2.79711680070444,2.42359990302169,2.7519404453481],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,3)","legendgroup":"(untrt,3)","showlegend":true,"xaxis":"x3","yaxis":"y","frame":null},{"x":[2,2,2,2],"y":[2.67024519392228,3.04855545571997,2.94533087476182,2.84038005433171],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,4)","legendgroup":"(untrt,4)","showlegend":true,"xaxis":"x","yaxis":"y2","frame":null},{"x":[2,2,2,2],"y":[1.94811580518406,2.08974145700628,2.09104152346256,2.09839137652196],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,5)","legendgroup":"(untrt,5)","showlegend":true,"xaxis":"x2","yaxis":"y2","frame":null},{"x":[2,2,2,2],"y":[0.823513186820998,1.29886003353581,0.346982975464258,0.854869087183615],"hoverinfo":"y","type":"box","fillcolor":"rgba(86,180,233,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"(untrt,6)","legendgroup":"(untrt,6)","showlegend":true,"xaxis":"x3","yaxis":"y2","frame":null},{"x":[1.12490208223462,1.37774562928826,0.946388271823525,0.86206571906805],"y":[3.06827844443386,3.24436605622417,2.86623155214161,3.1755910197677],"text":["counts_scaled + 1:  1170.566926<br />sample: SRR1039509","counts_scaled + 1:  1755.016396<br />sample: SRR1039513","counts_scaled + 1:   734.653403<br />sample: SRR1039517","counts_scaled + 1:  1498.397071<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,1)","legendgroup":"(trt,1)","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.630936258845031,0.674045922234654,0.981296596303582,1.21845402065665],"y":[3.90481596122726,3.98673916536969,3.8129594751634,4.01657094579544],"text":["counts_scaled + 1:  8032.772870<br />sample: SRR1039509","counts_scaled + 1:  9702.569369<br />sample: SRR1039513","counts_scaled + 1:  6498.193493<br />sample: SRR1039517","counts_scaled + 1: 10388.622684<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,2)","legendgroup":"(trt,2)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1.19034468177706,1.11335755866021,1.13587067425251,0.952965116500854],"y":[3.66033718985495,3.37917717409921,3.00018775482078,3.29263123766468],"text":["counts_scaled + 1:  4573.670690<br />sample: SRR1039509","counts_scaled + 1:  2393.811648<br />sample: SRR1039513","counts_scaled + 1:  1000.410370<br />sample: SRR1039517","counts_scaled + 1:  1961.587849<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,3)","legendgroup":"(trt,3)","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.791313511133194,0.872231894545257,0.855653103441,0.611845617741346],"y":[1.82346513833859,2.28137158942213,2.10450822551614,1.96425965675957],"text":["counts_scaled + 1:    66.598145<br />sample: SRR1039509","counts_scaled + 1:   191.143068<br />sample: SRR1039513","counts_scaled + 1:   127.208907<br />sample: SRR1039517","counts_scaled + 1:    92.119497<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,4)","legendgroup":"(trt,4)","showlegend":false,"xaxis":"x","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[1.11383600179106,1.38370543159544,0.650115437060595,0.911188744567335],"y":[3.51377928766252,3.39896659823805,3.29555303616933,3.51143225904293],"text":["counts_scaled + 1:  3264.907700<br />sample: SRR1039509","counts_scaled + 1:  2504.906475<br />sample: SRR1039513","counts_scaled + 1:  1975.194612<br />sample: SRR1039517","counts_scaled + 1:  3247.891418<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,5)","legendgroup":"(trt,5)","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[1.28137145433575,1.29022749215364,1.05031107142568,0.889282694458961],"y":[3.07329070623793,2.96256977593163,2.77628624177357,3.22831816195016],"text":["counts_scaled + 1:  1183.366564<br />sample: SRR1039509","counts_scaled + 1:   917.532319<br />sample: SRR1039513","counts_scaled + 1:   597.157520<br />sample: SRR1039517","counts_scaled + 1:  1691.266674<br />sample: SRR1039521"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(230,159,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(trt,6)","legendgroup":"(trt,6)","showlegend":false,"xaxis":"x3","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[2.15223555453122,1.85971429105848,1.81265974417329,1.94306207969785],"y":[2.05783620317434,2.26024130685554,1.92531421102856,2.1824093452485],"text":["counts_scaled + 1:   114.211949<br />sample: SRR1039508","counts_scaled + 1:   182.082706<br />sample: SRR1039512","counts_scaled + 1:    84.179146<br />sample: SRR1039516","counts_scaled + 1:   152.202550<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,1)","legendgroup":"(untrt,1)","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1.84254937581718,1.83208841197193,1.79624597206712,1.96953858360648],"y":[2.97392316910246,3.17492322439111,2.99965351957307,3.03947748493617],"text":["counts_scaled + 1:   942.074326<br />sample: SRR1039508","counts_scaled + 1:  1495.240285<br />sample: SRR1039512","counts_scaled + 1:   999.149754<br />sample: SRR1039516","counts_scaled + 1:  1095.643463<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,2)","legendgroup":"(untrt,2)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1.85439089760184,2.0056780513376,2.31029437612742,1.87489685341716],"y":[3.10082922445391,2.79717686216772,2.42351900219082,2.7517539189297],"text":["counts_scaled + 1:  1261.898082<br />sample: SRR1039508","counts_scaled + 1:   626.782411<br />sample: SRR1039512","counts_scaled + 1:   265.216111<br />sample: SRR1039516","counts_scaled + 1:   564.859511<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,3)","legendgroup":"(untrt,3)","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1.72160191703588,2.25866190809757,2.33836308252066,1.61767316795886],"y":[2.67010080612595,3.04854149225842,2.9453067321074,2.84059131877666],"text":["counts_scaled + 1:   467.999290<br />sample: SRR1039508","counts_scaled + 1:  1118.292612<br />sample: SRR1039512","counts_scaled + 1:   881.720371<br />sample: SRR1039516","counts_scaled + 1:   692.436662<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,4)","legendgroup":"(untrt,4)","showlegend":false,"xaxis":"x","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[2.23053638506681,1.86971892025322,1.94765443596989,1.9044902164489],"y":[1.94821482091727,2.0895994683324,2.09102979571171,2.09850601859255],"text":["counts_scaled + 1:    88.739260<br />sample: SRR1039508","counts_scaled + 1:   122.953659<br />sample: SRR1039512","counts_scaled + 1:   123.322274<br />sample: SRR1039516","counts_scaled + 1:   125.427099<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,5)","legendgroup":"(untrt,5)","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[2.34304552096874,2.21146072782576,2.15572533439845,2.11587033979595],"y":[0.823726567500664,0.854651109460121,0.346986113651469,1.2988619533759],"text":["counts_scaled + 1:     6.660597<br />sample: SRR1039508","counts_scaled + 1:     7.159276<br />sample: SRR1039512","counts_scaled + 1:     2.223223<br />sample: SRR1039516","counts_scaled + 1:    19.900319<br />sample: SRR1039520"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(86,180,233,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"(untrt,6)","legendgroup":"(untrt,6)","showlegend":false,"xaxis":"x3","yaxis":"y2","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.5768157463462,"r":7.30593607305936,"b":44.1700079422781,"l":58.7795765877958},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xaxis":{"domain":[0,0.32941943900848],"automargin":true,"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["trt","untrt"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["trt","untrt"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-30,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"annotations":[{"text":"dex","x":0.5,"y":-0.0211346180148144,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"top","annotationType":"axis"},{"text":"counts_scaled + 1","x":-0.0233054616616261,"y":0.5,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xref":"paper","yref":"paper","textangle":-90,"xanchor":"right","yanchor":"center","annotationType":"axis"},{"text":"CACNB2","x":0.16470971950424,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"DUSP1","x":0.5,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"PDPN","x":0.83529028049576,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"PRSS35","x":0.16470971950424,"y":0.482608570461924,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"SPARCL1","x":0.5,"y":0.482608570461924,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"ZBTB16","x":0.83529028049576,"y":0.482608570461924,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":12.7521793275218},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"dex","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"yaxis":{"domain":[0.517391429538076,1],"automargin":true,"type":"linear","autorange":false,"range":[0.163503576947699,4.200050344312],"tickmode":"array","ticktext":["10","100","1000","10000"],"tickvals":[1,2,3,4],"categoryorder":"array","categoryarray":["10","100","1000","10000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.32941943900848,"y0":0.517391429538076,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.32941943900848,"y0":0,"y1":24.4416770444168,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.337247227658187,"x1":0.662752772341813,"y0":0.517391429538076,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.337247227658187,"x1":0.662752772341813,"y0":0,"y1":24.4416770444168,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.67058056099152,"x1":1,"y0":0.517391429538076,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.67058056099152,"x1":1,"y0":0,"y1":24.4416770444168,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.32941943900848,"y0":0,"y1":0.482608570461924},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.32941943900848,"y0":0,"y1":24.4416770444168,"yanchor":0.482608570461924,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.337247227658187,"x1":0.662752772341813,"y0":0,"y1":0.482608570461924},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.337247227658187,"x1":0.662752772341813,"y0":0,"y1":24.4416770444168,"yanchor":0.482608570461924,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.67058056099152,"x1":1,"y0":0,"y1":0.482608570461924},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.67058056099152,"x1":1,"y0":0,"y1":24.4416770444168,"yanchor":0.482608570461924,"ysizemode":"pixel"}],"xaxis2":{"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["trt","untrt"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["trt","untrt"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-30,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"domain":[0.337247227658187,0.662752772341813],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"xaxis3":{"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["trt","untrt"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["trt","untrt"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-30,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"domain":[0.67058056099152,1],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"yaxis2":{"type":"linear","autorange":false,"range":[0.163503576947699,4.200050344312],"tickmode":"array","ticktext":["10","100","1000","10000"],"tickvals":[1,2,3,4],"categoryorder":"array","categoryarray":["10","100","1000","10000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"domain":[0,0.482608570461924],"gridcolor":"rgba(235,235,235,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218},"y":0.960675435801739},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"12681cb9468a":{"x":{},"y":{},"fill":{},"label":{},"type":"box"},"126862caa236":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"12681cb9468a","visdat":{"12681cb9468a":["function (y) ","x"],"126862caa236":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="automatic-bibliography" class="section level2">
@@ -1069,7 +1075,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">BRCA</span> <span class="op">&lt;-</span> <span class="fu">ismb2021tidytranscriptomics</span><span class="fu">::</span><span class="va"><a href="../reference/BRCA.html">BRCA</a></span> 
 <span class="va">BRCA</span>
-<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 198,374 x 5</span>
+<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 198,374 × 5</span>
 <span class="co">#&gt; [90m# Transcripts=9017 | Samples=22 | Assays=count[39m</span>
 <span class="co">#&gt;    feature  sample       count  time event_occurred</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;        &lt;int&gt; &lt;dbl&gt;          &lt;int&gt;</span>
@@ -1091,7 +1097,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
   <span class="fu"><a href="https://rdrr.io/pkg/tidybulk/man/deconvolve_cellularity-methods.html">deconvolve_cellularity</a></span><span class="op">(</span>prefix<span class="op">=</span><span class="st">"cibersort: "</span>, cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
 <span class="va">BRCA_cell_type</span>
-<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 198,374 x 27</span>
+<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 198,374 × 27</span>
 <span class="co">#&gt; [90m# Transcripts=9017 | Samples=22 | Assays=count[39m</span>
 <span class="co">#&gt;    feature sample count  time event_occurred cibersort..B.ce… cibersort..B.ce…</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;          &lt;int&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
@@ -1133,7 +1139,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
   <span class="op">)</span>
 
 <span class="va">BRCA_cell_type_long</span>
-<span class="co">#&gt; # A tibble: 484 x 5</span>
+<span class="co">#&gt; # A tibble: 484 × 5</span>
 <span class="co">#&gt;    sample       time event_occurred cell_type                         proportion</span>
 <span class="co">#&gt;    &lt;chr&gt;       &lt;dbl&gt;          &lt;int&gt; &lt;chr&gt;                                  &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 TCGA-A2-A0…   102              1 cibersort..B.cells.naive              0.201 </span>
@@ -1206,7 +1212,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 
 <span class="co"># take a look</span>
 <span class="va">pbmc</span>
-<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 3,000 x 8</span>
+<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 3,000 × 8</span>
 <span class="co">#&gt; [90m# Features=51958 | Assays=counts, logcounts[39m</span>
 <span class="co">#&gt;    cell   file      orig.ident nCount_RNA nFeature_RNA  S.Score G2M.Score ident </span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt; </span>
@@ -1233,7 +1239,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <p>We can use <code>filter</code> to choose rows, for example, to see just the rows for the treated samples.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="va">ident</span> <span class="op">==</span> <span class="st">"G1"</span><span class="op">)</span>
-<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 0 x 8</span>
+<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 0 × 8</span>
 <span class="co">#&gt; [90m# Features=51958 | Assays=counts, logcounts[39m</span>
 <span class="co">#&gt; # … with 8 variables: cell &lt;chr&gt;, file &lt;chr&gt;, orig.ident &lt;chr&gt;,</span>
 <span class="co">#&gt; #   nCount_RNA &lt;dbl&gt;, nFeature_RNA &lt;int&gt;, S.Score &lt;dbl&gt;, G2M.Score &lt;dbl&gt;,</span>
@@ -1241,7 +1247,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <p>We can use <code>select</code> to choose columns, for example, to see the sample, cell, total cellular RNA</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">cell</span>, <span class="va">nCount_RNA</span> , <span class="va">ident</span><span class="op">)</span>
-<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 3,000 x 3</span>
+<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 3,000 × 3</span>
 <span class="co">#&gt; [90m# Features=51958 | Assays=counts, logcounts[39m</span>
 <span class="co">#&gt;    cell             nCount_RNA ident               </span>
 <span class="co">#&gt;    &lt;chr&gt;                 &lt;dbl&gt; &lt;fct&gt;               </span>
@@ -1263,7 +1269,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
   <span class="co"># select columns to view    </span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">ident</span>, <span class="va">ident_l</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: Key columns are missing. A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 3,000 x 2</span>
+<span class="co">#&gt; # A tibble: 3,000 × 2</span>
 <span class="co">#&gt;    ident                ident_l             </span>
 <span class="co">#&gt;    &lt;fct&gt;                &lt;chr&gt;               </span>
 <span class="co">#&gt;  1 SingleCellExperiment singlecellexperiment</span>
@@ -1286,7 +1292,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">bind_rows</a></span><span class="op">(</span><span class="va">pbmc</span><span class="op">)</span>
 <span class="co">#&gt; Warning in bind_rows.SingleCellExperiment(., pbmc): tidySingleCellExperiment</span>
 <span class="co">#&gt; says: you have duplicated cell names, they will be made unique.</span>
-<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 6,000 x 8</span>
+<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 6,000 × 8</span>
 <span class="co">#&gt; [90m# Features=51958 | Assays=counts, logcounts[39m</span>
 <span class="co">#&gt;    cell   file      orig.ident nCount_RNA nFeature_RNA  S.Score G2M.Score ident </span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt; </span>
@@ -1311,7 +1317,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <code class="sourceCode R"><span class="co"># First take a look at the file column</span>
 <span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: Key columns are missing. A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 3,000 x 1</span>
+<span class="co">#&gt; # A tibble: 3,000 × 1</span>
 <span class="co">#&gt;    file                                                </span>
 <span class="co">#&gt;    &lt;chr&gt;                                               </span>
 <span class="co">#&gt;  1 ../data/GSE115189_1/outs/filtered_feature_bc_matrix/</span>
@@ -1339,7 +1345,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co"># Take a look</span>
 <span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">sample</span>, <span class="va">dataset</span>, <span class="va">groups</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: Key columns are missing. A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 3,000 x 3</span>
+<span class="co">#&gt; # A tibble: 3,000 × 3</span>
 <span class="co">#&gt;    sample      dataset   groups</span>
 <span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt; </span>
 <span class="co">#&gt;  1 GSE115189_1 GSE115189 1     </span>
@@ -1412,7 +1418,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
       <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>high_mitochondrion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/isOutlier.html">isOutlier</a></span><span class="op">(</span><span class="va">subsets_Mito_percent</span>, type <span class="op">=</span> <span class="st">"higher"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">mito_info_one_dataset</span>
-<span class="co">#&gt; # A tibble: 300 x 8</span>
+<span class="co">#&gt; # A tibble: 300 × 8</span>
 <span class="co">#&gt;    cell    sum detected subsets_Mito_sum subsets_Mito_de… subsets_Mito_pe… total</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt;    &lt;int&gt;            &lt;dbl&gt;            &lt;int&gt;            &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 CCAG…  3421      979              132               11            3.86   3421</span>
@@ -1431,7 +1437,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <code class="sourceCode R"><span class="va">mito_info_one_dataset</span> <span class="op">&lt;-</span> <span class="va">one_dataset</span> <span class="op">%&gt;%</span>  <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">left_join</a></span><span class="op">(</span><span class="va">mito_info_one_dataset</span>, by <span class="op">=</span> <span class="st">"cell"</span><span class="op">)</span>
 
 <span class="va">mito_info_one_dataset</span>
-<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 300 x 17</span>
+<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 300 × 17</span>
 <span class="co">#&gt; [90m# Features=51958 | Assays=counts, logcounts[39m</span>
 <span class="co">#&gt;    cell  dataset groups sample orig.ident nCount_RNA nFeature_RNA  S.Score</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;</span>
@@ -1468,7 +1474,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="op">)</span>
 
 <span class="va">my_tibble</span>
-<span class="co">#&gt; # A tibble: 10 x 2</span>
+<span class="co">#&gt; # A tibble: 10 × 2</span>
 <span class="co">#&gt;    label value</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt;</span>
 <span class="co">#&gt;  1 a         1</span>
@@ -1489,7 +1495,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tidyr-methods.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">value</span><span class="op">)</span>
 
 <span class="va">my_tibble_nested</span>
-<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;   label data            </span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;list&gt;          </span>
 <span class="co">#&gt; 1 a     &lt;tibble [5 × 1]&gt;</span>
@@ -1499,7 +1505,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <code class="sourceCode R"><span class="co"># Summarise</span>
 <span class="va">my_tibble_nested</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">value</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt; # A tibble: 2 × 3</span>
 <span class="co">#&gt;   label data             average</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;list&gt;             &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 a     &lt;tibble [5 × 1]&gt;       3</span>
@@ -1511,7 +1517,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">value</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="va">average</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">average</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tidyr-methods.html">unnest</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 3</span>
+<span class="co">#&gt; # A tibble: 5 × 3</span>
 <span class="co">#&gt;   label value average</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 b         6       8</span>
@@ -1526,7 +1532,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">value</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">mutate</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">average</span>, <span class="op">~</span> <span class="va">.x</span> <span class="op">-</span> <span class="va">.y</span> <span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tidyr-methods.html">unnest</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 10 x 3</span>
+<span class="co">#&gt; # A tibble: 10 × 3</span>
 <span class="co">#&gt;    label value average</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 a        -2       3</span>
@@ -1545,7 +1551,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
     <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tidyr-methods.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">-</span><span class="va">dataset</span><span class="op">)</span>
 
 <span class="va">pbmc_nested</span>
-<span class="co">#&gt; # A tibble: 10 x 2</span>
+<span class="co">#&gt; # A tibble: 10 × 2</span>
 <span class="co">#&gt;    dataset      data            </span>
 <span class="co">#&gt;    &lt;chr&gt;        &lt;list&gt;          </span>
 <span class="co">#&gt;  1 GSE115189    &lt;SnglCllE[,300]&gt;</span>
@@ -1590,7 +1596,7 @@ This one is not a Menti quiz question.</code></pre>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">mitochondrion_info</span><span class="op">)</span>
 
 <span class="va">mito_info_all_datasets</span>
-<span class="co">#&gt; # A tibble: 10 x 2</span>
+<span class="co">#&gt; # A tibble: 10 × 2</span>
 <span class="co">#&gt;    dataset      data            </span>
 <span class="co">#&gt;    &lt;chr&gt;        &lt;list&gt;          </span>
 <span class="co">#&gt;  1 GSE115189    &lt;SnglCllE[,300]&gt;</span>
@@ -1609,7 +1615,7 @@ This one is not a Menti quiz question.</code></pre>
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/tidyr-methods.html">unnest</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 
 <span class="va">pbmc</span>
-<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 3,000 x 17</span>
+<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 3,000 × 17</span>
 <span class="co">#&gt; [90m# Features=51958 | Assays=counts, logcounts[39m</span>
 <span class="co">#&gt;    cell  groups sample orig.ident nCount_RNA nFeature_RNA  S.Score G2M.Score</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span>
@@ -1697,7 +1703,7 @@ This one is not a Menti quiz question.</code></pre>
 
 <span class="co"># Reorder columns</span>
 <span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">label</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 2,899 x 24</span>
+<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 2,899 × 24</span>
 <span class="co">#&gt; [90m# Features=51958 | Assays=reconstructed[39m</span>
 <span class="co">#&gt;    cell  label batch groups sample orig.ident nCount_RNA nFeature_RNA  S.Score</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;fct&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;</span>
@@ -1706,9 +1712,9 @@ This one is not a Menti quiz question.</code></pre>
 <span class="co">#&gt;  3 TATG… 7         1 2      GSE11… SeuratPro…       2114          937 -2.95e-5</span>
 <span class="co">#&gt;  4 CATA… 11        1 1      GSE11… SeuratPro…       3122         1086 -6.65e-2</span>
 <span class="co">#&gt;  5 GAGG… 1         1 2      GSE11… SeuratPro…       2341          957 -3.74e-3</span>
-<span class="co">#&gt;  6 AGCT… 2         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
-<span class="co">#&gt;  7 TGAT… 4         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
-<span class="co">#&gt;  8 ACGA… 4         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
+<span class="co">#&gt;  6 AGCT… 4         1 1      GSE11… SeuratPro…       5472         1758 -5.88e-2</span>
+<span class="co">#&gt;  7 TGAT… 2         1 1      GSE11… SeuratPro…       1258          542 -2.51e-2</span>
+<span class="co">#&gt;  8 ACGA… 2         1 1      GSE11… SeuratPro…       7683         1926 -1.33e-1</span>
 <span class="co">#&gt;  9 CGGC… 5         1 1      GSE11… SeuratPro…       3500         1092 -6.87e-2</span>
 <span class="co">#&gt; 10 ATAG… 5         1 1      GSE11… SeuratPro…       3092          974 -1.24e-2</span>
 <span class="co">#&gt; # … with 2,889 more rows, and 15 more variables: G2M.Score &lt;dbl&gt;, ident &lt;fct&gt;,</span>
@@ -1720,16 +1726,16 @@ This one is not a Menti quiz question.</code></pre>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/count.html">count</a></span><span class="op">(</span><span class="va">label</span><span class="op">)</span>
 <span class="co">#&gt; tidySingleCellExperiment says: A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 11 x 2</span>
+<span class="co">#&gt; # A tibble: 11 × 2</span>
 <span class="co">#&gt;    label     n</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 1       481</span>
-<span class="co">#&gt;  2 2       600</span>
-<span class="co">#&gt;  3 3       698</span>
-<span class="co">#&gt;  4 4       350</span>
+<span class="co">#&gt;  1 1       478</span>
+<span class="co">#&gt;  2 2       367</span>
+<span class="co">#&gt;  3 3       700</span>
+<span class="co">#&gt;  4 4       582</span>
 <span class="co">#&gt;  5 5       339</span>
 <span class="co">#&gt;  6 6        21</span>
-<span class="co">#&gt;  7 7       255</span>
+<span class="co">#&gt;  7 7       257</span>
 <span class="co">#&gt;  8 8        74</span>
 <span class="co">#&gt;  9 9        41</span>
 <span class="co">#&gt; 10 10       14</span>
@@ -1743,7 +1749,7 @@ This one is not a Menti quiz question.</code></pre>
 <code class="sourceCode R"><span class="co"># Calculate UMAP with scater</span>
 <span class="va">pbmc</span> <span class="op">%&gt;%</span>
 <span class="fu"><a href="https://rdrr.io/pkg/scater/man/runUMAP.html">runUMAP</a></span><span class="op">(</span>ncomponents <span class="op">=</span> <span class="fl">2</span>, dimred<span class="op">=</span><span class="st">"corrected"</span><span class="op">)</span> <span class="co"># from scater</span>
-<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 2,899 x 26</span>
+<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 2,899 × 26</span>
 <span class="co">#&gt; [90m# Features=51958 | Assays=reconstructed[39m</span>
 <span class="co">#&gt;    cell  batch groups sample orig.ident nCount_RNA nFeature_RNA  S.Score</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;    &lt;dbl&gt;</span>
@@ -1842,13 +1848,13 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
   <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">label</span>, <span class="va">first.labels</span><span class="op">)</span>
 
 <span class="va">cell_type</span>
-<span class="co">#&gt; # A tibble: 11 x 2</span>
+<span class="co">#&gt; # A tibble: 11 × 2</span>
 <span class="co">#&gt;    label first.labels   </span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;          </span>
 <span class="co">#&gt;  1 1     NK cells       </span>
-<span class="co">#&gt;  2 2     Fibroblasts    </span>
+<span class="co">#&gt;  2 2     B-cells        </span>
 <span class="co">#&gt;  3 3     Skeletal muscle</span>
-<span class="co">#&gt;  4 4     B-cells        </span>
+<span class="co">#&gt;  4 4     Fibroblasts    </span>
 <span class="co">#&gt;  5 5     Monocytes      </span>
 <span class="co">#&gt;  6 6     Smooth muscle  </span>
 <span class="co">#&gt;  7 7     NK cells       </span>
@@ -1865,7 +1871,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 
 <span class="co"># Reorder columns</span>
 <span class="va">pbmc</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidySingleCellExperiment/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">cell</span>, <span class="va">first.labels</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 2,899 x 28</span>
+<span class="co">#&gt; # A SingleCellExperiment-tibble abstraction: 2,899 × 28</span>
 <span class="co">#&gt; [90m# Features=51958 | Assays=reconstructed[39m</span>
 <span class="co">#&gt;    cell  first.labels batch groups sample orig.ident nCount_RNA nFeature_RNA</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt;</span>
@@ -1904,7 +1910,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
   <span class="fu">ismb2021tidytranscriptomics</span><span class="fu">::</span><span class="fu">aggregate_cells</span><span class="op">(</span><span class="va">file</span><span class="op">)</span>
 
 <span class="va">pbmc_bulk</span>
-<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 1,039,160 x 6</span>
+<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 1,039,160 × 6</span>
 <span class="co">#&gt; [90m# Transcripts=51958 | Samples=20 | Assays=abundance_counts, abundance_logcounts[39m</span>
 <span class="co">#&gt;    feature  sample     abundance_counts abundance_logco… orig.ident       ident </span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;                 &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;            &lt;fct&gt; </span>
@@ -1927,7 +1933,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
   <span class="fu">tidybulk</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tidybulk/man/identify_abundant-methods.html">identify_abundant</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">tidybulk</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tidybulk/man/scale_abundance-methods.html">scale_abundance</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; No group or design set. Assuming all samples belong to one group.</span>
-<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 1,039,160 x 10</span>
+<span class="co">#&gt; # A SummarizedExperiment-tibble abstraction: 1,039,160 × 10</span>
 <span class="co">#&gt; [90m# Transcripts=51958 | Samples=20 | Assays=abundance_counts, abundance_logcounts, abundance_counts_scaled[39m</span>
 <span class="co">#&gt;    feature sample abundance_counts abundance_logco… abundance_count… orig.ident</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;     </span>
@@ -1959,7 +1965,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyseurat</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pbmc_seurat</span>
-<span class="co">#&gt; # A Seurat-tibble abstraction: 80 x 9</span>
+<span class="co">#&gt; # A Seurat-tibble abstraction: 80 × 9</span>
 <span class="co">#&gt; [90m# Transcripts=230 | Active assay=RNA | Assays=RNA[39m</span>
 <span class="co">#&gt;    cell  orig.ident nCount_RNA nFeature_RNA RNA_snn_res.0.8 letter.idents groups</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;fct&gt;           &lt;dbl&gt;        &lt;int&gt; &lt;fct&gt;           &lt;fct&gt;         &lt;chr&gt; </span>
@@ -1986,7 +1992,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filter</span>
 <span class="va">pbmc_seurat</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyseurat/man/dplyr-methods.html">filter</a></span><span class="op">(</span><span class="va">groups</span> <span class="op">==</span> <span class="st">"g1"</span><span class="op">)</span>
-<span class="co">#&gt; # A Seurat-tibble abstraction: 44 x 9</span>
+<span class="co">#&gt; # A Seurat-tibble abstraction: 44 × 9</span>
 <span class="co">#&gt; [90m# Transcripts=230 | Active assay=RNA | Assays=RNA[39m</span>
 <span class="co">#&gt;    cell  orig.ident nCount_RNA nFeature_RNA RNA_snn_res.0.8 letter.idents groups</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;fct&gt;           &lt;dbl&gt;        &lt;int&gt; &lt;fct&gt;           &lt;fct&gt;         &lt;chr&gt; </span>
@@ -2004,7 +2010,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 
 <span class="co"># Select</span>
 <span class="va">pbmc_seurat</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyseurat/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">cell</span>, <span class="va">nCount_RNA</span> , <span class="va">groups</span><span class="op">)</span>
-<span class="co">#&gt; # A Seurat-tibble abstraction: 80 x 3</span>
+<span class="co">#&gt; # A Seurat-tibble abstraction: 80 × 3</span>
 <span class="co">#&gt; [90m# Transcripts=230 | Active assay=RNA | Assays=RNA[39m</span>
 <span class="co">#&gt;    cell           nCount_RNA groups</span>
 <span class="co">#&gt;    &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt; </span>
@@ -2026,7 +2032,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
   <span class="co"># select columns to view    </span>
   <span class="fu"><a href="https://rdrr.io/pkg/tidyseurat/man/dplyr-methods.html">select</a></span><span class="op">(</span><span class="va">groups</span>, <span class="va">groups_l</span><span class="op">)</span>
 <span class="co">#&gt; tidyseurat says: Key columns are missing. A data frame is returned for independent data analysis.</span>
-<span class="co">#&gt; # A tibble: 80 x 2</span>
+<span class="co">#&gt; # A tibble: 80 × 2</span>
 <span class="co">#&gt;    groups groups_l</span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;   </span>
 <span class="co">#&gt;  1 g2     g2      </span>
@@ -2045,7 +2051,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="va">pbmc_seurat</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyseurat/man/dplyr-methods.html">bind_rows</a></span><span class="op">(</span><span class="va">pbmc_seurat</span><span class="op">)</span>
 <span class="co">#&gt; Warning in CheckDuplicateCellNames(object.list = objects): Some cell names are</span>
 <span class="co">#&gt; duplicated across objects provided. Renaming to enforce unique cell names.</span>
-<span class="co">#&gt; # A Seurat-tibble abstraction: 160 x 9</span>
+<span class="co">#&gt; # A Seurat-tibble abstraction: 160 × 9</span>
 <span class="co">#&gt; [90m# Transcripts=230 | Active assay=RNA | Assays=RNA[39m</span>
 <span class="co">#&gt;    cell  orig.ident nCount_RNA nFeature_RNA RNA_snn_res.0.8 letter.idents groups</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;        &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;chr&gt; </span>
@@ -2127,7 +2133,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt; [25] purrr_0.3.4                    ggplot2_3.3.5                 </span>
 <span class="co">#&gt; [27] stringr_1.4.0                  readr_2.0.0                   </span>
 <span class="co">#&gt; [29] tidyr_1.1.3                    dplyr_1.0.7                   </span>
-<span class="co">#&gt; [31] tibble_3.1.2                   airway_1.13.0                 </span>
+<span class="co">#&gt; [31] tibble_3.1.3                   airway_1.13.0                 </span>
 <span class="co">#&gt; [33] SummarizedExperiment_1.23.1    Biobase_2.53.0                </span>
 <span class="co">#&gt; [35] GenomicRanges_1.45.0           GenomeInfoDb_1.29.3           </span>
 <span class="co">#&gt; [37] IRanges_2.27.0                 S4Vectors_0.31.0              </span>
@@ -2182,7 +2188,7 @@ Select one of the multiple choice options in www.menti.com (code in Google doc).
 <span class="co">#&gt;  [89] pheatmap_1.0.12                    png_0.1-7                         </span>
 <span class="co">#&gt;  [91] viridisLite_0.4.0                  rjson_0.2.20                      </span>
 <span class="co">#&gt;  [93] bitops_1.0-7                       KernSmooth_2.23-20                </span>
-<span class="co">#&gt;  [95] Biostrings_2.61.1                  blob_1.2.1                        </span>
+<span class="co">#&gt;  [95] Biostrings_2.61.1                  blob_1.2.2                        </span>
 <span class="co">#&gt;  [97] DelayedMatrixStats_1.15.0          shape_1.4.6                       </span>
 <span class="co">#&gt;  [99] ismb2021tidytranscriptomics_0.10.2 parallelly_1.27.0                 </span>
 <span class="co">#&gt; [101] beachmat_2.9.0                     scales_1.1.1                      </span>
