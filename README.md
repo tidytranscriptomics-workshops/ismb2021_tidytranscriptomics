@@ -135,5 +135,5 @@ The tidytranscriptomics approach to RNA sequencing data analysis abstracts out t
 
 ## Acknowledgements
 
-Thanks to the ISMB tutorial organisers for their support with delivering the workshop, especially Annette McGrath for feedback on the material. Many thanks to the Australian Research Data Commons (ARDC) for providing RStudio in the Australian Nectar Research Cloud and Andy Botting from ARDC for helping to set up. 
-<img height="100" alt="ismb2021" src="man/figures/ardc_nectar_logo.png"/>
+Thanks to the ISMB tutorial organisers for their support with delivering the workshop, especially Annette McGrath for feedback on the material. Many thanks to the Australian Research Data Commons (ARDC) for providing RStudio in the Australian Nectar Research Cloud and Andy Botting from ARDC for helping to set up.  
+<img height="150" alt="ismb2021" src="man/figures/ardc_nectar_logo.png"/>
