@@ -2,7 +2,7 @@ on: [push]
 
 env:
   cache-version: v2
-  repo-name: tidytranscriptomics-workshops/ismb2021_tidytranscriptomics
+  repo-name: stemangiola/ismb2021_tidytranscriptomics
 
 jobs:
   job1:

@@ -1,7 +1,7 @@
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5124929.svg)](https://doi.org/10.5281/zenodo.5124929)
 [![.github/workflows/basic_checks.yaml](https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/workflows/.github/workflows/basic_checks.yaml/badge.svg)](https://github.com/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics/actions) 	
-[![Docker](https://github.com/Bioconductor/BioC2020/raw/master/docs/images/docker_icon.png)](https://hub.docker.com/repository/docker/tidytranscriptomics-workshops/ismb2021_tidytranscriptomics) 
+[![Docker](https://github.com/Bioconductor/BioC2020/raw/master/docs/images/docker_icon.png)](https://hub.docker.com/repository/docker/stemangiola/ismb2021_tidytranscriptomics) 
 <!-- badges: end -->
 
 # Introduction to Tidy Transcriptomics
@@ -32,7 +32,7 @@ Post-workshop, if you want to run the code shown on your own computer, you can u
 If you're familiar with [Docker](https://docs.docker.com/get-docker/) you could use the Docker image which has all the software pre-configured to the correct versions.
 
 ```
-docker run -e PASSWORD=abc -p 8787:8787 tidytranscriptomics-workshops/ismb2021_tidytranscriptomics:ismb2021
+docker run -e PASSWORD=abc -p 8787:8787 stemangiola/ismb2021_tidytranscriptomics:ismb2021
 ```
 
 Once running, navigate to <http://localhost:8787/> and then login with
@@ -135,5 +135,5 @@ The tidytranscriptomics approach to RNA sequencing data analysis abstracts out t
 
 ## Acknowledgements
 
-Thanks to the ISMB tutorial organisers for their support with delivering the workshop, especially Annette McGrath for feedback on the material. Many thanks to the Australian Research Data Commons (ARDC) for providing RStudio in the Australian Nectar Research Cloud and Andy Botting from ARDC for helping to set up.  
+Thanks to the ISMB tutorial organisers for their support with delivering the workshop, especially Annette McGrath for feedback on the material. Many thanks to the Australian Research Data Commons (ARDC) for providing RStudio in the Australian Nectar Research Cloud, especially Andy Botting from ARDC for helping to set it up.  
 <img height="150" alt="ismb2021" src="man/figures/ardc_nectar_logo.png"/>
