@@ -874,7 +874,7 @@ We can also interact with our object as we do with any tidyverse tibble.
 
 We can use tidyverse commands, such as `filter`, `select` and `mutate` to explore the tidySingleCellExperiment object. Some examples are shown below and more can be seen at the tidySingleCellExperiment website [here](https://stemangiola.github.io/tidySingleCellExperiment/articles/introduction.html#tidyverse-commands-1). We can also use the tidyverse pipe `%>%`. This 'pipes' the output from the command on the left into the command on the right/below. Using the pipe is not essential but it reduces the amount of code we need to write when we have multiple steps. It also can make the steps clearer and easier to see. For more details on the pipe see [here](https://r4ds.had.co.nz/pipes.html).
 
-We can use `filter` to choose rows, for example, to see just the rows for the treated samples.
+We can use `filter` to choose rows, for example, to see just the rows for the cells in G1 cell-cycle stage.
 
 ```{r}
 pbmc %>% filter(ident == "G1")
@@ -886,7 +886,7 @@ We can use `select` to choose columns, for example, to see the sample, cell, tot
 pbmc %>% select(cell, nCount_RNA , ident)
 ```
 
-We can use `mutate` to create a column. For example, we could create a new sample_name column that contains shorter sample names. We can remove the SRR1039 prefix that's present in all of the samples, as shorter names can fit better in some of the plots we will create. We can use `mutate` together with `str_replace` to remove the SRR1039 string from the sample column.
+We can use `mutate` to create a column. For example, we could create a new `ident_l` column that contains a lower-case varsion of `ident`. 
 
 ```{r}
 pbmc %>%
